@@ -86,9 +86,10 @@ section{position:relative; padding:110px 0;}
 @keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:0.35;}}
 .nav-links{display:flex; gap:34px; list-style:none;}
 .nav-links a{font-size:0.88rem; color:var(--muted); font-family:var(--font-mono); letter-spacing:0.03em; position:relative; padding:4px 0; transition:color 0.25s;}
-.nav-links a:hover, .nav-links a:focus-visible{color:var(--blue-light);}
+.nav-links a:hover, .nav-links a:focus-visible, .nav-links a.active{color:var(--blue-light);}
 .nav-links a::after{content:'';position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--blue-neon); transition:width 0.25s ease; box-shadow:0 0 6px var(--blue-neon);}
-.nav-links a:hover::after{width:100%;}
+.nav-links a:hover::after, .nav-links a.active::after{width:100%;}
+.mobile-menu a.active{color:var(--blue-neon);}
 .nav-cta{
   font-family:var(--font-mono); font-size:0.82rem; padding:9px 18px; border-radius:8px;
   border:1px solid var(--blue-neon); color:var(--blue-neon); background:transparent;
@@ -194,6 +195,14 @@ section{position:relative; padding:110px 0;}
 .tag:hover{color:var(--blue-neon); border-color:var(--blue-neon);}
 .skill-card p.desc{font-size:0.85rem; color:var(--muted); margin-top:12px; line-height:1.6;}
 
+/* CERTIFICATES / CV */
+.cert-icon{width:44px; height:44px; border-radius:10px; background:rgba(0,229,255,0.08); display:flex; align-items:center; justify-content:center; color:var(--blue-neon); margin-bottom:16px;}
+.cert-card h4{font-size:1rem; color:var(--white); margin-bottom:6px;}
+.cert-meta{font-family:var(--font-mono); font-size:0.78rem; color:var(--muted-2); margin-bottom:20px;}
+.cert-actions{display:flex; gap:10px; flex-wrap:wrap;}
+.cert-btn{font-family:var(--font-mono); font-size:0.78rem; padding:9px 14px; border:1px solid var(--line); border-radius:8px; color:var(--blue-light); display:inline-flex; align-items:center; gap:6px; transition:border-color 0.25s, color 0.25s, background 0.25s;}
+.cert-btn:hover{border-color:var(--blue-neon); color:var(--blue-neon); background:rgba(0,229,255,0.05);}
+
 /* PROJECTS */
 .project-card{
   display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line); border-radius:var(--radius);
@@ -284,6 +293,7 @@ section{position:relative; padding:110px 0;}
       <li><a href="#projects">Projects</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#education">Education</a></li>
+      <li><a href="#certificates">Certificates</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <a href="#contact" class="nav-cta">Hubungi Saya</a>
@@ -297,6 +307,7 @@ section{position:relative; padding:110px 0;}
   <a href="#projects">Projects</a>
   <a href="#experience">Experience</a>
   <a href="#education">Education</a>
+  <a href="#certificates">Certificates</a>
   <a href="#contact">Contact</a>
 </div>
 
@@ -312,6 +323,7 @@ section{position:relative; padding:110px 0;}
         <p class="hero-desc">Mahasiswa Informatics Management di Politeknik Negeri Malang (PSDKU Kediri), membangun aplikasi web dengan PHP, Laravel & MySQL dan merancang antarmukanya dari sisi UI/UX agar sistem yang dibangun benar-benar nyaman dipakai orang.</p>
         <div class="hero-cta-row">
           <a href="#projects" class="btn btn-primary">Lihat Portfolio →</a>
+          <a href="assets/CV-Devie-Rahmanda-Patricia-Maharani.pdf" download class="btn btn-ghost">⬇ Download CV</a>
           <a href="#contact" class="btn btn-ghost">Hubungi Saya</a>
         </div>
       </div>
@@ -408,7 +420,7 @@ section{position:relative; padding:110px 0;}
       </div>
       <div class="skill-card visible-fade">
         <h4 data-idx="05">Tools & Software</h4>
-        <div class="tag-row"><span class="tag">VS Code</span><span class="tag">Android Studio</span><span class="tag">Canva</span><span class="tag">CapCut</span><span class="tag">Micrsoft Office</span><span class="tag">Google Workspace</span></div>
+        <div class="tag-row"><span class="tag">VS Code</span><span class="tag">Android Studio</span><span class="tag">Canva</span><span class="tag">CapCut</span><span class="tag">Microsoft Office</span><span class="tag">Google Workspace</span></div>
       </div>
       <div class="skill-card visible-fade">
         <h4 data-idx="06">Soft Skills</h4>
@@ -637,12 +649,56 @@ section{position:relative; padding:110px 0;}
   </div>
 </section>
 
+<!-- CERTIFICATES & CV -->
+<section id="certificates">
+  <div class="wrap">
+    <div class="eyebrow visible-fade">Bukti</div>
+    <h2 class="section-title visible-fade">Sertifikasi & CV</h2>
+    <p class="section-sub visible-fade">Sertifikat resmi dan CV lengkap saya — bisa dilihat langsung atau diunduh.</p>
+    <div class="skills-grid">
+      <div class="skill-card cert-card visible-fade">
+        <div class="cert-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="6"/><path d="M8.5 13.5L7 22l5-3 5 3-1.5-8.5"/></svg>
+        </div>
+        <h4>Python Essentials 1</h4>
+        <div class="cert-meta">Cisco Networking Academy × Python Institute · 29 Agu 2025</div>
+        <div class="cert-actions">
+          <a href="assets/certificate-python-essentials-1.pdf" target="_blank" rel="noopener" class="cert-btn">Lihat Sertifikat ↗</a>
+          <a href="assets/certificate-python-essentials-1.pdf" download class="cert-btn">Download ⬇</a>
+        </div>
+      </div>
+      <div class="skill-card cert-card visible-fade">
+        <div class="cert-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="6"/><path d="M8.5 13.5L7 22l5-3 5 3-1.5-8.5"/></svg>
+        </div>
+        <h4>Introduction to Data Science</h4>
+        <div class="cert-meta">Cisco Networking Academy · 13 Mei 2025</div>
+        <div class="cert-actions">
+          <a href="assets/certificate-intro-data-science.pdf" target="_blank" rel="noopener" class="cert-btn">Lihat Sertifikat ↗</a>
+          <a href="assets/certificate-intro-data-science.pdf" download class="cert-btn">Download ⬇</a>
+        </div>
+      </div>
+      <div class="skill-card cert-card visible-fade">
+        <div class="cert-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+        </div>
+        <h4>Curriculum Vitae</h4>
+        <div class="cert-meta">Ringkasan pengalaman, pendidikan & keterampilan lengkap</div>
+        <div class="cert-actions">
+          <a href="assets/CV-Devie-Rahmanda-Patricia-Maharani.pdf" target="_blank" rel="noopener" class="cert-btn">Lihat CV ↗</a>
+          <a href="assets/CV-Devie-Rahmanda-Patricia-Maharani.pdf" download class="cert-btn">Download ⬇</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="wrap contact-wrap">
     <div class="eyebrow visible-fade" style="justify-content:center;">Kontak</div>
     <h2 class="visible-fade">Mari <span class="glow-text">berkolaborasi</span></h2>
-    <p class="visible-fade">Terbuka untuk peluang magang, kolaborasi proyek, atau sekadar diskusi soal web development dan UI/UX design. Berbasis di Blitar, Jawa Timur Siap kerja remote maupun on-site.</p>
+    <p class="visible-fade">Terbuka untuk peluang magang, kolaborasi proyek, atau sekadar diskusi soal web development dan UI/UX design. Berbasis di Blitar, Jawa Timur. Siap kerja remote maupun on-site.</p>
     <div class="contact-links visible-fade">
       <a class="clink" href="mailto:devierahmandapm@gmail.com">✉ devierahmandapm@gmail.com</a>
       <a class="clink" href="https://github.com/dvrahmanda" target="_blank" rel="noopener">⌥ GitHub</a>
@@ -682,6 +738,23 @@ const io = new IntersectionObserver((entries) => {
   entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
 }, {threshold:0.12});
 revealEls.forEach(el => io.observe(el));
+
+// Scrollspy: keep nav link "on" for the section currently in view
+const navAnchorLinks = document.querySelectorAll('.nav-links a, .mobile-menu a');
+const spySections = ['home','about','skills','projects','experience','education','certificates','contact']
+  .map(id => document.getElementById(id))
+  .filter(Boolean);
+function setActiveLink(id){
+  navAnchorLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+  });
+}
+const spyObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){ setActiveLink(entry.target.id); }
+  });
+}, {rootMargin: '-45% 0px -50% 0px', threshold: 0});
+spySections.forEach(sec => spyObserver.observe(sec));
 
 // Typing effect
 const phrases = [
