@@ -152,14 +152,18 @@ body{padding-top:var(--navbar-h); padding-bottom:var(--hud-h);}
 /* ===== HERO ===== */
 .hero{
   min-height:calc(100vh - var(--navbar-h) - var(--hud-h));
-  display:flex; align-items:center; position:relative;
-  padding:60px 0; overflow:hidden;
+  display:flex; align-items:flex-start; position:relative;
+  padding:0 0 60px; overflow:hidden;
 }
 #hero-canvas{position:absolute; inset:0; width:100%; height:100%; opacity:0.8;}
 .hero-inner{position:relative; z-index:2; max-width:1080px; margin:0 auto; padding:0 24px; width:100%;}
 .hero-grid{display:grid; grid-template-columns:auto 1fr; gap:40px; align-items:start;}
+.hero-grid > div:not(.hero-left-stack){padding-top:84px;}
 .hero-grid.no-avatar{grid-template-columns:1fr;}
-@media (max-width:760px){.hero-grid{grid-template-columns:1fr; justify-items:center; text-align:center;}}
+@media (max-width:760px){
+  .hero-grid{grid-template-columns:1fr; justify-items:center; text-align:center;}
+  .hero-grid > div:not(.hero-left-stack){padding-top:34px;}
+}
 
 .avatar-box{
   width:150px; height:150px; flex-shrink:0;
@@ -513,14 +517,43 @@ body{padding-top:var(--navbar-h); padding-bottom:var(--hud-h);}
 /* ===== Certificate images (shown directly, no click needed) ===== */
 .cert-image-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px; margin-bottom:24px;}
 @media (max-width:760px){.cert-image-grid{grid-template-columns:1fr;}}
-.cert-image-card{padding:14px; cursor:zoom-in;}
+.cert-image-card{padding:18px; cursor:zoom-in;position:relative;overflow:visible;}
+.cert-pixel-frame{
+  position:relative;padding:14px 14px 29px;background:#100b24;
+  border:4px solid #ffd23f;
+  clip-path:polygon(10px 0,calc(100% - 10px) 0,calc(100% - 10px) 5px,100% 5px,100% calc(100% - 10px),calc(100% - 5px) calc(100% - 10px),calc(100% - 5px) 100%,10px 100%,10px calc(100% - 5px),0 calc(100% - 5px),0 10px,5px 10px,5px 5px,10px 5px);
+  box-shadow:0 0 0 5px #6336a0,0 0 0 8px #211443,9px 9px 0 rgba(0,0,0,.34),inset 0 0 0 4px #291a50;
+  transition:transform .25s ease,filter .25s ease;
+  animation:cert-frame-pulse 3s steps(4,end) infinite;
+}
+@keyframes cert-frame-pulse{50%{filter:drop-shadow(0 0 8px rgba(255,210,63,.28))}}
+.cert-image-card:nth-child(2) .cert-pixel-frame{border-color:#29b6f6;box-shadow:0 0 0 5px #6336a0,0 0 0 8px #211443,9px 9px 0 rgba(0,0,0,.34),inset 0 0 0 4px #172b55;animation-delay:-1.5s;}
+.cert-image-card:hover .cert-pixel-frame{transform:translateY(-6px) rotate(-.35deg);filter:drop-shadow(0 0 13px rgba(255,210,63,.5));}
+.cert-image-card:nth-child(2):hover .cert-pixel-frame{transform:translateY(-6px) rotate(.35deg);filter:drop-shadow(0 0 13px rgba(41,182,246,.48));}
+.cert-pixel-frame::before{
+  content:'';position:absolute;left:9px;right:9px;top:6px;height:5px;z-index:3;
+  background:repeating-linear-gradient(90deg,#ff3355 0 8px,transparent 8px 14px,#2ee66b 14px 21px,transparent 21px 28px,#29b6f6 28px 36px,transparent 36px 42px);
+  opacity:.75;animation:cert-runner-lights 1.4s steps(6,end) infinite;
+}
+@keyframes cert-runner-lights{to{background-position:42px 0}}
+.cert-pixel-frame::after{
+  content:'★  ' attr(data-cert-level) '  ★';position:absolute;left:50%;bottom:5px;transform:translateX(-50%);white-space:nowrap;
+  color:#ffd23f;font-family:var(--font-pixel);font-size:.38rem;letter-spacing:.04em;text-shadow:0 0 7px rgba(255,210,63,.7);
+}
+.cert-image-card:nth-child(2) .cert-pixel-frame::after{color:#67d2ff;text-shadow:0 0 7px rgba(41,182,246,.7);}
+.frame-gem{position:absolute!important;z-index:5;width:9px;height:9px;background:#2ee66b;border:2px solid #083c1d;box-shadow:0 0 7px rgba(46,230,107,.8);animation:frame-gem-twinkle 1.2s steps(2,end) infinite;}
+.frame-gem.gem-a{left:2px;top:2px}.frame-gem.gem-b{right:2px;top:2px;animation-delay:-.4s}.frame-gem.gem-c{left:2px;bottom:2px;animation-delay:-.8s}.frame-gem.gem-d{right:2px;bottom:2px;animation-delay:-.2s}
+.cert-image-card:nth-child(2) .frame-gem{background:#ffd23f;border-color:#704300;box-shadow:0 0 7px rgba(255,210,63,.8);}
+@keyframes frame-gem-twinkle{50%{transform:scale(.65);filter:brightness(1.6)}}
 .cert-image-card .cert-img{
-  width:100%; height:auto; display:block; border:2px solid var(--border-soft); border-radius:2px;
+  position:relative;z-index:2;width:100%; height:auto; display:block; border:3px solid #7d6cae; border-radius:0;
   transition:transform 0.2s, border-color 0.2s;
 }
-.cert-image-card:hover .cert-img{transform:scale(1.015); border-color:var(--yellow);}
+.cert-image-card:hover .cert-img{transform:scale(1.008); border-color:#fff4b0;}
 .cert-image-card figcaption{margin-top:14px;}
 .cert-image-card h4{font-size:0.7rem; color:var(--white); margin-bottom:8px;}
+body[data-theme="light"] .cert-pixel-frame{background:#21173d;box-shadow:0 0 0 5px #6336a0,0 0 0 8px #3e2a68,9px 9px 0 rgba(74,46,100,.22),inset 0 0 0 4px #35245d;}
+@media(max-width:520px){.cert-image-card{padding:13px}.cert-pixel-frame{padding:11px 11px 26px}.cert-pixel-frame::after{font-size:.32rem}}
 
 .cert-lightbox{
   display:none; position:fixed; inset:0; z-index:400; background:rgba(6,4,14,0.94);
@@ -755,7 +788,7 @@ body{padding-top:var(--navbar-h); padding-bottom:var(--hud-h);}
 section,.hero{z-index:2;}
 
 /* ===== LANYARD + FLIPPING ID CARD ===== */
-.idcard-stage{width:214px;min-height:344px;display:flex;justify-content:center;perspective:1100px;position:relative;}
+.idcard-stage{width:214px;min-height:418px;display:flex;justify-content:center;perspective:1100px;position:relative;}
 .idcard-drop{width:100%;transform-origin:50% -54px;animation:idcard-drop-bounce 1.55s cubic-bezier(.18,.84,.22,1.15) both;}
 @keyframes idcard-drop-bounce{
   0%{opacity:0;transform:translateY(-430px);}
@@ -767,8 +800,8 @@ section,.hero{z-index:2;}
 }
 .lanyard-strap{
   width:8px;
-  height:76px;
-  margin:-62px auto 0;
+  height:116px;
+  margin:0 auto;
   background:repeating-linear-gradient(0deg,#ff3355 0 8px,#ffd23f 8px 16px);
   border:2px solid #1b1235;
   box-shadow:0 0 12px rgba(255,51,85,.4);
@@ -808,10 +841,10 @@ section,.hero{z-index:2;}
 .idcard-hint{font-family:var(--font-pixel);font-size:.39rem;color:var(--text-dim);padding-top:8px;text-align:center;letter-spacing:.02em;}
 .idcard-flip:hover .idcard-hint{color:var(--white);}
 @media (max-width:760px){
-  .idcard-stage{width:188px;min-height:310px;}
+  .idcard-stage{width:188px;min-height:360px;}
   .idcard-flip{width:188px;height:248px;}
   .idcard-photo{height:187px;}
-  .lanyard-strap{height:62px;margin:-50px auto 0;}
+  .lanyard-strap{height:92px;margin:0 auto;}
 }
 @media (hover:none),(pointer:coarse){.cursor-aura{display:none;}}
 
@@ -869,16 +902,195 @@ body[data-theme="light"] .nav-logo,body[data-theme="light"] h1,body[data-theme="
 .chat-input:focus{border-color:var(--yellow);}.chat-send{width:43px;border:2px solid #000;background:var(--yellow);color:#241900;font-family:var(--font-pixel);font-size:.7rem;}
 @media(max-width:900px){.nav-inner{gap:8px}.nav-controls{margin-left:auto}.hud-control{height:34px;min-width:38px;padding:0 8px}.nav-toggle{margin-left:0}}
 @media(max-width:520px){.nav-logo{font-size:.54rem}.chat-panel{right:14px;bottom:calc(var(--hud-h) + 78px);height:min(520px,calc(100vh - 130px))}.chat-launch{right:14px;width:52px;height:52px}.hud-control{font-size:.42rem;}}
+
+/* ===== ACCESSIBLE THEMES, RESPONSIVE NAV & GAME UI POLISH ===== */
+.navbar{overflow:visible;}
+.nav-inner{min-width:0;}
+.nav-links{min-width:0;overflow:visible;}
+.nav-links a{padding-inline:9px;font-size:.52rem;}
+@media(max-width:1120px){
+  .nav-links,.nav-cta{display:none;}
+  .nav-toggle{display:flex;}
+}
+@media(max-width:560px){
+  .nav-inner{padding-inline:12px;}
+  .nav-logo{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.48rem;}
+  .nav-controls{gap:5px;}
+  .hud-control{min-width:34px;padding-inline:6px;}
+}
+
+.hero-left-stack{display:flex;flex-direction:column;align-items:center;width:214px;}
+@media(max-width:760px){
+  .hero-left-stack{width:100%;}
+}
+
+/* Animated pixel landscape fills the lower hero without adding content clutter */
+.hero-level-world{position:absolute;left:0;right:0;bottom:0;height:250px;z-index:1;overflow:hidden;pointer-events:none;opacity:.88;}
+.level-ground{position:absolute;left:0;right:0;bottom:0;height:48px;background:repeating-linear-gradient(90deg,#50308e 0 30px,#6f43b6 30px 34px);border-top:5px solid #b76bff;box-shadow:inset 0 9px 0 #2d195c,0 -8px 18px rgba(183,107,255,.12);}
+.level-ground::before{content:'';position:absolute;left:0;right:0;top:14px;height:4px;background:repeating-linear-gradient(90deg,#9b6be0 0 5px,transparent 5px 30px);opacity:.55;}
+.level-hill{position:absolute;bottom:47px;background:#142344;border:4px solid #274c78;opacity:.74;clip-path:polygon(12% 100%,18% 55%,28% 55%,35% 25%,44% 25%,50% 0,57% 0,64% 27%,73% 27%,79% 57%,88% 57%,95% 100%);}
+.hill-left{left:-70px;width:390px;height:120px}.hill-right{right:-80px;width:450px;height:145px;transform:scaleX(-1);}
+.level-platform{position:absolute;height:22px;background:repeating-linear-gradient(90deg,#9a551e 0 22px,#c6782f 22px 26px);border:4px solid #ffd23f;box-shadow:inset 0 -6px 0 #67300f,5px 6px 0 rgba(0,0,0,.26);}
+.platform-a{left:8%;bottom:135px;width:142px}.platform-b{left:43%;bottom:105px;width:116px}.platform-c{right:19%;bottom:153px;width:130px;}
+.level-block{position:absolute;width:34px;height:34px;background:#ffd23f;border:4px solid #9b5700;box-shadow:inset -6px -6px 0 #e18c00,inset 5px 5px 0 #fff0a4,5px 5px 0 rgba(0,0,0,.28);font-family:var(--font-pixel);font-size:.7rem;line-height:27px;text-align:center;color:#7b3d00;animation:level-block-bump 2.2s steps(4,end) infinite;}
+.block-a{left:27%;bottom:175px}.block-b{right:34%;bottom:128px;animation-delay:-1.1s;}
+@keyframes level-block-bump{0%,72%,100%{transform:translateY(0)}82%{transform:translateY(-10px)}90%{transform:translateY(-3px)}}
+.level-coin{position:absolute;width:12px;height:20px;background:#ffd23f;border:3px solid #e27d00;box-shadow:inset 3px 0 0 #fff0a1,0 0 11px rgba(255,210,63,.72);animation:level-coin-jump 1.55s steps(4,end) infinite;}
+.coin-a{left:46%;bottom:153px}.coin-b{left:50%;bottom:180px;animation-delay:-.5s}.coin-c{right:24%;bottom:202px;animation-delay:-1s;}
+@keyframes level-coin-jump{0%,100%{transform:translateY(0) scaleX(1)}50%{transform:translateY(-13px) scaleX(.55)}}
+.level-pipe{position:absolute;right:7%;bottom:47px;width:64px;height:88px;background:#2ee66b;border:5px solid #087b3c;box-shadow:inset -12px 0 0 #16a850,6px 0 0 rgba(0,0,0,.22);}
+.level-pipe::before{content:'';position:absolute;left:-12px;top:-16px;width:78px;height:24px;background:#2ee66b;border:5px solid #087b3c;box-shadow:inset -12px 0 0 #16a850;}
+.level-runner{position:absolute;left:-34px;bottom:48px;width:26px;height:35px;animation:level-run 12s linear infinite;filter:drop-shadow(0 4px 0 rgba(0,0,0,.32));}
+.level-runner::before{content:'';position:absolute;left:2px;top:0;width:22px;height:10px;background:#ff3355;box-shadow:-3px 7px 0 #ff3355,5px 10px 0 #ffc98b,9px 17px 0 #29b6f6,-1px 17px 0 #29b6f6,0 27px 0 #211544,13px 27px 0 #211544;}
+@keyframes level-run{0%{transform:translateX(0) translateY(0)}22%{transform:translateX(28vw) translateY(0)}27%{transform:translateX(34vw) translateY(-38px)}32%{transform:translateX(40vw) translateY(0)}67%{transform:translateX(72vw) translateY(0)}72%{transform:translateX(79vw) translateY(-28px)}78%,100%{transform:translateX(calc(100vw + 80px)) translateY(0)}}
+body[data-theme="light"] .hero-level-world{opacity:.8}.hero-level-world .level-scanline{position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(183,107,255,.025) 50%);background-size:100% 4px;}
+@media(max-width:760px){.hero-level-world{height:170px;opacity:.62}.platform-a,.platform-c,.hill-right{display:none}.platform-b{left:12%;bottom:94px}.block-a{left:68%;bottom:105px}.block-b,.coin-c{display:none}.level-pipe{right:9%;height:66px}.level-runner{animation-duration:9s}}
+
+/* High-contrast project illustration stage in both themes */
+.projects-compact-grid .project-visual,
+.projects-compact-grid .project-card.reverse .project-visual,
+body[data-theme="light"] .project-visual{
+  background-color:#100b24;
+  background-image:linear-gradient(rgba(183,107,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(183,107,255,.08) 1px,transparent 1px);
+  background-size:12px 12px;
+  border-color:#6c5ba7;
+}
+.projects-compact-grid .project-visual svg{
+  image-rendering:pixelated;shape-rendering:crispEdges;
+  filter:drop-shadow(0 0 5px rgba(255,210,63,.34)) saturate(1.45) contrast(1.25);
+}
+.projects-compact-grid .project-visual svg [opacity]{opacity:.9;}
+.projects-compact-grid .project-visual::before{
+  content:attr(data-pixel-label);position:absolute;left:8px;top:8px;z-index:5;
+  color:#fff;font-family:var(--font-pixel);font-size:.34rem;letter-spacing:.04em;
+  background:#261a4d;border:1px solid #8a78c7;padding:4px 5px;
+}
+
+/* Animated pixel project scenes — lightweight, theme-safe, game inspired */
+.pixel-scene{position:relative;width:112px;height:154px;isolation:isolate;image-rendering:pixelated;filter:drop-shadow(0 7px 0 rgba(0,0,0,.22));transition:transform .28s ease;}
+.project-card:hover .pixel-scene{transform:scale(1.07) translateY(-2px);}
+.pixel-scene span,.pixel-scene i{position:absolute;display:block;box-sizing:border-box;}
+.scene-platform{left:2px;right:2px;bottom:8px;height:18px;background:repeating-linear-gradient(90deg,#8b4cda 0 17px,#4f2a91 17px 20px);border:3px solid #b76bff;box-shadow:inset 0 -5px 0 #301a61,0 5px 0 #090611;}
+.scene-platform::before{content:'';position:absolute;left:7px;top:3px;width:4px;height:4px;background:#d3a8ff;box-shadow:18px 5px 0 #d3a8ff,39px 0 0 #d3a8ff,61px 5px 0 #d3a8ff,82px 1px 0 #d3a8ff;opacity:.75;}
+.pixel-coin{width:12px;height:18px;background:#ffd23f;border:3px solid #f08b00;box-shadow:inset 3px 0 0 #fff1a1,0 0 10px rgba(255,210,63,.65);animation:pixel-coin-bob 1.45s steps(4,end) infinite;}
+.pixel-coin::after{content:'';position:absolute;left:3px;top:3px;width:2px;height:7px;background:#b86100;}
+@keyframes pixel-coin-bob{0%,100%{transform:translateY(0) scaleX(1)}50%{transform:translateY(-9px) scaleX(.62)}}
+.pixel-spark{width:4px;height:4px;background:#fff;box-shadow:0 -7px 0 currentColor,0 7px 0 currentColor,-7px 0 0 currentColor,7px 0 0 currentColor;animation:pixel-twinkle 1.1s steps(2,end) infinite;color:#29b6f6;}
+@keyframes pixel-twinkle{50%{opacity:.25;transform:scale(.65) rotate(45deg)}}
+
+/* Billing Salam: dashboard terminal, receipt and live data pulse */
+.scene-billing .pixel-coin{right:8px;top:43px;animation-delay:-.45s;}
+.scene-billing .pixel-spark{left:11px;top:47px;}
+.pixel-terminal{left:19px;top:51px;width:74px;height:60px;background:#33215e;border:5px solid #ffd23f;box-shadow:inset 0 0 0 4px #120d24,6px 6px 0 #090611;animation:terminal-idle 2.5s steps(3,end) infinite;}
+@keyframes terminal-idle{50%{transform:translateY(-3px)}}
+.terminal-screen{left:10px;top:9px;width:44px;height:25px;background:#07172b;border:3px solid #29b6f6;overflow:hidden;}
+.terminal-screen::before{content:'';position:absolute;left:4px;bottom:4px;width:5px;height:7px;background:#2ee66b;box-shadow:9px -4px 0 #ffd23f,18px -9px 0 #29b6f6,27px -2px 0 #ff3355;animation:billing-bars 1.4s steps(3,end) infinite;}
+@keyframes billing-bars{50%{transform:scaleY(.55);transform-origin:bottom}}
+.terminal-receipt{left:46px;top:33px;width:18px;height:34px;background:#fff7d8;border:2px solid #7a6a52;z-index:-1;animation:receipt-print 2.4s steps(5,end) infinite;}
+.terminal-receipt::before{content:'';position:absolute;left:3px;top:5px;width:8px;height:2px;background:#7a6a52;box-shadow:0 6px 0 #7a6a52,0 12px 0 #7a6a52;}
+@keyframes receipt-print{0%,18%{height:5px}55%,100%{height:34px}}
+.terminal-base{left:34px;top:111px;width:44px;height:8px;background:#ffd23f;border-bottom:4px solid #b96800;}
+
+/* T-DJI: animated tea cup, steam and cashier coin */
+.scene-drink .pixel-coin{right:9px;top:52px;}
+.scene-drink .pixel-spark{left:12px;top:55px;color:#ff3355;animation-delay:-.3s;}
+.pixel-cup{left:29px;top:62px;width:55px;height:61px;background:#e83a45;border:5px solid #ffd23f;clip-path:polygon(0 0,100% 0,88% 100%,12% 100%);box-shadow:inset 0 -12px 0 #a31436;animation:cup-bounce 2.2s steps(4,end) infinite;}
+@keyframes cup-bounce{0%,75%,100%{transform:translateY(0)}82%{transform:translateY(-8px) rotate(-3deg)}90%{transform:translateY(-2px) rotate(2deg)}}
+.pixel-cup::before{content:'T';position:absolute;left:12px;top:12px;width:22px;height:22px;background:#fff3c0;color:#a31436;font-family:var(--font-pixel);font-size:11px;line-height:22px;text-align:center;border:3px solid #6b1026;}
+.cup-lid{left:23px;top:56px;width:67px;height:9px;background:#ffd23f;border:3px solid #a45e00;z-index:2;}
+.cup-straw{left:68px;top:32px;width:7px;height:29px;background:repeating-linear-gradient(0deg,#fff 0 5px,#29b6f6 5px 10px);border:2px solid #1b6686;transform:rotate(8deg);}
+.pixel-steam{width:6px;height:12px;border-left:4px solid #fff;border-top:4px solid #fff;opacity:.75;animation:steam-up 1.7s steps(4,end) infinite;}
+.scene-drink .steam-a{left:39px;top:37px}.scene-drink .steam-b{left:51px;top:29px;animation-delay:-.8s}
+@keyframes steam-up{0%{transform:translateY(8px);opacity:0}45%{opacity:.8}100%{transform:translateY(-11px);opacity:0}}
+
+/* Gas & gallon mobile app: phone, inventory items and water pulse */
+.scene-mobile .pixel-coin{left:5px;top:39px;animation-delay:-.7s;}
+.scene-mobile .pixel-spark{right:9px;top:43px;color:#2ee66b;}
+.pixel-phone{left:28px;top:39px;width:62px;height:91px;background:#171129;border:5px solid #ffd23f;box-shadow:5px 5px 0 #090611;animation:phone-float 2.35s steps(4,end) infinite;}
+@keyframes phone-float{50%{transform:translateY(-5px)}}
+.phone-screen{left:7px;top:9px;width:38px;height:58px;background:#dff8ff;border:3px solid #29b6f6;overflow:hidden;}
+.phone-screen::before{content:'';position:absolute;left:4px;bottom:5px;width:11px;height:26px;background:#ff3355;border:2px solid #7f1028;border-radius:5px 5px 2px 2px;box-shadow:17px 5px 0 #29b6f6;animation:stock-pulse 1.5s steps(2,end) infinite;}
+.phone-screen::after{content:'';position:absolute;left:6px;top:7px;width:25px;height:4px;background:#2ee66b;box-shadow:0 7px 0 #9e88c8;}
+@keyframes stock-pulse{50%{filter:brightness(1.28);transform:translateY(-2px)}}
+.phone-home{left:22px;bottom:4px;width:9px;height:5px;background:#ffd23f;}
+.pixel-pipe{right:5px;bottom:26px;width:26px;height:38px;background:#2ee66b;border:4px solid #08783a;box-shadow:inset -6px 0 0 #16a850;}
+.pixel-pipe::before{content:'';position:absolute;left:-8px;top:-10px;width:30px;height:13px;background:#2ee66b;border:4px solid #08783a;}
+.water-drop{right:16px;bottom:66px;width:8px;height:12px;background:#29b6f6;clip-path:polygon(50% 0,100% 65%,78% 100%,22% 100%,0 65%);animation:water-hop 1.3s steps(4,end) infinite;}
+@keyframes water-hop{50%{transform:translateY(-10px) scale(.85)}}
+
+/* AgenLog: moving pixel delivery truck and bouncing package */
+.scene-logistics{overflow:hidden;}
+.scene-logistics .pixel-coin{right:5px;top:37px;animation-delay:-.2s;}
+.scene-logistics .pixel-spark{left:12px;top:43px;color:#ffd23f;}
+.pixel-package{left:14px;top:62px;width:25px;height:25px;background:#c77932;border:4px solid #6f3414;box-shadow:inset 7px 0 0 #ffd23f;animation:package-hop 1.8s steps(4,end) infinite;}
+@keyframes package-hop{0%,100%{transform:translateY(0) rotate(0)}45%{transform:translateY(-12px) rotate(-5deg)}}
+.pixel-truck{left:25px;top:91px;width:76px;height:33px;background:#ffd23f;border:4px solid #9a5700;box-shadow:inset 0 -8px 0 #dc8d00;animation:truck-drive 2.4s steps(5,end) infinite;}
+.pixel-truck::before{content:'';position:absolute;right:-18px;bottom:-4px;width:27px;height:27px;background:#29b6f6;border:4px solid #075d87;clip-path:polygon(0 25%,65% 25%,100% 60%,100% 100%,0 100%);}
+.pixel-truck::after{content:'';position:absolute;left:6px;top:6px;width:30px;height:5px;background:#fff0a5;box-shadow:0 9px 0 #fff0a5;}
+@keyframes truck-drive{0%,100%{transform:translateX(-3px)}50%{transform:translateX(5px)}}
+.truck-wheel{top:119px;width:18px;height:18px;background:#100b1f;border:4px solid #b76bff;box-shadow:inset 0 0 0 3px #4a3d69;animation:wheel-spin .75s steps(4,end) infinite;z-index:3;}
+.wheel-a{left:39px}.wheel-b{left:84px}
+@keyframes wheel-spin{to{transform:rotate(360deg)}}
+.road-pixel{left:0;right:0;bottom:25px;height:4px;background:repeating-linear-gradient(90deg,#776b9b 0 15px,transparent 15px 26px);animation:road-scroll .75s steps(4,end) infinite;}
+@keyframes road-scroll{to{background-position:-26px 0}}
+body[data-theme="light"] .pixel-scene{filter:drop-shadow(0 7px 0 rgba(63,38,91,.18)) saturate(1.08) contrast(1.04);}
+@media(max-width:520px){.pixel-scene{transform:scale(.92)}.project-card:hover .pixel-scene{transform:scale(.97) translateY(-2px)}}
+
+/* Full-page interactive pixel spark layer */
+.spark-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.9;}
+.cursor-companion{
+  position:fixed;left:0;top:0;z-index:270;width:28px;height:28px;pointer-events:none;opacity:0;
+  transform:translate3d(-50%,-50%,0);transition:opacity .18s;will-change:left,top,transform;
+  filter:drop-shadow(0 0 7px rgba(255,210,63,.9));
+}
+.cursor-companion.active{opacity:1;}
+.cursor-star{position:absolute;inset:2px;background:var(--yellow);clip-path:polygon(50% 0,62% 35%,100% 38%,70% 60%,80% 100%,50% 76%,20% 100%,30% 60%,0 38%,38% 35%);animation:cursor-star-spin 4s linear infinite;}
+.cursor-star::before,.cursor-star::after{content:'';position:absolute;top:39%;width:3px;height:5px;background:#201330;border-radius:2px;}
+.cursor-star::before{left:34%;}.cursor-star::after{right:34%;}
+@keyframes cursor-star-spin{50%{transform:rotate(9deg) scale(1.08);}100%{transform:rotate(0);}}
+.cursor-trail{position:fixed;z-index:269;width:5px;height:5px;pointer-events:none;background:var(--yellow);box-shadow:0 0 7px currentColor;animation:trail-pop .62s ease-out forwards;}
+@keyframes trail-pop{to{opacity:0;transform:translate(var(--trail-x),var(--trail-y)) scale(.2) rotate(90deg);}}
+
+/* Strong light/dark contrast for every interactive surface */
+body[data-theme="light"]{
+  --bg-night:#fff9df;--bg-panel:#fffdf2;--bg-panel-2:#f3e8bd;--border:#55457e;--border-soft:#b6a6d5;
+  --text:#28203f;--text-dim:#554b70;--white:#171126;--red:#b91f42;--yellow:#9a6200;--green:#08743a;--blue:#056b99;--purple:#6737a0;
+}
+body[data-theme="light"] .navbar,body[data-theme="light"] .statusbar{background:#fff0ad;color:#302744;border-color:#55457e;}
+body[data-theme="light"] .nav-links a{color:#51466b;}
+body[data-theme="light"] .nav-links a:hover{color:#171126;border-color:#55457e;}
+body[data-theme="light"] .nav-links a.active{background:#6a3ca0;color:#fff;border-color:#3d2162;box-shadow:0 0 12px rgba(103,55,160,.25);}
+body[data-theme="light"] .nav-toggle span{background:#201733;}
+body[data-theme="light"] .pixel-box,body[data-theme="light"] .skill-card,body[data-theme="light"] .cert-image-card,body[data-theme="light"] .cv-card{background:#fffdf2;border-color:#55457e;}
+body[data-theme="light"] .section-sub,body[data-theme="light"] .hero-desc,body[data-theme="light"] .skill-card p.desc,body[data-theme="light"] .tech-chip small,body[data-theme="light"] .marquee-icon small{color:#554b70;}
+body[data-theme="light"] .tech-chip{background:#fff;border-color:#6b5a91;}
+body[data-theme="light"] .tech-marquee-box{background:linear-gradient(180deg,#fffdf5,#f3e8bd);border-color:#55457e;box-shadow:inset 0 0 0 2px rgba(255,255,255,.8);}
+body[data-theme="light"] .marquee-icon{background:#fff;border-color:#6b5a91;}
+body[data-theme="light"] .marquee-icon i{filter:drop-shadow(0 1px 0 #fff) drop-shadow(0 0 3px rgba(32,23,51,.25)) saturate(1.25) contrast(1.25);}
+body[data-theme="light"] .project-info .status,body[data-theme="light"] .btn-primary{background:#6a3ca0;color:#fff;border-color:#3d2162;}
+body[data-theme="light"] .project-detail-toggle,body[data-theme="light"] .project-links a{color:#5b2c91;}
+body[data-theme="light"] .chat-panel{background:#fffdf2;border-color:#6a3ca0;box-shadow:0 18px 55px rgba(45,30,72,.22),0 0 20px rgba(103,55,160,.16);}
+body[data-theme="light"] .chat-head,body[data-theme="light"] .chat-message.bot{background:#f3e8bd;color:#28203f;}
+body[data-theme="light"] .chat-message.user{background:#d9f1ff;color:#20263c;border-color:#056b99;}
+body[data-theme="light"] .chat-input{background:#fff;color:#211a37;border-color:#55457e;}
+body[data-theme="light"] .chat-chip{color:#5b2c91;border-color:#6b5a91;background:#fff;}
+body[data-theme="light"] .chat-title small{color:#08743a;}
+body[data-theme="light"] .cursor-star{background:#ffb800;}
+body:not([data-theme="light"]) .tech-marquee-box{border-color:#655893;}
+body:not([data-theme="light"]) .marquee-icon{background:#201735;border-color:#62548e;}
+body:not([data-theme="light"]) .marquee-icon i{filter:drop-shadow(0 0 5px rgba(255,255,255,.28)) saturate(1.3) brightness(1.14);}
+@media(hover:none),(pointer:coarse){.cursor-companion{display:none;}}
 </style>
 </head>
 <body>
 
+<canvas class="spark-canvas" id="sparkCanvas" aria-hidden="true"></canvas>
 <div class="ambient-lights" aria-hidden="true">
   <span class="ambient-orb one"></span>
   <span class="ambient-orb two"></span>
   <span class="ambient-orb three"></span>
 </div>
-<div class="cursor-aura" id="cursorAura" aria-hidden="true"></div>
+<div class="cursor-companion" id="cursorCompanion" aria-hidden="true"><span class="cursor-star"></span></div>
 
 <!-- TOP HUD NAV -->
 <nav class="navbar" id="navbar">
@@ -920,6 +1132,7 @@ body[data-theme="light"] .nav-logo,body[data-theme="light"] h1,body[data-theme="
   <canvas id="hero-canvas"></canvas>
   <div class="hero-inner">
     <div class="hero-grid" id="heroGrid">
+      <div class="hero-left-stack">
       <div class="idcard-stage" aria-label="Kartu profil interaktif Devie">
         <div class="idcard-drop">
           <div class="lanyard-strap" aria-hidden="true"></div>
@@ -941,6 +1154,7 @@ body[data-theme="light"] .nav-logo,body[data-theme="light"] h1,body[data-theme="
             </button>
           </div>
         </div>
+      </div>
       </div>
       <div>
         <div class="hero-handle">@dvrahmanda</div>
@@ -971,6 +1185,13 @@ body[data-theme="light"] .nav-logo,body[data-theme="light"] h1,body[data-theme="
         </div>
       </div>
     </div>
+  </div>
+  <div class="hero-level-world" aria-hidden="true">
+    <span class="level-hill hill-left"></span><span class="level-hill hill-right"></span>
+    <span class="level-platform platform-a"></span><span class="level-platform platform-b"></span><span class="level-platform platform-c"></span>
+    <span class="level-block block-a">?</span><span class="level-block block-b">?</span>
+    <span class="level-coin coin-a"></span><span class="level-coin coin-b"></span><span class="level-coin coin-c"></span>
+    <span class="level-pipe"></span><span class="level-runner"></span><span class="level-ground"></span><span class="level-scanline"></span>
   </div>
   <div class="scroll-cue"><span>SCROLL</span><span class="line"></span></div>
 </header>
@@ -1144,30 +1365,12 @@ body[data-theme="light"] .nav-logo,body[data-theme="light"] h1,body[data-theme="
 
     <div class="projects-compact-grid">
     <div class="project-card pixel-box visible-fade">
-      <div class="project-visual">
-        <svg width="66%" viewBox="0 0 200 180" fill="none">
-          <path d="M78 26h44v56l-6-5-6 5-6-5-6 5-6-5-6 5-6-5-6 5z" fill="#ffd23f" fill-opacity="0.08" stroke="#ffd23f" stroke-width="1.3" opacity="0.7"/>
-          <line x1="85" y1="38" x2="115" y2="38" stroke="#ffd23f" stroke-width="2" opacity="0.45"/>
-          <line x1="85" y1="47" x2="108" y2="47" stroke="#ffd23f" stroke-width="2" opacity="0.45"/>
-          <line x1="85" y1="56" x2="115" y2="56" stroke="#ffd23f" stroke-width="2" opacity="0.45"/>
-          <line x1="85" y1="65" x2="102" y2="65" stroke="#ffd23f" stroke-width="2" opacity="0.45"/>
-          <rect x="60" y="94" width="80" height="42" rx="6" fill="#2ee66b" fill-opacity="0.08" stroke="#2ee66b" stroke-width="1.6" opacity="0.8"/>
-          <rect x="72" y="86" width="56" height="12" rx="3" fill="#2ee66b" opacity="0.5"/>
-          <circle cx="128" cy="115" r="4" fill="#2ee66b" opacity="0.8"/>
-          <rect x="70" y="108" width="34" height="6" rx="2" fill="#2ee66b" opacity="0.3"/>
-          <path d="M35 58c0-7 6-12 12-12s12 5 12 12c0 9-12 22-12 22s-12-13-12-22z" fill="none" stroke="#ff3355" stroke-width="1.6" opacity="0.7"/>
-          <circle cx="47" cy="57" r="4" fill="#ff3355" opacity="0.7"/>
-          <path d="M150 48c0-6 5-10 10-10s10 4 10 10c0 8-10 19-10 19s-10-11-10-19z" fill="none" stroke="#29b6f6" stroke-width="1.4" opacity="0.6"/>
-          <circle cx="160" cy="47" r="3.4" fill="#29b6f6" opacity="0.6"/>
-          <path d="M18 122c0-5 4-9 9-9s9 4 9 9c0 7-9 17-9 17s-9-10-9-17z" fill="none" stroke="#b76bff" stroke-width="1.4" opacity="0.55"/>
-          <circle cx="27" cy="121" r="3" fill="#b76bff" opacity="0.55"/>
-          <path d="M165 130c0-5 4-9 9-9s9 4 9 9c0 7-9 17-9 17s-9-10-9-17z" fill="none" stroke="#ff3355" stroke-width="1.4" opacity="0.5"/>
-          <circle cx="174" cy="129" r="3" fill="#ff3355" opacity="0.5"/>
-          <path d="M47 73 Q58 90 62 108" stroke="#ffd23f" stroke-width="1" stroke-dasharray="3 3" opacity="0.3" fill="none"/>
-          <path d="M158 63 Q148 82 138 100" stroke="#ffd23f" stroke-width="1" stroke-dasharray="3 3" opacity="0.3" fill="none"/>
-          <path d="M27 135 Q45 128 62 122" stroke="#ffd23f" stroke-width="1" stroke-dasharray="3 3" opacity="0.3" fill="none"/>
-          <path d="M174 143 Q155 132 140 122" stroke="#ffd23f" stroke-width="1" stroke-dasharray="3 3" opacity="0.3" fill="none"/>
-        </svg>
+      <div class="project-visual" data-pixel-label="BILLING QUEST">
+        <div class="pixel-scene scene-billing" role="img" aria-label="Animasi pixel terminal billing yang mencetak struk">
+          <span class="pixel-spark"></span><span class="pixel-coin"></span>
+          <span class="pixel-terminal"><i class="terminal-screen"></i><i class="terminal-receipt"></i></span>
+          <span class="terminal-base"></span><span class="scene-platform"></span>
+        </div>
       </div>
       <div class="project-info">
         <span class="status">Selesai</span>
@@ -1187,20 +1390,13 @@ body[data-theme="light"] .nav-logo,body[data-theme="light"] h1,body[data-theme="
     </div>
 
     <div class="project-card reverse pixel-box visible-fade">
-      <div class="project-visual">
-        <svg width="62%" viewBox="0 0 200 160" fill="none">
-          <path d="M42 58 L48 128 Q62 139 76 128 L82 58 Z" stroke="#ffd23f" stroke-width="1.8" opacity="0.8"/>
-          <ellipse cx="62" cy="58" rx="21" ry="7" stroke="#ffd23f" stroke-width="1.6" opacity="0.85"/>
-          <line x1="68" y1="24" x2="74" y2="58" stroke="#ff3355" stroke-width="2.6" stroke-linecap="round" opacity="0.7"/>
-          <line x1="50" y1="80" x2="74" y2="80" stroke="#ff3355" stroke-width="2" opacity="0.35"/>
-          <line x1="51" y1="99" x2="73" y2="99" stroke="#ff3355" stroke-width="2" opacity="0.35"/>
-          <path d="M116 34h56v82l-7-6-7 6-7-6-7 6-7-6-7 6-7-6-7 6z" stroke="#2ee66b" stroke-width="1.4" opacity="0.65"/>
-          <rect x="124" y="48" width="40" height="4" fill="#2ee66b" opacity="0.4"/>
-          <rect x="124" y="60" width="28" height="4" fill="#2ee66b" opacity="0.4"/>
-          <rect x="124" y="72" width="40" height="4" fill="#2ee66b" opacity="0.4"/>
-          <circle cx="144" cy="94" r="13" fill="#ffd23f" opacity="0.55"/>
-          <text x="144" y="99" font-family="VT323, monospace" font-size="14" fill="#2a1d00" text-anchor="middle">Rp</text>
-        </svg>
+      <div class="project-visual" data-pixel-label="TEA SHOP RUN">
+        <div class="pixel-scene scene-drink" role="img" aria-label="Animasi pixel minuman teh dan koin kasir">
+          <span class="pixel-spark"></span><span class="pixel-coin"></span>
+          <span class="pixel-steam steam-a"></span><span class="pixel-steam steam-b"></span>
+          <span class="cup-straw"></span><span class="cup-lid"></span><span class="pixel-cup"></span>
+          <span class="scene-platform"></span>
+        </div>
       </div>
       <div class="project-info">
         <span class="status">Selesai</span>
@@ -1223,20 +1419,12 @@ body[data-theme="light"] .nav-logo,body[data-theme="light"] h1,body[data-theme="
     </div>
 
     <div class="project-card reverse pixel-box visible-fade">
-      <div class="project-visual">
-        <svg width="58%" viewBox="0 0 160 200" fill="none">
-          <rect x="20" y="10" width="120" height="180" rx="16" stroke="#ffd23f" stroke-width="1.5" opacity="0.55"/>
-          <rect x="30" y="28" width="100" height="132" rx="4" fill="#2ee66b" opacity="0.06"/>
-          <circle cx="80" cy="172" r="7" stroke="#2ee66b" stroke-width="1.2" opacity="0.6"/>
-          <rect x="43" y="88" width="27" height="58" rx="11" fill="#ff3355" opacity="0.14" stroke="#ff3355" stroke-width="1.4"/>
-          <rect x="52" y="74" width="9" height="16" rx="2" fill="none" stroke="#ff3355" stroke-width="1.3"/>
-          <circle cx="56.5" cy="70" r="2.6" fill="#ff3355" opacity="0.85"/>
-          <path d="M83 146V101q0-9 9-9h6q9 0 9 9v45z" fill="#29b6f6" opacity="0.14" stroke="#29b6f6" stroke-width="1.4"/>
-          <rect x="89" y="82" width="9" height="14" fill="none" stroke="#29b6f6" stroke-width="1.3"/>
-          <rect x="87" y="76" width="13" height="8" rx="2" fill="#29b6f6" opacity="0.6"/>
-          <line x1="85" y1="122" x2="102" y2="122" stroke="#29b6f6" stroke-width="1.4" opacity="0.5"/>
-          <line x1="36" y1="150" x2="112" y2="150" stroke="#2ee66b" stroke-width="1" opacity="0.3"/>
-        </svg>
+      <div class="project-visual" data-pixel-label="MOBILE STOCK">
+        <div class="pixel-scene scene-mobile" role="img" aria-label="Animasi pixel aplikasi ponsel untuk stok gas dan galon">
+          <span class="pixel-spark"></span><span class="pixel-coin"></span>
+          <span class="pixel-phone"><i class="phone-screen"></i><i class="phone-home"></i></span>
+          <span class="water-drop"></span><span class="pixel-pipe"></span><span class="scene-platform"></span>
+        </div>
       </div>
       <div class="project-info">
         <span class="status">Selesai</span>
@@ -1250,19 +1438,12 @@ body[data-theme="light"] .nav-logo,body[data-theme="light"] h1,body[data-theme="
     </div>
 
     <div class="project-card reverse pixel-box visible-fade">
-      <div class="project-visual">
-        <svg width="76%" viewBox="0 0 200 160" fill="none">
-          <rect x="20" y="60" width="90" height="50" rx="4" fill="#2ee66b" opacity="0.1" stroke="#2ee66b" stroke-width="1.6"/>
-          <path d="M110 72h30l18 18v20h-48z" fill="#ffd23f" opacity="0.12" stroke="#ffd23f" stroke-width="1.6"/>
-          <rect x="122" y="80" width="14" height="12" fill="#29b6f6" opacity="0.4"/>
-          <circle cx="45" cy="112" r="10" fill="none" stroke="#ff3355" stroke-width="1.8"/>
-          <circle cx="45" cy="112" r="3" fill="#ff3355"/>
-          <circle cx="135" cy="112" r="10" fill="none" stroke="#ff3355" stroke-width="1.8"/>
-          <circle cx="135" cy="112" r="3" fill="#ff3355"/>
-          <path d="M20 40 Q70 20 160 35" stroke="#29b6f6" stroke-width="1.4" stroke-dasharray="4 4" opacity="0.5" fill="none"/>
-          <path d="M160 35c0-6 5-11 11-11s11 5 11 11c0 9-11 21-11 21s-11-12-11-21z" fill="none" stroke="#29b6f6" stroke-width="1.6" opacity="0.75"/>
-          <circle cx="171" cy="34" r="3.4" fill="#29b6f6" opacity="0.75"/>
-        </svg>
+      <div class="project-visual" data-pixel-label="DELIVERY LEVEL">
+        <div class="pixel-scene scene-logistics" role="img" aria-label="Animasi pixel truk logistik dan paket">
+          <span class="pixel-spark"></span><span class="pixel-coin"></span><span class="pixel-package"></span>
+          <span class="pixel-truck"></span><span class="truck-wheel wheel-a"></span><span class="truck-wheel wheel-b"></span>
+          <span class="road-pixel"></span><span class="scene-platform"></span>
+        </div>
       </div>
       <div class="project-info">
         <span class="status">Selesai</span>
@@ -1386,14 +1567,20 @@ body[data-theme="light"] .nav-logo,body[data-theme="light"] h1,body[data-theme="
     <p class="section-sub visible-fade">Sertifikat resmi saya — tampil langsung di sini, tanpa perlu klik apa pun.</p>
     <div class="cert-image-grid">
       <figure class="cert-image-card pixel-box visible-fade">
-        <img src="assets/cert-images/python-essentials.jpg" alt="Sertifikat Python Essentials 1 — Cisco Networking Academy x Python Institute" class="cert-img" loading="lazy">
+        <div class="cert-pixel-frame" data-cert-level="PYTHON BADGE">
+          <span class="frame-gem gem-a"></span><span class="frame-gem gem-b"></span><span class="frame-gem gem-c"></span><span class="frame-gem gem-d"></span>
+          <img src="assets/cert-images/python-essentials.jpg" alt="Sertifikat Python Essentials 1 — Cisco Networking Academy x Python Institute" class="cert-img" loading="lazy">
+        </div>
         <figcaption>
           <h4>Python Essentials 1</h4>
           <div class="cert-meta">Cisco Networking Academy × Python Institute · 29 Agu 2025</div>
         </figcaption>
       </figure>
       <figure class="cert-image-card pixel-box visible-fade">
-        <img src="assets/cert-images/intro-data-science.jpg" alt="Sertifikat Introduction to Data Science — Cisco Networking Academy" class="cert-img" loading="lazy">
+        <div class="cert-pixel-frame" data-cert-level="DATA BADGE">
+          <span class="frame-gem gem-a"></span><span class="frame-gem gem-b"></span><span class="frame-gem gem-c"></span><span class="frame-gem gem-d"></span>
+          <img src="assets/cert-images/intro-data-science.jpg" alt="Sertifikat Introduction to Data Science — Cisco Networking Academy" class="cert-img" loading="lazy">
+        </div>
         <figcaption>
           <h4>Introduction to Data Science</h4>
           <div class="cert-meta">Cisco Networking Academy · 13 Mei 2025</div>
@@ -1658,28 +1845,57 @@ window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
   });
 })();
 
-// Soft light follower for mouse/trackpad users
+// Full-page pixel sparks + a small star companion that follows the pointer
 (function(){
-  const aura = document.getElementById('cursorAura');
-  if(!aura || reduceMotion || window.matchMedia('(pointer: coarse)').matches) return;
-  let targetX = innerWidth / 2, targetY = innerHeight / 2;
-  let currentX = targetX, currentY = targetY;
-  let raf = 0;
-
-  function render(){
-    currentX += (targetX - currentX) * .14;
-    currentY += (targetY - currentY) * .14;
-    aura.style.left = currentX + 'px';
-    aura.style.top = currentY + 'px';
-    raf = requestAnimationFrame(render);
+  const sparkCanvas = document.getElementById('sparkCanvas');
+  const companion = document.getElementById('cursorCompanion');
+  if(!sparkCanvas) return;
+  const sparkCtx = sparkCanvas.getContext('2d');
+  let sw=0,sh=0,dpr=1;
+  let pointerX=-999,pointerY=-999,pointerActive=false;
+  let companionX=innerWidth/2,companionY=innerHeight/2;
+  let lastTrailX=0,lastTrailY=0;
+  const paletteDark=['#ffd23f','#29b6f6','#b76bff','#2ee66b','#ff3355'];
+  const paletteLight=['#9a6200','#056b99','#6737a0','#08743a','#b91f42'];
+  let sparks=[];
+  function palette(){return document.body.dataset.theme==='light'?paletteLight:paletteDark;}
+  function resizeSparkCanvas(){
+    dpr=Math.min(devicePixelRatio||1,2);sw=innerWidth;sh=innerHeight;
+    sparkCanvas.width=Math.round(sw*dpr);sparkCanvas.height=Math.round(sh*dpr);
+    sparkCanvas.style.width=sw+'px';sparkCanvas.style.height=sh+'px';sparkCtx.setTransform(dpr,0,0,dpr,0,0);
+    const count=sw<700?34:72;
+    sparks=Array.from({length:count},(_,i)=>({x:Math.random()*sw,y:Math.random()*sh,vx:(Math.random()-.5)*.18,vy:-.08-Math.random()*.22,size:i%9===0?4:2+Math.random()*2,phase:Math.random()*Math.PI*2,colorIndex:i%5}));
   }
-  window.addEventListener('pointermove', (event) => {
-    targetX = event.clientX;
-    targetY = event.clientY;
-    aura.classList.add('active');
-    if(!raf) render();
-  }, {passive:true});
-  window.addEventListener('pointerleave', () => aura.classList.remove('active'));
+  function drawSparks(time=0){
+    sparkCtx.clearRect(0,0,sw,sh);const colors=palette();
+    sparks.forEach(s=>{
+      if(pointerActive){const dx=s.x-pointerX,dy=s.y-pointerY;const distance=Math.hypot(dx,dy);if(distance<125&&distance>1){const force=(125-distance)/125*.035;s.vx+=dx/distance*force;s.vy+=dy/distance*force;}}
+      s.vx*=.992;s.vy*=.996;s.x+=s.vx;s.y+=s.vy;
+      if(s.y<-8){s.y=sh+8;s.x=Math.random()*sw;}if(s.x<-8)s.x=sw+8;if(s.x>sw+8)s.x=-8;
+      const alpha=.26+(Math.sin(time*.002+s.phase)+1)*.24;
+      sparkCtx.globalAlpha=alpha;sparkCtx.fillStyle=colors[s.colorIndex];
+      sparkCtx.fillRect(Math.round(s.x),Math.round(s.y),Math.round(s.size),Math.round(s.size));
+      if(s.size>3){sparkCtx.globalAlpha=alpha*.35;sparkCtx.fillRect(Math.round(s.x-s.size),Math.round(s.y+s.size/3),Math.round(s.size*3),1);sparkCtx.fillRect(Math.round(s.x+s.size/3),Math.round(s.y-s.size),1,Math.round(s.size*3));}
+    });
+    sparkCtx.globalAlpha=1;
+    if(!reduceMotion) requestAnimationFrame(drawSparks);
+  }
+  function makeTrail(x,y){
+    if(Math.hypot(x-lastTrailX,y-lastTrailY)<24)return;lastTrailX=x;lastTrailY=y;
+    const trail=document.createElement('i');trail.className='cursor-trail';trail.style.left=x+'px';trail.style.top=y+'px';
+    trail.style.color=palette()[Math.floor(Math.random()*5)];trail.style.setProperty('--trail-x',((Math.random()-.5)*28)+'px');trail.style.setProperty('--trail-y',(12+Math.random()*22)+'px');
+    document.body.appendChild(trail);setTimeout(()=>trail.remove(),650);
+  }
+  function moveCompanion(){
+    companionX+=(pointerX-companionX)*.18;companionY+=(pointerY-companionY)*.18;
+    if(companion){companion.style.left=(companionX+18)+'px';companion.style.top=(companionY+18)+'px';}
+    if(pointerActive)makeTrail(companionX,companionY);
+    if(!reduceMotion)requestAnimationFrame(moveCompanion);
+  }
+  window.addEventListener('pointermove',event=>{pointerX=event.clientX;pointerY=event.clientY;pointerActive=true;if(companion)companion.classList.add('active');},{passive:true});
+  window.addEventListener('pointerleave',()=>{pointerActive=false;if(companion)companion.classList.remove('active');});
+  window.addEventListener('resize',resizeSparkCanvas,{passive:true});
+  resizeSparkCanvas();drawSparks();if(!reduceMotion&&!window.matchMedia('(pointer:coarse)').matches)requestAnimationFrame(moveCompanion);
 })();
 
 // Smooth anchor scroll offset for sticky HUD nav
@@ -2054,29 +2270,65 @@ updateCoins();
     chatMessages.appendChild(message);
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
-  function includesAny(text,words){return words.some(word=>text.includes(word));}
+  function normalizeChatText(value){
+    return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .replace(/[^a-z0-9\s-]/g,' ')
+      .replace(/\b([a-z]{5,})(nya|lah|kah)\b/g,'$1')
+      .replace(/\b(kerjaan|pekerjaan|job|internship)\b/g,' pengalaman kerja ')
+      .replace(/\b(keahli[a-z]*|kompeten[a-z]*|nguasain|kuasai)\b/g,' skill ')
+      .replace(/\b(portofolio|karya)\b/g,' project ')
+      .replace(/\b(studi|jurusan|kampus)\b/g,' pendidikan ')
+      .replace(/\b(sosmed|reach)\b/g,' kontak ')
+      .replace(/\s+/g,' ').trim();
+  }
+  function editDistance(a,b){
+    const row=Array.from({length:b.length+1},(_,i)=>i);
+    for(let i=1;i<=a.length;i++){
+      let previous=row[0];row[0]=i;
+      for(let j=1;j<=b.length;j++){
+        const saved=row[j];
+        row[j]=Math.min(row[j]+1,row[j-1]+1,previous+(a[i-1]===b[j-1]?0:1));
+        previous=saved;
+      }
+    }
+    return row[b.length];
+  }
+  function fuzzyTokenMatch(token,target){
+    if(token===target)return true;
+    if(target.length>=5&&Math.abs(token.length-target.length)<=2&&(token.startsWith(target)||target.startsWith(token)))return true;
+    return token.length>=7&&target.length>=7&&editDistance(token,target)<=1;
+  }
+  function includesAny(text,words){
+    const normalized=normalizeChatText(text);
+    const tokens=normalized.split(' ').filter(Boolean);
+    return words.some(word=>{
+      const phrase=normalizeChatText(word);
+      if(normalized.includes(phrase))return true;
+      return phrase.split(' ').every(part=>tokens.some(token=>fuzzyTokenMatch(token,part)));
+    });
+  }
   function answerQuestion(question){
-    const q = question.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    const q = normalizeChatText(question);
     const en = currentLanguage === 'en';
-    if(includesAny(q,['halo','hai','hello','hi ','hey'])) return en?'Heyy! What do you wanna know about Devie? 👋':'Haii! Mau kepoin bagian mana dari Devie nih? 👋';
+    if(includesAny(q,['halo','hai','hello','hi','hey'])) return en?'Heyy! What do you wanna know about Devie? 👋':'Haii! Mau kepoin bagian mana dari Devie nih? 👋';
     if(includesAny(q,['pacar','pasangan','jomblo','menikah','suami','istri','gebetan','relationship','boyfriend','girlfriend','partner'])) return en?"Ooh, relationship stuff is Devie's private zone 😄 I can't spill that one, but I can totally tell you about her projects, skills, or experience!":'Wah, kalau soal pasangan itu masuk area privasi Devie ya 😄 Tapi aku bisa spill soal project, skill, atau pengalamannya!';
     if(includesAny(q,['keluarga','orang tua','ayah','ibu','saudara','kakak','adik','family','parents','father','mother','sibling'])) return en?"Devie's family info is personal, so it isn't shared here. Let's talk about her college journey, projects, or experience instead!":"Info keluarga Devie nggak ditampilkan di sini karena cukup personal. Kita bahas perjalanan kuliah, project, atau pengalamannya aja, yuk!";
-    if(includesAny(q,['alamat lengkap','nomor telepon','no hp','whatsapp','tinggal dengan siapa','full address','phone number','home address','lives with'])) return en?"That's private info, bestie 👀 For safety, I can only share Devie's public professional contact details from this portfolio.":'Nah, kalau itu info pribadi yaa 👀 Demi keamanan, aku cuma bisa kasih kontak profesional yang memang Devie tampilkan di portofolio.';
-    if(includesAny(q,['siapa','who is','tentang devie','about devie','profil','profile','kenalan','meet devie'])) return en?'Devie Rahmanda Patricia Maharani is an Informatics Management student at State Polytechnic of Malang, PSDKU Kediri. She is into Web Development and UI/UX, and she is based in Blitar, East Java. Pretty cool combo, right?':'Kenalin, ini Devie Rahmanda Patricia Maharani! Devie adalah mahasiswa Manajemen Informatika di Politeknik Negeri Malang, PSDKU Kediri. Fokusnya di Web Development dan UI/UX, serta berdomisili di Blitar, Jawa Timur.';
-    if(includesAny(q,['pendidikan','education','kuliah','kampus','ipk','gpa','sekolah'])) return en?'Devie is studying D3 Informatics Management at State Polytechnic of Malang, PSDKU Kediri, with a 3.60+/4.00 GPA. Before college, she studied at SMP Negeri 1 Srengat and SMA Negeri 1 Ponggok, Science track.':'Devie lagi menempuh D3 Manajemen Informatika di Politeknik Negeri Malang, PSDKU Kediri, dengan IPK 3.60+/4.00. Sebelumnya, Devie sekolah di SMP Negeri 1 Srengat dan SMA Negeri 1 Ponggok jurusan MIPA.';
-    if(includesAny(q,['skill','kemampuan','teknologi','technology','tech stack','bisa apa','jago apa','good at'])) return en?'Her stack is pretty packed: HTML, CSS, JavaScript, PHP, Laravel, MySQL, MariaDB, Python, Kotlin, Figma, Git, GitHub, VS Code, Android Studio, and Jupyter. Her strongest lanes are Web Development and UI/UX.':'Skill Devie lumayan lengkap nih: HTML, CSS, JavaScript, PHP, Laravel, MySQL, MariaDB, Python, Kotlin, Figma, Git, GitHub, VS Code, Android Studio, dan Jupyter. Yang paling jadi andalannya adalah Web Development dan UI/UX.';
-    if(includesAny(q,['magang','intern','life media','pengalaman kerja','work experience'])) return en?'Since June 2026, Devie has been interning as a Web Developer at Life Media, PT Sarana Insan Muda Selaras. She handles Billing Salam / UKOOMED development, code audits, bug fixes, system design, documentation, and thermal-printer setup guides. Lots of real-world stuff!':'Sejak Juni 2026, Devie lagi magang sebagai Web Developer di Life Media, PT Sarana Insan Muda Selaras. Kerjaannya mulai dari ngembangin Billing Salam / UKOOMED, audit kode, benerin bug, desain sistem, dokumentasi, sampai bikin panduan setup thermal printer. Lumayan banyak pengalaman real project-nya!';
-    if(includesAny(q,['organisasi','organization','ukm','bendahara','advocation'])) return en?'Devie is also active in the English Club at Polinema Kediri. She has been a General Treasurer and part of the Advocacy Department, handling finances, coordination, inventory, and member data.':'Devie juga aktif di UKM English Club Polinema Kediri. Ia pernah jadi Bendahara Umum dan anggota Advocation Department, dengan tugas ngurus administrasi keuangan, koordinasi organisasi, inventaris, dan data anggota.';
+    if(includesAny(q,['alamat lengkap','nomor telepon','nomor hp','no hp','telepon','whatsapp','tinggal dengan siapa','full address','phone number','home address','lives with'])) return en?"That's private info, bestie 👀 For safety, I can only share Devie's public professional contact details from this portfolio.":'Nah, kalau itu info pribadi yaa 👀 Demi keamanan, aku cuma bisa kasih kontak profesional yang memang Devie tampilkan di portofolio.';
+    if(includesAny(q,['pendidikan','education','kuliah','ipk','gpa','sekolah','semester','belajar dimana','riwayat pendidikan'])) return en?'Devie is studying D3 Informatics Management at State Polytechnic of Malang, PSDKU Kediri, with a 3.60+/4.00 GPA. Before college, she studied at SMP Negeri 1 Srengat and SMA Negeri 1 Ponggok, Science track.':'Devie lagi menempuh D3 Manajemen Informatika di Politeknik Negeri Malang, PSDKU Kediri, dengan IPK 3.60+/4.00. Sebelumnya, Devie sekolah di SMP Negeri 1 Srengat dan SMA Negeri 1 Ponggok jurusan MIPA.';
+    if(includesAny(q,['skill','kemampuan','teknologi','technology','tech stack','bisa apa','jago apa','good at','tools','framework','bahasa pemrograman'])) return en?'Her stack is pretty packed: HTML, CSS, JavaScript, PHP, Laravel, MySQL, MariaDB, Python, Kotlin, Figma, Git, GitHub, VS Code, Android Studio, and Jupyter. Her strongest lanes are Web Development and UI/UX.':'Skill Devie lumayan lengkap nih: HTML, CSS, JavaScript, PHP, Laravel, MySQL, MariaDB, Python, Kotlin, Figma, Git, GitHub, VS Code, Android Studio, dan Jupyter. Yang paling jadi andalannya adalah Web Development dan UI/UX.';
+    if(includesAny(q,['magang','intern','life media','pengalaman kerja','work experience','apa yang dikerjakan','ngapain','riwayat kerja','pengalaman profesional'])) return en?'Since June 2026, Devie has been interning as a Web Developer at Life Media, PT Sarana Insan Muda Selaras. She handles Billing Salam / UKOOMED development, code audits, bug fixes, system design, documentation, and thermal-printer setup guides. Lots of real-world stuff!':'Sejak Juni 2026, Devie lagi magang sebagai Web Developer di Life Media, PT Sarana Insan Muda Selaras. Kerjaannya mulai dari ngembangin Billing Salam / UKOOMED, audit kode, benerin bug, desain sistem, dokumentasi, sampai bikin panduan setup thermal printer. Lumayan banyak pengalaman real project-nya!';
+    if(includesAny(q,['organisasi','organization','ukm','bendahara','advocation','pengalaman organisasi','aktif dimana','kepanitiaan'])) return en?'Devie is also active in the English Club at Polinema Kediri. She has been a General Treasurer and part of the Advocacy Department, handling finances, coordination, inventory, and member data.':'Devie juga aktif di UKM English Club Polinema Kediri. Ia pernah jadi Bendahara Umum dan anggota Advocation Department, dengan tugas ngurus administrasi keuangan, koordinasi organisasi, inventaris, dan data anggota.';
     if(includesAny(q,['billing','ukoomed'])) return en?'Billing Salam / UKOOMED is a PHP and MySQL multi-region internet billing system Devie built with her internship team for Salam Village. It has role-based access, analytics, SVG maps, Canvas charts, and thermal receipt printing. This one is seriously feature-packed!':'Billing Salam / UKOOMED adalah sistem billing internet multiwilayah berbasis PHP dan MySQL yang Devie kembangkan bareng tim magang untuk Kelurahan Salam. Fiturnya ada role-based access, analitik, peta SVG, chart Canvas, sampai cetak struk thermal. Project ini fiturnya lumayan padat!';
     if(includesAny(q,['t-dji','kasir','cashier','pos','tong-dji'])) return en?'T-DJI Drink is a Laravel-based POS dashboard for managing tea sales, products, revenue, daily reports, and order queues. Basically, it keeps the whole cashier flow neat and organized.':'T-DJI Drink adalah dashboard POS berbasis Laravel buat ngatur penjualan minuman teh, produk, pendapatan, laporan harian, dan antrean pesanan. Intinya, alur kasir jadi lebih rapi dan gampang dipantau.';
     if(includesAny(q,['gas','galon','gallon','kotlin','mobile'])) return en?'This Gas & Water Gallon Sales app is an Android project built with Kotlin. It helps record daily transactions and creates simple sales recaps. Simple, useful, and straight to the point!':'Aplikasi Penjualan Gas & Galon ini adalah project Android pakai Kotlin. Fungsinya buat mencatat transaksi harian dan bikin rekap penjualan sederhana. Simpel, tapi kepake banget!';
     if(includesAny(q,['agenlog','logistik','logistics','kurir','courier'])) return en?'AgenLog is a Laravel logistics system for shipments, sender and recipient data, automatic courier scheduling with a Greedy First-Fit algorithm, package tracking, costs, reports, and CSV exports. Quite the full package!':'AgenLog adalah sistem logistik Laravel buat ngatur pengiriman, data pengirim dan penerima, penjadwalan kurir otomatis dengan algoritma Greedy First-Fit, tracking paket, biaya kirim, laporan, sampai ekspor CSV. Paket lengkap banget, kan?';
-    if(includesAny(q,['proyek','project','portfolio','karya','spill project'])) return en?'Devie has four featured projects: Billing Salam / UKOOMED, T-DJI Drink POS Dashboard, a Gas & Water Gallon Sales mobile app, and AgenLog logistics system. Drop a project name and I will spill the details!':'Ada empat project utama Devie nih: Billing Salam / UKOOMED, T-DJI Drink POS Dashboard, aplikasi mobile Penjualan Gas & Galon, dan sistem logistik AgenLog. Sebut salah satunya, nanti aku spill detailnya!';
+    if(includesAny(q,['proyek','project','portfolio','karya','spill project','buat apa aja','hasil kerja'])) return en?'Devie has four featured projects: Billing Salam / UKOOMED, T-DJI Drink POS Dashboard, a Gas & Water Gallon Sales mobile app, and AgenLog logistics system. Drop a project name and I will spill the details!':'Ada empat project utama Devie nih: Billing Salam / UKOOMED, T-DJI Drink POS Dashboard, aplikasi mobile Penjualan Gas & Galon, dan sistem logistik AgenLog. Sebut salah satunya, nanti aku spill detailnya!';
     if(includesAny(q,['sertifikat','certificate','certification','cisco'])) return en?'Devie has Python Essentials 1 from Cisco Networking Academy × Python Institute, earned on 29 Aug 2025, plus Introduction to Data Science from Cisco Networking Academy, earned on 13 May 2025.':'Devie punya sertifikat Python Essentials 1 dari Cisco Networking Academy × Python Institute, didapat 29 Agustus 2025, dan Introduction to Data Science dari Cisco Networking Academy, didapat 13 Mei 2025.';
-    if(includesAny(q,['kontak','contact','email','github','linkedin','instagram','hubungi'])) return en?'Wanna reach Devie? Email her at devierahmandapm@gmail.com or find her on GitHub at @dvrahmanda. Her LinkedIn and Instagram links are also waiting in the Contact section!':'Mau ngobrol atau ngajak Devie kolaborasi? Langsung aja email ke devierahmandapm@gmail.com atau cek GitHub @dvrahmanda. Link LinkedIn dan Instagram-nya juga sudah ada di bagian Kontak!';
+    if(includesAny(q,['kontak','contact','email','github','linkedin','instagram','hubungi','cara hubungi'])) return en?'Wanna reach Devie? Email her at devierahmandapm@gmail.com or find her on GitHub at @dvrahmanda. Her LinkedIn and Instagram links are also waiting in the Contact section!':'Mau ngobrol atau ngajak Devie kolaborasi? Langsung aja email ke devierahmandapm@gmail.com atau cek GitHub @dvrahmanda. Link LinkedIn dan Instagram-nya juga sudah ada di bagian Kontak!';
     if(includesAny(q,['lokasi','location','domisili','tinggal','blitar'])) return en?'Devie is based in Blitar, East Java, and she is open to both remote and on-site opportunities. Exact address stays private, of course 👀':'Devie berdomisili di Blitar, Jawa Timur, dan terbuka buat peluang remote maupun on-site. Kalau alamat lengkapnya tentu nggak aku spill demi keamanan yaa 👀';
     if(includesAny(q,['kolaborasi','collaborate','kerja sama','hire','rekrut'])) return en?'Yep, absolutely! Devie is open to internships, project collabs, and chats about Web Development or UI/UX. Just hit her up through the Contact section.':'Bisa banget! Devie terbuka buat peluang magang, kolaborasi project, atau ngobrolin Web Development dan UI/UX. Langsung hubungi lewat bagian Kontak aja ya!';
     if(includesAny(q,['cv','resume','curriculum'])) return en?'Looking for her CV? You can view or download it from the navbar, Education section, or Certificates & CV section. Easy peasy!':'Lagi cari CV Devie? Kamu bisa lihat atau download langsung dari navbar, bagian Pendidikan, atau bagian Sertifikasi & CV. Tinggal klik aja!';
+    if(includesAny(q,['siapa devie','devie siapa','who is devie','tentang devie','about devie','profil','profile','kenalan','meet devie'])) return en?'Devie Rahmanda Patricia Maharani is an Informatics Management student at State Polytechnic of Malang, PSDKU Kediri. She is into Web Development and UI/UX, and she is based in Blitar, East Java. Pretty cool combo, right?':'Kenalin, ini Devie Rahmanda Patricia Maharani! Devie adalah mahasiswa Manajemen Informatika di Politeknik Negeri Malang, PSDKU Kediri. Fokusnya di Web Development dan UI/UX, serta berdomisili di Blitar, Jawa Timur.';
     return chatCopy[currentLanguage].fallback;
   }
   function buildQuick(){
