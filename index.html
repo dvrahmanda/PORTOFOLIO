@@ -161,17 +161,62 @@ body{padding-top:var(--navbar-h); padding-bottom:var(--hud-h);}
 .hero-grid.no-avatar{grid-template-columns:1fr;}
 @media (max-width:760px){.hero-grid{grid-template-columns:1fr; justify-items:center; text-align:center;}}
 
-.avatar-box{
-  width:150px; height:150px; flex-shrink:0;
-  background:repeating-linear-gradient(45deg, #2b3fd9 0 10px, #1f2fb0 10px 20px);
+/* ===== ID CARD ON A LANYARD ===== */
+.idcard-wrap{display:flex; flex-direction:column; align-items:center; flex-shrink:0;}
+.lanyard-strap{
+  width:14px; height:64px;
+  background:repeating-linear-gradient(45deg, var(--red) 0 9px, var(--yellow) 9px 18px);
+  border-left:2px solid rgba(0,0,0,0.35); border-right:2px solid rgba(0,0,0,0.35);
+  clip-path:polygon(15% 0, 85% 0, 100% 100%, 0 100%);
+}
+.lanyard-hole{
+  width:16px; height:16px; border-radius:50%; background:var(--bg-night);
+  border:3px solid var(--border); margin-top:-3px; z-index:2;
+}
+.idcard-swing{ transform-origin:top center; margin-top:-2px; }
+.idcard-swing.swing-in{ animation:idcard-swing-in 1.9s cubic-bezier(.36,.18,.24,.97) both; }
+.idcard-swing.swing-idle{ animation:idcard-swing-idle 4.2s ease-in-out infinite; }
+@keyframes idcard-swing-in{
+  0%{transform:rotate(0deg);}
+  12%{transform:rotate(-30deg);}
+  30%{transform:rotate(24deg);}
+  48%{transform:rotate(-16deg);}
+  64%{transform:rotate(10deg);}
+  80%{transform:rotate(-6deg);}
+  92%{transform:rotate(3deg);}
+  100%{transform:rotate(0deg);}
+}
+@keyframes idcard-swing-idle{
+  0%,100%{transform:rotate(-2.5deg);}
+  50%{transform:rotate(2.5deg);}
+}
+.idcard-clip{
+  width:34px; height:12px; margin:0 auto; background:#c7c7c7; border-radius:3px 3px 0 0;
+  border:2px solid #7d7d7d; border-bottom:none; position:relative; z-index:2;
+}
+.idcard-body{
+  padding:10px; background:repeating-linear-gradient(45deg, #2b3fd9 0 10px, #1f2fb0 10px 20px);
   border:4px solid var(--white);
   box-shadow: inset -4px -4px 0 rgba(0,0,0,0.3), inset 4px 4px 0 rgba(255,255,255,0.15), 0 0 26px rgba(255,51,85,0.35);
+  position:relative;
+}
+.idcard-body::before{content:'★'; position:absolute; top:-13px; left:-13px; color:var(--yellow); font-size:1.2rem; text-shadow:0 0 8px var(--yellow); z-index:2;}
+.idcard-body::after{content:'★'; position:absolute; bottom:-13px; right:-13px; color:var(--yellow); font-size:1.2rem; text-shadow:0 0 8px var(--yellow); z-index:2;}
+.idcard-header{
+  font-family:var(--font-pixel); font-size:0.42rem; color:var(--bg-night); background:var(--yellow);
+  text-align:center; padding:4px 6px; margin-bottom:8px; border:2px solid #a67c00; letter-spacing:0.05em;
+}
+.idcard-footer{
+  font-family:var(--font-pixel); font-size:0.4rem; color:var(--yellow); text-align:center;
+  margin-top:8px; text-shadow:1px 1px 0 var(--red);
+}
+.avatar-box{
+  width:130px; height:130px; flex-shrink:0;
   display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
+  border:2px solid rgba(0,0,0,0.3);
 }
 .avatar-box .avatar-img{width:100%; height:100%; object-fit:cover; image-rendering:auto;}
-.avatar-box .avatar-fallback{width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-family:var(--font-pixel); font-size:2.1rem; color:var(--yellow); text-shadow:2px 2px 0 var(--red);}
-.avatar-box::before{content:'★'; position:absolute; top:-14px; left:-14px; color:var(--yellow); font-size:1.3rem; text-shadow:0 0 8px var(--yellow); z-index:2;}
-.avatar-box::after{content:'★'; position:absolute; bottom:-14px; right:-14px; color:var(--yellow); font-size:1.3rem; text-shadow:0 0 8px var(--yellow); z-index:2;}
+.avatar-box .avatar-fallback{width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-family:var(--font-pixel); font-size:1.9rem; color:var(--yellow); text-shadow:2px 2px 0 var(--red); background:#1f2fb0;}
 
 .hero-handle{font-family:var(--font-pixel); font-size:0.62rem; color:var(--purple); margin:14px 0 10px;}
 .hero-badges{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px;}
@@ -556,9 +601,20 @@ body{padding-top:var(--navbar-h); padding-bottom:var(--hud-h);}
 .project-info h3{font-size:0.85rem; margin-bottom:12px; color:var(--white); line-height:1.6;}
 .project-info .role{font-size:0.98rem; color:var(--purple); font-family:var(--font-body); margin-bottom:12px;}
 .project-info p.pdesc{color:var(--text); font-size:1.1rem; margin-bottom:16px;}
+.feat-accordion{margin-bottom:16px;}
+.feat-accordion summary{
+  font-family:var(--font-pixel); font-size:0.52rem; color:var(--blue); cursor:pointer; list-style:none;
+  padding:8px 12px; user-select:none; display:inline-flex; align-items:center; gap:8px;
+  border:2px solid var(--border); border-radius:6px; transition:border-color 0.2s, color 0.2s;
+}
+.feat-accordion summary::-webkit-details-marker{display:none;}
+.feat-accordion summary::before{content:'🍄'; font-size:0.85rem;}
+.feat-accordion:hover summary{border-color:var(--yellow); color:var(--yellow);}
+.feat-accordion[open] summary{border-color:var(--green); color:var(--green);}
+.feat-accordion .project-feats{margin-top:12px; margin-bottom:0;}
 .project-feats{list-style:none; margin-bottom:16px;}
 .project-feats li{font-size:1.05rem; color:var(--text); padding-left:22px; position:relative; margin-bottom:7px;}
-.project-feats li::before{content:'🍄'; position:absolute; left:0; top:0; font-size:0.85rem;}
+.project-feats li::before{content:'▸'; position:absolute; left:0; top:0; color:var(--yellow); font-size:0.9rem;}
 .project-links{display:flex; gap:14px; align-items:center; flex-wrap:wrap;}
 .project-links a{font-family:var(--font-body); font-size:1.05rem; color:var(--blue); display:flex; align-items:center; gap:6px; transition:color 0.15s;}
 .project-links a:hover{color:var(--green);}
@@ -577,8 +633,8 @@ body{padding-top:var(--navbar-h); padding-bottom:var(--hud-h);}
   50%{transform:scale(0.5) translateY(-22px);}
   100%{transform:scale(0.5) translateY(0);}
 }
-.tl-item{position:relative; margin-bottom:32px;}
-.tl-item::before{content:'🚩'; position:absolute; left:-33px; top:-2px; font-size:0.95rem; transition:filter 0.3s, transform 0.3s; z-index:2;}
+.tl-item{position:relative; margin-bottom:14px;}
+.tl-item::before{content:'🚩'; position:absolute; left:-33px; top:11px; font-size:0.9rem; transition:filter 0.3s, transform 0.3s; z-index:2;}
 .tl-item.reached::before{filter:drop-shadow(0 0 8px var(--yellow)); animation:flag-wave 0.6s ease;}
 .tl-item.reached{animation:tl-item-bounce 0.55s ease;}
 @keyframes flag-wave{0%,100%{transform:rotate(0deg);}30%{transform:rotate(-14deg);}60%{transform:rotate(10deg);}}
@@ -589,19 +645,25 @@ body{padding-top:var(--navbar-h); padding-bottom:var(--hud-h);}
   75%{transform:translateY(-4px);}
   100%{transform:translateY(0);}
 }
-.tl-date{font-family:var(--font-pixel); font-size:0.55rem; color:var(--text-dim); margin-bottom:8px;}
-.tl-item h4{font-size:0.72rem; color:var(--white); margin-bottom:6px; line-height:1.6;}
-.tl-item .org{font-size:1.05rem; color:var(--purple); margin-bottom:10px;}
-.tl-item details{margin-top:6px;}
-.tl-item summary{
-  font-family:var(--font-pixel); font-size:0.5rem; color:var(--blue); cursor:pointer; list-style:none;
-  padding:8px 0; user-select:none;
+.tl-accordion{
+  border:2px solid var(--border); border-radius:6px; background:rgba(255,255,255,0.02);
+  overflow:hidden; transition:border-color 0.2s, background 0.2s;
 }
-.tl-item summary::-webkit-details-marker{display:none;}
-.tl-item summary::before{content:'▸ '; color:var(--blue);}
-.tl-item details[open] summary::before{content:'▾ ';}
-.tl-item ul{padding-left:18px; color:var(--text); font-size:1.05rem; margin-top:8px;}
-.tl-item li{margin-bottom:6px;}
+.tl-accordion:hover{border-color:var(--yellow);}
+.tl-accordion[open]{border-color:var(--green); background:rgba(46,230,107,0.04);}
+.tl-summary{
+  display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+  padding:11px 14px; cursor:pointer; list-style:none; user-select:none;
+}
+.tl-summary::-webkit-details-marker{display:none;}
+.tl-summary::before{content:'▸'; color:var(--blue); font-family:var(--font-pixel); font-size:0.55rem; margin-right:2px;}
+.tl-accordion[open] .tl-summary::before{content:'▾';}
+.tl-summary-title{font-family:var(--font-pixel); font-size:0.6rem; color:var(--white); flex:1;}
+.tl-summary-date{font-family:var(--font-pixel); font-size:0.46rem; color:var(--text-dim); white-space:nowrap;}
+.tl-body{padding:0 16px 14px 30px;}
+.tl-body .org{font-size:1rem; color:var(--purple); margin-bottom:8px;}
+.tl-body ul{padding-left:16px; color:var(--text); font-size:0.98rem;}
+.tl-body li{margin-bottom:5px;}
 
 /* ===== EDUCATION ===== */
 .edu-card{padding:28px; display:flex; gap:22px; align-items:center;}
@@ -676,8 +738,19 @@ body{padding-top:var(--navbar-h); padding-bottom:var(--hud-h);}
   <canvas id="hero-canvas"></canvas>
   <div class="hero-inner">
     <div class="hero-grid" id="heroGrid">
-      <div class="avatar-box" id="avatarBox">
-        <img src="assets/profile-photo.jpg" alt="Devie Rahmanda Patricia Maharani" class="avatar-img" onerror="document.getElementById('avatarBox').style.display='none'; document.getElementById('heroGrid').classList.add('no-avatar');">
+      <div class="idcard-wrap" id="idcardWrap">
+        <div class="lanyard-strap"></div>
+        <div class="lanyard-hole"></div>
+        <div class="idcard-swing" id="idCardSwing">
+          <div class="idcard-clip"></div>
+          <div class="idcard-body">
+            <div class="idcard-header">★ STAFF PASS ★</div>
+            <div class="avatar-box" id="avatarBox">
+              <img src="assets/profile-photo.jpg" alt="Devie Rahmanda Patricia Maharani" class="avatar-img" onerror="document.getElementById('idcardWrap').style.display='none'; document.getElementById('heroGrid').classList.add('no-avatar');">
+            </div>
+            <div class="idcard-footer">DEVIE R.</div>
+          </div>
+        </div>
       </div>
       <div>
         <div class="hero-handle">@dvrahmanda</div>
@@ -813,6 +886,7 @@ body{padding-top:var(--navbar-h); padding-bottom:var(--hud-h);}
           <span class="about-photo-star s1">★</span>
           <span class="about-photo-star s2">★</span>
         </div>
+        <div class="about-photo-badge">✨ Otomatis bergerak sendiri</div>
       </div>
       <div class="about-text visible-fade">
         <p>Hai! Saya <strong>Devie Rahmanda Patricia Maharani</strong>, mahasiswa Informatics Management di Politeknik Negeri Malang (PSDKU Kediri) dengan fokus di <strong>Web Development</strong> dan <strong>UI/UX Design</strong> — dari merancang wireframe di Figma sampai membangunnya jadi sistem nyata pakai PHP, Laravel, dan MySQL.</p>
@@ -905,16 +979,19 @@ body{padding-top:var(--navbar-h); padding-bottom:var(--hud-h);}
         </svg>
       </div>
       <div class="project-info">
-        <span class="status">Sedang Berjalan</span>
+        <span class="status">Selesai</span>
         <h3>Billing Salam / UKOOMED</h3>
         <div class="role">Kolaborasi Tim · Pembagian Tugas Merata</div>
         <p class="pdesc">Sistem manajemen billing pelanggan internet berbasis PHP & MySQL, dikembangkan bersama tim. Sistem ini diserahkan ke Kelurahan Salam, mendukung multi-region (Pengkok, Baran, Gunung Manuk, Ngasem Ayu, Waduk).</p>
-        <ul class="project-feats">
-          <li>Digunakan langsung oleh Kelurahan Salam untuk mendukung layanan publik berbasis digital</li>
-          <li>Dashboard superadmin dengan peta SVG data-driven, ranking area layanan berdasarkan tunggakan</li>
-          <li>Donut chart custom dibangun dengan Canvas 2D API</li>
-          <li>Sistem role Admin vs Superadmin, dan cetak struk via thermal printer (BP-ECO58)</li>
-        </ul>
+        <details class="feat-accordion">
+          <summary>Lihat Fitur Utama</summary>
+          <ul class="project-feats">
+            <li>Digunakan langsung oleh Kelurahan Salam untuk mendukung layanan publik berbasis digital</li>
+            <li>Dashboard superadmin dengan peta SVG data-driven, ranking area layanan berdasarkan tunggakan</li>
+            <li>Donut chart custom dibangun dengan Canvas 2D API</li>
+            <li>Sistem role Admin vs Superadmin, dan cetak struk via thermal printer (BP-ECO58)</li>
+          </ul>
+        </details>
         <div class="project-links">
           <span style="font-family:var(--font-body); font-size:1.05rem; color:var(--text-dim);">PHP · MySQL · JavaScript · Canvas API</span>
         </div>
@@ -942,43 +1019,20 @@ body{padding-top:var(--navbar-h); padding-bottom:var(--hud-h);}
         <h3>T-DJI Drink — Cashier Dashboard</h3>
         <div class="role">Laravel POS untuk penjualan minuman teh</div>
         <p class="pdesc">Dashboard kasir (POS) berbasis Laravel untuk mengelola penjualan minuman Teh Tong-Dji, lengkap dengan CRUD produk, pelacakan pendapatan, dan antrean pesanan harian.</p>
-        <ul class="project-feats">
-          <li>CRUD produk penuh untuk manajemen menu</li>
-          <li>Pelacakan pendapatan & laporan penjualan harian</li>
-          <li>Manajemen antrean pesanan</li>
-        </ul>
+        <details class="feat-accordion">
+          <summary>Lihat Fitur Utama</summary>
+          <ul class="project-feats">
+            <li>CRUD produk penuh untuk manajemen menu</li>
+            <li>Pelacakan pendapatan & laporan penjualan harian</li>
+            <li>Manajemen antrean pesanan</li>
+          </ul>
+        </details>
         <div class="project-links">
           <span style="font-family:var(--font-body); font-size:1.05rem; color:var(--text-dim);">Laravel · PHP · MySQL · CRUD</span>
           <a href="https://github.com/dvrahmanda/UAS-T-DJI-DRINK" target="_blank" rel="noopener">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-1.94c-3.2.7-3.87-1.54-3.87-1.54-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.16 1.18a10.9 10.9 0 0 1 5.76 0c2.2-1.49 3.15-1.18 3.15-1.18.63 1.58.24 2.75.12 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.7 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
             GitHub
           </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="project-card pixel-box visible-fade">
-      <div class="project-visual">
-        <svg width="80%" viewBox="0 0 200 140" fill="none">
-          <g stroke="#ffd23f" stroke-width="1" opacity="0.55">
-            <circle cx="40" cy="100" r="18"/><circle cx="90" cy="60" r="26"/><circle cx="150" cy="90" r="20"/>
-          </g>
-          <g fill="#2ee66b"><circle cx="40" cy="100" r="3"/><circle cx="90" cy="60" r="3"/><circle cx="150" cy="90" r="3"/><circle cx="65" cy="40" r="3"/><circle cx="170" cy="45" r="3"/></g>
-          <g stroke="#2ee66b" stroke-width="0.8" opacity="0.4"><line x1="40" y1="100" x2="90" y2="60"/><line x1="90" y1="60" x2="150" y2="90"/><line x1="90" y1="60" x2="65" y2="40"/><line x1="150" y1="90" x2="170" y2="45"/></g>
-        </svg>
-      </div>
-      <div class="project-info">
-        <span class="status">Selesai</span>
-        <h3>Dashboard Clustering Data Sampah Jawa Timur</h3>
-        <div class="role">Tugas Akhir Kuliah · Dashboard & Deployment</div>
-        <p class="pdesc">Dashboard interaktif single-page untuk analisis clustering K-Means terhadap data pengelolaan sampah di 37 kabupaten/kota di Jawa Timur (2023–2025).</p>
-        <ul class="project-feats">
-          <li>Engine K-Means++ ditulis ulang di JavaScript untuk versi web statis</li>
-          <li>Silhouette score dihitung untuk menentukan jumlah cluster optimal (K=3, skor 0.4829)</li>
-          <li>Deployment via Flask di PythonAnywhere</li>
-        </ul>
-        <div class="project-links">
-          <span style="font-family:var(--font-body); font-size:1.05rem; color:var(--text-dim);">Python · K-Means · Chart.js · Flask</span>
         </div>
       </div>
     </div>
@@ -1030,12 +1084,15 @@ body{padding-top:var(--navbar-h); padding-bottom:var(--hud-h);}
         <h3>AgenLog — Sistem Transaksi & Penjadwalan Logistik</h3>
         <div class="role">Laravel · Role-based Access (Admin, Operator, Kurir)</div>
         <p class="pdesc">Aplikasi Laravel untuk agen logistik yang mengelola transaksi pengiriman, data pengirim/penerima, penjadwalan kurir otomatis, pelacakan status paket, dan laporan operasional.</p>
-        <ul class="project-feats">
-          <li>Penjadwalan kurir otomatis pakai algoritma Greedy First-Fit, cegah bentrok jadwal di slot yang sama</li>
-          <li>Nomor resi otomatis + pelacakan status paket publik</li>
-          <li>Perhitungan biaya kirim berdasarkan berat paket & jenis layanan</li>
-          <li>Laporan transaksi, rasio paket terkirim, dan ekspor CSV</li>
-        </ul>
+        <details class="feat-accordion">
+          <summary>Lihat Fitur Utama</summary>
+          <ul class="project-feats">
+            <li>Penjadwalan kurir otomatis pakai algoritma Greedy First-Fit, cegah bentrok jadwal di slot yang sama</li>
+            <li>Nomor resi otomatis + pelacakan status paket publik</li>
+            <li>Perhitungan biaya kirim berdasarkan berat paket & jenis layanan</li>
+            <li>Laporan transaksi, rasio paket terkirim, dan ekspor CSV</li>
+          </ul>
+        </details>
         <div class="project-links">
           <span style="font-family:var(--font-body); font-size:1.05rem; color:var(--text-dim);">Laravel · PHP · MySQL · Greedy Algorithm</span>
           <a href="https://github.com/dvrahmanda/WebsiteAgenLogistik" target="_blank" rel="noopener">
@@ -1073,39 +1130,48 @@ body{padding-top:var(--navbar-h); padding-bottom:var(--hud-h);}
         <div class="hero-shoe hero-shoe-r"></div>
       </div>
       <div class="tl-item visible-fade">
-        <div class="tl-date">Jun 2026 — Sekarang</div>
-        <h4>Web Developer Intern</h4>
-        <div class="org">Life Media, PT Sarana Insan Muda Selaras</div>
-        <details>
-          <summary>Tampilkan tanggung jawab</summary>
-          <ul>
-            <li>Web engineering untuk sistem billing Billing Salam / UKOOMED (full-stack, dokumentasi, desain sistem)</li>
-            <li>Audit kode & perbaikan bug pada modul pembayaran dan dashboard superadmin</li>
-            <li>Menulis Manual Book / panduan pengguna, termasuk setup thermal printer</li>
-          </ul>
+        <details class="tl-accordion">
+          <summary class="tl-summary">
+            <span class="tl-summary-title">Web Developer Intern</span>
+            <span class="tl-summary-date">Jun 2026 — Sekarang</span>
+          </summary>
+          <div class="tl-body">
+            <div class="org">Life Media, PT Sarana Insan Muda Selaras</div>
+            <ul>
+              <li>Web engineering untuk sistem billing Billing Salam / UKOOMED (full-stack, dokumentasi, desain sistem)</li>
+              <li>Audit kode & perbaikan bug pada modul pembayaran dan dashboard superadmin</li>
+              <li>Menulis Manual Book / panduan pengguna, termasuk setup thermal printer</li>
+            </ul>
+          </div>
         </details>
       </div>
       <div class="tl-item visible-fade">
-        <div class="tl-date">Mei 2025 — Sekarang</div>
-        <h4>Bendahara Umum</h4>
-        <div class="org">UKM English Club, Polinema Kota Kediri</div>
-        <details>
-          <summary>Tampilkan tanggung jawab</summary>
-          <ul>
-            <li>Bendahara Umum 1 (Mar 2026–sekarang) & Bendahara Umum 2 (Mei 2025–Mar 2026): mengelola administrasi dan pencatatan keuangan organisasi</li>
-            <li>Berkoordinasi dengan pengurus dalam pelaksanaan program kerja organisasi</li>
-          </ul>
+        <details class="tl-accordion">
+          <summary class="tl-summary">
+            <span class="tl-summary-title">Bendahara Umum</span>
+            <span class="tl-summary-date">Mei 2025 — Sekarang</span>
+          </summary>
+          <div class="tl-body">
+            <div class="org">UKM English Club, Polinema Kota Kediri</div>
+            <ul>
+              <li>Bendahara Umum 1 (Mar 2026–sekarang) & Bendahara Umum 2 (Mei 2025–Mar 2026): mengelola administrasi dan pencatatan keuangan organisasi</li>
+              <li>Berkoordinasi dengan pengurus dalam pelaksanaan program kerja organisasi</li>
+            </ul>
+          </div>
         </details>
       </div>
       <div class="tl-item visible-fade">
-        <div class="tl-date">Nov 2025 — Sekarang</div>
-        <h4>Anggota — Advocation Department</h4>
-        <div class="org">UKM English Club, Polinema Kota Kediri</div>
-        <details>
-          <summary>Tampilkan tanggung jawab</summary>
-          <ul>
-            <li>Mengelola inventaris dan data anggota organisasi</li>
-          </ul>
+        <details class="tl-accordion">
+          <summary class="tl-summary">
+            <span class="tl-summary-title">Anggota — Advocation Department</span>
+            <span class="tl-summary-date">Nov 2025 — Sekarang</span>
+          </summary>
+          <div class="tl-body">
+            <div class="org">UKM English Club, Polinema Kota Kediri</div>
+            <ul>
+              <li>Mengelola inventaris dan data anggota organisasi</li>
+            </ul>
+          </div>
         </details>
       </div>
     </div>
@@ -1217,6 +1283,22 @@ body{padding-top:var(--navbar-h); padding-bottom:var(--hud-h);}
 </div>
 
 <script>
+// ID card on a lanyard: big pull-swing on load, settles into gentle idle sway
+(function(){
+  const swing = document.getElementById('idCardSwing');
+  if(!swing) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion) return;
+  swing.classList.add('swing-in');
+  swing.addEventListener('animationend', function handler(e){
+    if(e.animationName === 'idcard-swing-in'){
+      swing.classList.remove('swing-in');
+      swing.classList.add('swing-idle');
+      swing.removeEventListener('animationend', handler);
+    }
+  });
+})();
+
 // Navbar scroll state (kept for potential future use)
 const navbar = document.getElementById('navbar');
 const backTop = document.getElementById('backTop');
