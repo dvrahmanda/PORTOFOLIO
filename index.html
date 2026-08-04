@@ -800,7 +800,11 @@ section,.hero{z-index:2;}
 .idcard-back .idcard-label{color:var(--purple);}
 .idcard-label::after{content:'●';color:var(--green);font-size:.44rem;text-shadow:0 0 7px var(--green);}
 .idcard-photo{width:100%;height:218px;object-fit:cover;object-position:center;image-rendering:auto;border:3px solid var(--border);background:#080514;}
-.idcard-back .idcard-photo{object-position:center 9%;}
+.idcard-back .idcard-photo{
+  object-fit:cover;
+  object-position:center 48%;
+  background:#080514;
+}
 .idcard-hint{font-family:var(--font-pixel);font-size:.39rem;color:var(--text-dim);padding-top:8px;text-align:center;letter-spacing:.02em;}
 .idcard-flip:hover .idcard-hint{color:var(--white);}
 @media (max-width:760px){
@@ -810,6 +814,61 @@ section,.hero{z-index:2;}
   .lanyard-strap{height:62px;margin:-50px auto 0;}
 }
 @media (hover:none),(pointer:coarse){.cursor-aura{display:none;}}
+
+/* ===== LANGUAGE, THEME & PORTFOLIO ASSISTANT ===== */
+.nav-controls{display:flex;align-items:center;gap:7px;flex-shrink:0;}
+.hud-control{
+  height:36px;min-width:42px;padding:0 10px;border:2px solid var(--border);border-radius:3px;
+  background:var(--bg-panel);color:var(--text);font-family:var(--font-pixel);font-size:.48rem;
+  box-shadow:inset -2px -2px 0 rgba(0,0,0,.25),inset 2px 2px 0 rgba(255,255,255,.06);
+  transition:transform .15s,border-color .15s,color .15s;
+}
+.hud-control:hover,.hud-control:focus-visible{border-color:var(--yellow);color:var(--yellow);transform:translateY(-2px);outline:none;}
+body[data-theme="light"]{
+  --bg-night:#fff8d8;--bg-panel:#fffef5;--bg-panel-2:#f4edc7;--border:#7668a9;--border-soft:#c9bee8;
+  --text:#2c2548;--text-dim:#665d82;--white:#17122c;--muted:var(--text);--muted-2:var(--text-dim);
+  background:#fff8d8;color:var(--text);
+}
+body[data-theme="light"] .navbar,body[data-theme="light"] .statusbar{background:#fff3b6;border-color:#7668a9;}
+body[data-theme="light"] .mobile-menu{background:rgba(255,248,216,.98);}
+body[data-theme="light"] .project-visual,body[data-theme="light"] .term-card{background:#f4edc7;}
+body[data-theme="light"] .ambient-lights{opacity:.38;}
+body[data-theme="light"] #hero-canvas{opacity:.35;filter:saturate(.85);}
+body[data-theme="light"] .pixel-box{box-shadow:inset -3px -3px 0 rgba(71,55,118,.14),inset 3px 3px 0 rgba(255,255,255,.75);}
+body[data-theme="light"] .nav-logo,body[data-theme="light"] h1,body[data-theme="light"] h2,body[data-theme="light"] h3,body[data-theme="light"] h4{color:#17122c;}
+
+.chat-launch{
+  position:fixed;right:22px;bottom:calc(var(--hud-h) + 18px);z-index:265;width:58px;height:58px;
+  border:3px solid var(--yellow);border-radius:5px;background:var(--bg-panel);color:var(--yellow);
+  box-shadow:0 0 22px rgba(255,210,63,.35),inset -3px -3px 0 rgba(0,0,0,.3);font-size:1.35rem;
+  display:flex;align-items:center;justify-content:center;transition:transform .18s,box-shadow .18s;
+}
+.chat-launch:hover{transform:translateY(-5px) rotate(-3deg);box-shadow:0 0 30px rgba(255,210,63,.55);}
+.chat-launch .chat-ping{position:absolute;right:-5px;top:-5px;width:12px;height:12px;background:var(--green);border:2px solid var(--bg-night);animation:pulse-dot 1.3s steps(2) infinite;}
+.chat-panel{
+  position:fixed;right:22px;bottom:calc(var(--hud-h) + 88px);z-index:264;width:min(380px,calc(100vw - 28px));
+  height:min(530px,calc(100vh - 145px));display:flex;flex-direction:column;background:var(--bg-panel);
+  border:3px solid var(--yellow);border-radius:5px;box-shadow:0 18px 55px rgba(0,0,0,.55),0 0 26px rgba(255,210,63,.18);
+  opacity:0;pointer-events:none;transform:translateY(20px) scale(.96);transform-origin:bottom right;
+  transition:opacity .22s,transform .22s;
+}
+.chat-panel.open{opacity:1;pointer-events:auto;transform:translateY(0) scale(1);}
+.chat-head{display:flex;align-items:center;gap:10px;padding:13px 14px;border-bottom:3px solid var(--border);background:var(--bg-panel-2);}
+.chat-avatar{width:38px;height:38px;display:grid;place-items:center;background:var(--yellow);color:#2a1d00;border:2px solid #000;font-size:1.15rem;}
+.chat-title{flex:1;min-width:0;}.chat-title strong{display:block;font-family:var(--font-pixel);font-size:.58rem;color:var(--white);}.chat-title small{display:block;color:var(--green);font-size:.9rem;}
+.chat-close{width:32px;height:32px;border:2px solid var(--border);background:transparent;color:var(--text);font-family:var(--font-pixel);}
+.chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;}
+.chat-message{max-width:88%;padding:10px 12px;border:2px solid var(--border);font-size:1rem;line-height:1.35;white-space:pre-line;}
+.chat-message.bot{align-self:flex-start;background:var(--bg-panel-2);border-left-color:var(--yellow);}
+.chat-message.user{align-self:flex-end;background:rgba(41,182,246,.13);border-color:var(--blue);}
+.chat-quick{display:flex;gap:7px;overflow-x:auto;padding:0 13px 10px;scrollbar-width:none;}.chat-quick::-webkit-scrollbar{display:none;}
+.chat-chip{flex:0 0 auto;border:2px solid var(--border);background:transparent;color:var(--purple);padding:7px 9px;font-family:var(--font-pixel);font-size:.4rem;border-radius:14px;}
+.chat-chip:hover{border-color:var(--purple);background:rgba(183,107,255,.1);}
+.chat-form{display:grid;grid-template-columns:1fr auto;gap:8px;padding:11px;border-top:3px solid var(--border);}
+.chat-input{min-width:0;border:2px solid var(--border);background:var(--bg-night);color:var(--text);padding:10px 11px;font-family:var(--font-body);font-size:1rem;outline:none;}
+.chat-input:focus{border-color:var(--yellow);}.chat-send{width:43px;border:2px solid #000;background:var(--yellow);color:#241900;font-family:var(--font-pixel);font-size:.7rem;}
+@media(max-width:900px){.nav-inner{gap:8px}.nav-controls{margin-left:auto}.hud-control{height:34px;min-width:38px;padding:0 8px}.nav-toggle{margin-left:0}}
+@media(max-width:520px){.nav-logo{font-size:.54rem}.chat-panel{right:14px;bottom:calc(var(--hud-h) + 78px);height:min(520px,calc(100vh - 130px))}.chat-launch{right:14px;width:52px;height:52px}.hud-control{font-size:.42rem;}}
 </style>
 </head>
 <body>
@@ -835,6 +894,10 @@ section,.hero{z-index:2;}
       <li><a href="#certificates">Certs</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <div class="nav-controls" aria-label="Pengaturan tampilan">
+      <button class="hud-control" id="languageToggle" type="button" aria-label="Ubah bahasa ke Inggris">EN</button>
+      <button class="hud-control" id="themeToggle" type="button" aria-label="Aktifkan mode terang">☀</button>
+    </div>
     <a href="assets/CV-Devie-Rahmanda-Patricia-Maharani.pdf" download class="nav-cta">⬇ CV</a>
     <button class="nav-toggle" id="navToggle" aria-label="Buka menu"><span></span><span></span><span></span></button>
   </div>
@@ -871,7 +934,7 @@ section,.hero{z-index:2;}
                 </span>
                 <span class="idcard-face idcard-back">
                   <span class="idcard-label">ALT POSE</span>
-                  <img src="assets/idcard-back.png" alt="Ilustrasi pixel Devie bergaya miring" class="idcard-photo">
+                  <img src="assets/idcard-back-v2.png" alt="Ilustrasi pixel Devie bergaya miring dengan seluruh badan terlihat" class="idcard-photo">
                   <span class="idcard-hint">KLIK UNTUK BALIK ↺</span>
                 </span>
               </span>
@@ -1016,8 +1079,8 @@ section,.hero{z-index:2;}
         <div class="about-photo-badge">✨ Otomatis bergerak sendiri</div>
       </div>
       <div class="about-text visible-fade">
-        <p>Hai! Saya <strong>Devie Rahmanda Patricia Maharani</strong>, mahasiswa Informatics Management di Politeknik Negeri Malang (PSDKU Kediri) dengan fokus di <strong>Web Development</strong> dan <strong>UI/UX Design</strong> — dari merancang wireframe di Figma sampai membangunnya jadi sistem nyata pakai PHP, Laravel, dan MySQL.</p>
-        <p>Saat ini saya magang sebagai <strong>Web Developer Intern</strong> di Life Media (PT Sarana Insan Muda Selaras), mengembangkan <strong>Billing Salam / UKOOMED</strong> — sistem billing pelanggan internet multi-region, dari full-stack development sampai dokumentasi. Saya selalu antusias belajar hal baru dan senang berkolaborasi dalam proyek yang bermakna.</p>
+        <p id="aboutIntro">Hai! Saya <strong>Devie Rahmanda Patricia Maharani</strong>, mahasiswa Informatics Management di Politeknik Negeri Malang (PSDKU Kediri) dengan fokus di <strong>Web Development</strong> dan <strong>UI/UX Design</strong> — dari merancang wireframe di Figma sampai membangunnya jadi sistem nyata pakai PHP, Laravel, dan MySQL.</p>
+        <p id="aboutExperience">Saat ini saya magang sebagai <strong>Web Developer Intern</strong> di Life Media (PT Sarana Insan Muda Selaras), mengembangkan <strong>Billing Salam / UKOOMED</strong> — sistem billing pelanggan internet multi-region, dari full-stack development sampai dokumentasi. Saya selalu antusias belajar hal baru dan senang berkolaborasi dalam proyek yang bermakna.</p>
         <div class="stat-grid">
           <div class="stat-box pixel-box"><div class="num">3.60+</div><div class="lbl">GPA / 4.00</div></div>
           <div class="stat-box pixel-box"><div class="num">4+</div><div class="lbl">PROJECTS</div></div>
@@ -1358,7 +1421,7 @@ section,.hero{z-index:2;}
 <section id="contact">
   <div class="wrap contact-wrap">
     <div class="eyebrow visible-fade" style="justify-content:center;">Kontak</div>
-    <h2 class="visible-fade">Mari <span class="glow-text">berkolaborasi</span></h2>
+    <h2 class="visible-fade" id="contactTitle">Mari <span class="glow-text">berkolaborasi</span></h2>
     <p class="visible-fade">Terbuka untuk peluang magang, kolaborasi proyek, atau sekadar diskusi soal web development dan UI/UX design. Berbasis di Blitar, Jawa Timur. Siap kerja remote maupun on-site.</p>
     <div class="contact-links visible-fade">
       <a class="clink pixel-box" href="mailto:devierahmandapm@gmail.com">✉ devierahmandapm@gmail.com</a>
@@ -1377,6 +1440,24 @@ section,.hero{z-index:2;}
 <div class="cert-lightbox" id="certLightbox">
   <button class="cert-lightbox-close" id="certLightboxClose" aria-label="Tutup">✕</button>
   <img src="" alt="" id="certLightboxImg">
+</div>
+
+<!-- PORTFOLIO ASSISTANT -->
+<button class="chat-launch" id="chatLaunch" type="button" aria-label="Buka asisten portfolio" aria-expanded="false">
+  <span aria-hidden="true">💬</span><span class="chat-ping" aria-hidden="true"></span>
+</button>
+<div class="chat-panel" id="chatPanel" role="dialog" aria-label="Devie Portfolio Assistant" aria-hidden="true">
+  <div class="chat-head">
+    <div class="chat-avatar" aria-hidden="true">D</div>
+    <div class="chat-title"><strong>DEVIE GUIDE</strong><small id="chatStatus">● Online · siap membantu</small></div>
+    <button class="chat-close" id="chatClose" type="button" aria-label="Tutup chatbot">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages" aria-live="polite"></div>
+  <div class="chat-quick" id="chatQuick"></div>
+  <form class="chat-form" id="chatForm">
+    <input class="chat-input" id="chatInput" type="text" autocomplete="off" maxlength="220" placeholder="Tanya tentang Devie..." aria-label="Pertanyaan untuk asisten portfolio">
+    <button class="chat-send" type="submit" aria-label="Kirim pertanyaan">➤</button>
+  </form>
 </div>
 
 <button class="back-top" id="backTop" aria-label="Kembali ke atas">▲</button>
@@ -1435,12 +1516,21 @@ const spyObserver = new IntersectionObserver((entries) => {
 spySections.forEach(sec => spyObserver.observe(sec));
 
 // Typing effect
-const phrases = [
-  "Web Developer — PHP, Laravel & MySQL",
-  "UI/UX Designer — Figma",
-  "Informatics Management Student",
-  "Building interfaces people enjoy using"
-];
+const phraseSets = {
+  id: [
+    "Web Developer — PHP, Laravel & MySQL",
+    "UI/UX Designer — Figma",
+    "Mahasiswa Manajemen Informatika",
+    "Membangun antarmuka yang nyaman digunakan"
+  ],
+  en: [
+    "Web Developer — PHP, Laravel & MySQL",
+    "UI/UX Designer — Figma",
+    "Informatics Management Student",
+    "Building interfaces people enjoy using"
+  ]
+};
+let phrases = phraseSets.id;
 const typedEl = document.getElementById('typed');
 let pIdx = 0, cIdx = 0, deleting = false;
 function typeLoop(){
@@ -1545,12 +1635,13 @@ window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
           other.classList.remove('expanded');
           other.setAttribute('aria-expanded', 'false');
           const otherButton = other.querySelector('.project-detail-toggle');
-          if(otherButton) otherButton.textContent = 'LIHAT DETAIL';
+          if(otherButton) otherButton.textContent = document.documentElement.lang === 'en' ? 'VIEW DETAILS' : 'LIHAT DETAIL';
         }
       });
       card.classList.toggle('expanded', next);
       card.setAttribute('aria-expanded', String(next));
-      toggle.textContent = next ? 'TUTUP DETAIL' : 'LIHAT DETAIL';
+      const english = document.documentElement.lang === 'en';
+      toggle.textContent = next ? (english ? 'CLOSE DETAILS' : 'TUTUP DETAIL') : (english ? 'VIEW DETAILS' : 'LIHAT DETAIL');
     }
     function toggleDetails(){ setExpanded(!card.classList.contains('expanded')); }
 
@@ -1673,7 +1764,7 @@ updateCoins();
 
   function addScore(amount, x, y){
     score += amount;
-    scoreEl.textContent = '🪙 SKOR: ' + score;
+    scoreEl.textContent = (document.documentElement.lang === 'en' ? '🪙 SCORE: ' : '🪙 SKOR: ') + score;
     const pop = document.createElement('div');
     pop.className = 'score-pop';
     pop.textContent = '+' + amount;
@@ -1846,6 +1937,184 @@ updateCoins();
       running = false;
     }
   }
+})();
+
+// ===== LANGUAGE + THEME + DEVIE PORTFOLIO ASSISTANT =====
+(function(){
+  let currentLanguage = localStorage.getItem('devie-language') || 'id';
+  const languageToggle = document.getElementById('languageToggle');
+  const themeToggle = document.getElementById('themeToggle');
+  const originalText = new WeakMap();
+  const translations = {
+    'Home':{id:'Beranda',en:'Home'},'About':{id:'Tentang',en:'About'},'Skills':{id:'Keahlian',en:'Skills'},
+    'Projects':{id:'Proyek',en:'Projects'},'Experience':{id:'Pengalaman',en:'Experience'},'Education':{id:'Pendidikan',en:'Education'},
+    'Certs':{id:'Sertifikat',en:'Certificates'},'Certificates':{id:'Sertifikat',en:'Certificates'},'Contact':{id:'Kontak',en:'Contact'},
+    'KLIK UNTUK FLIP ↻':{id:'KLIK UNTUK FLIP ↻',en:'CLICK TO FLIP ↻'},'KLIK UNTUK BALIK ↺':{id:'KLIK UNTUK BALIK ↺',en:'CLICK TO RETURN ↺'},
+    '📍 Blitar, Jawa Timur':{id:'📍 Blitar, Jawa Timur',en:'📍 Blitar, East Java'},
+    '🟢 Open to Collaborate':{id:'🟢 Terbuka untuk Kolaborasi',en:'🟢 Open to Collaborate'},
+    'Mahasiswa Informatics Management di Politeknik Negeri Malang (PSDKU Kediri), membangun aplikasi web dengan PHP, Laravel & MySQL dan merancang antarmukanya dari sisi UI/UX agar sistem yang dibangun benar-benar nyaman dipakai orang.':{id:'Mahasiswa Informatics Management di Politeknik Negeri Malang (PSDKU Kediri), membangun aplikasi web dengan PHP, Laravel & MySQL dan merancang antarmukanya dari sisi UI/UX agar sistem yang dibangun benar-benar nyaman dipakai orang.',en:'An Informatics Management student at State Polytechnic of Malang (PSDKU Kediri), building web applications with PHP, Laravel & MySQL and designing user-friendly interfaces through UI/UX.'},
+    'Lihat Portfolio →':{id:'Lihat Portfolio →',en:'View Portfolio →'},'Hubungi Saya':{id:'Hubungi Saya',en:'Contact Me'},
+    'Sistem yang dibangun':{id:'Sistem yang dibangun',en:'Systems I have built'},'Magang & organisasi':{id:'Magang & organisasi',en:'Internship & organization'},
+    'Yuk kolaborasi':{id:'Yuk kolaborasi',en:"Let's collaborate"},'Mainkan karakternya':{id:'Mainkan karakternya',en:'Play the character'},
+    'Bonus Stage':{id:'Bonus Stage',en:'Bonus Stage'},'Coba':{id:'Coba',en:'Try to'},'jalankan':{id:'jalankan',en:'move'},'karaktermu':{id:'karaktermu',en:'your character'},
+    'Klik area di bawah lalu gerakkan dengan tombol panah / A D, lompat dengan Spasi atau tombol LOMPAT, dan kumpulkan koinnya.':{id:'Klik area di bawah lalu gerakkan dengan tombol panah / A D, lompat dengan Spasi atau tombol LOMPAT, dan kumpulkan koinnya.',en:'Click the area below, move with the arrow keys / A D, jump with Space or the JUMP button, and collect the coins.'},
+    '🪙 SKOR: 0':{id:'🪙 SKOR: 0',en:'🪙 SCORE: 0'},'▶ Klik di sini untuk mulai':{id:'▶ Klik di sini untuk mulai',en:'▶ Click here to start'},'⤒ LOMPAT':{id:'⤒ LOMPAT',en:'⤒ JUMP'},
+    'Tentang':{id:'Tentang',en:'About'},'Dari wireframe ke kode, satu sistem sekaligus':{id:'Dari wireframe ke kode, satu sistem sekaligus',en:'From wireframes to code, one system at a time'},
+    '✨ Otomatis bergerak sendiri':{id:'✨ Otomatis bergerak sendiri',en:'✨ Moves automatically'},
+    'Hai! Saya Devie Rahmanda Patricia Maharani, mahasiswa Informatics Management di Politeknik Negeri Malang (PSDKU Kediri) dengan fokus di Web Development dan UI/UX Design — dari merancang wireframe di Figma sampai membangunnya jadi sistem nyata pakai PHP, Laravel, dan MySQL.':{id:'Hai! Saya Devie Rahmanda Patricia Maharani, mahasiswa Informatics Management di Politeknik Negeri Malang (PSDKU Kediri) dengan fokus di Web Development dan UI/UX Design — dari merancang wireframe di Figma sampai membangunnya jadi sistem nyata pakai PHP, Laravel, dan MySQL.',en:'Hi! I am Devie Rahmanda Patricia Maharani, an Informatics Management student at State Polytechnic of Malang (PSDKU Kediri), focused on Web Development and UI/UX Design—from designing wireframes in Figma to building real systems with PHP, Laravel, and MySQL.'},
+    'Saat ini saya magang sebagai Web Developer Intern di Life Media (PT Sarana Insan Muda Selaras), mengembangkan Billing Salam / UKOOMED — sistem billing pelanggan internet multi-region, dari full-stack development sampai dokumentasi. Saya selalu antusias belajar hal baru dan senang berkolaborasi dalam proyek yang bermakna.':{id:'Saat ini saya magang sebagai Web Developer Intern di Life Media (PT Sarana Insan Muda Selaras), mengembangkan Billing Salam / UKOOMED — sistem billing pelanggan internet multi-region, dari full-stack development sampai dokumentasi. Saya selalu antusias belajar hal baru dan senang berkolaborasi dalam proyek yang bermakna.',en:'I am currently a Web Developer Intern at Life Media (PT Sarana Insan Muda Selaras), developing Billing Salam / UKOOMED—a multi-region internet customer billing system—from full-stack development to documentation. I am always eager to learn and collaborate on meaningful projects.'},
+    'Kemampuan':{id:'Kemampuan',en:'Expertise'},'Fokus utama saya di web development dan UI/UX design dari merancang tampilan di Figma sampai membangunnya jadi sistem yang jalan.':{id:'Fokus utama saya di web development dan UI/UX design dari merancang tampilan di Figma sampai membangunnya jadi sistem yang jalan.',en:'My main focus is web development and UI/UX design—from designing interfaces in Figma to building fully working systems.'},
+    'Karya':{id:'Karya',en:'Selected Work'},'Sistem yang saya bangun dari nol dan pengembangan sistem bersama Tim Magang mulai dari billing ISP multi-region, dashboard kasir, hingga aplikasi mobile.':{id:'Sistem yang saya bangun dari nol dan pengembangan sistem bersama Tim Magang mulai dari billing ISP multi-region, dashboard kasir, hingga aplikasi mobile.',en:'Systems I built from scratch and developed with my internship team, ranging from multi-region ISP billing and cashier dashboards to mobile applications.'},
+    'Selesai':{id:'Selesai',en:'Completed'},'Kolaborasi Tim · Pembagian Tugas Merata':{id:'Kolaborasi Tim · Pembagian Tugas Merata',en:'Team Collaboration · Shared Responsibilities'},
+    'Sistem manajemen billing pelanggan internet berbasis PHP & MySQL, dikembangkan bersama tim. Sistem ini diserahkan ke Kelurahan Salam, mendukung multi-region (Pengkok, Baran, Gunung Manuk, Ngasem Ayu, Waduk).':{id:'Sistem manajemen billing pelanggan internet berbasis PHP & MySQL, dikembangkan bersama tim. Sistem ini diserahkan ke Kelurahan Salam, mendukung multi-region (Pengkok, Baran, Gunung Manuk, Ngasem Ayu, Waduk).',en:'An internet customer billing management system built with PHP & MySQL as a team project. Delivered to Salam Village and supporting multiple regions (Pengkok, Baran, Gunung Manuk, Ngasem Ayu, and Waduk).'},
+    'Laravel POS untuk penjualan minuman teh':{id:'Laravel POS untuk penjualan minuman teh',en:'Laravel POS for tea beverage sales'},
+    'Dashboard kasir (POS) berbasis Laravel untuk mengelola penjualan minuman Teh Tong-Dji, lengkap dengan CRUD produk, pelacakan pendapatan, dan antrean pesanan harian.':{id:'Dashboard kasir (POS) berbasis Laravel untuk mengelola penjualan minuman Teh Tong-Dji, lengkap dengan CRUD produk, pelacakan pendapatan, dan antrean pesanan harian.',en:'A Laravel-based cashier dashboard (POS) for managing Tong-Dji tea sales, including product CRUD, revenue tracking, and daily order queues.'},
+    'Aplikasi Mobile Kelola Penjualan Gas & Galon':{id:'Aplikasi Mobile Kelola Penjualan Gas & Galon',en:'Gas & Water Gallon Sales Mobile App'},
+    'Aplikasi mobile untuk mencatat dan mengelola penjualan gas dan galon — dari input transaksi harian hingga rekap penjualan sederhana.':{id:'Aplikasi mobile untuk mencatat dan mengelola penjualan gas dan galon — dari input transaksi harian hingga rekap penjualan sederhana.',en:'A mobile application for recording and managing gas and water gallon sales, from daily transaction input to simple sales summaries.'},
+    'AgenLog — Sistem Transaksi & Penjadwalan Logistik':{id:'AgenLog — Sistem Transaksi & Penjadwalan Logistik',en:'AgenLog — Logistics Transactions & Scheduling System'},
+    'Aplikasi Laravel untuk agen logistik yang mengelola transaksi pengiriman, data pengirim/penerima, penjadwalan kurir otomatis, pelacakan status paket, dan laporan operasional.':{id:'Aplikasi Laravel untuk agen logistik yang mengelola transaksi pengiriman, data pengirim/penerima, penjadwalan kurir otomatis, pelacakan status paket, dan laporan operasional.',en:'A Laravel application for logistics agents that manages shipping transactions, sender/recipient data, automatic courier scheduling, package tracking, and operational reports.'},
+    'Perjalanan':{id:'Perjalanan',en:'Journey'},'Dari ruang kelas ke tim engineering sungguhan, dan organisasi kampus.':{id:'Dari ruang kelas ke tim engineering sungguhan, dan organisasi kampus.',en:'From the classroom to a real engineering team and campus organizations.'},
+    'Jun 2026 — Sekarang':{id:'Jun 2026 — Sekarang',en:'Jun 2026 — Present'},'Mei 2025 — Sekarang':{id:'Mei 2025 — Sekarang',en:'May 2025 — Present'},'Nov 2025 — Sekarang':{id:'Nov 2025 — Sekarang',en:'Nov 2025 — Present'},
+    'Bendahara Umum':{id:'Bendahara Umum',en:'General Treasurer'},'Anggota — Advocation Department':{id:'Anggota — Advocation Department',en:'Member — Advocacy Department'},
+    'Tampilkan tanggung jawab':{id:'Tampilkan tanggung jawab',en:'Show responsibilities'},
+    'Pendidikan':{id:'Pendidikan',en:'Education'},'Sedang berjalan':{id:'Sedang berjalan',en:'Currently enrolled'},'Riwayat Pendidikan Sebelumnya':{id:'Riwayat Pendidikan Sebelumnya',en:'Previous Education'},
+    'Bukti':{id:'Bukti',en:'Credentials'},'Sertifikasi & CV':{id:'Sertifikasi & CV',en:'Certifications & CV'},'Sertifikat resmi saya — tampil langsung di sini, tanpa perlu klik apa pun.':{id:'Sertifikat resmi saya — tampil langsung di sini, tanpa perlu klik apa pun.',en:'My official certificates are displayed directly here—no extra click required.'},
+    'Ringkasan pengalaman, pendidikan & keterampilan lengkap':{id:'Ringkasan pengalaman, pendidikan & keterampilan lengkap',en:'A complete summary of experience, education & skills'},'Lihat ↗':{id:'Lihat ↗',en:'View ↗'},
+    'Kontak':{id:'Kontak',en:'Contact'},'Mari':{id:'Mari',en:"Let's"},'berkolaborasi':{id:'berkolaborasi',en:'collaborate'},
+    'Terbuka untuk peluang magang, kolaborasi proyek, atau sekadar diskusi soal web development dan UI/UX design. Berbasis di Blitar, Jawa Timur. Siap kerja remote maupun on-site.':{id:'Terbuka untuk peluang magang, kolaborasi proyek, atau sekadar diskusi soal web development dan UI/UX design. Berbasis di Blitar, Jawa Timur. Siap kerja remote maupun on-site.',en:'Open to internship opportunities, project collaborations, or conversations about web development and UI/UX design. Based in Blitar, East Java, and available for remote or on-site work.'},
+    'Digunakan langsung oleh Kelurahan Salam untuk mendukung layanan publik berbasis digital':{id:'Digunakan langsung oleh Kelurahan Salam untuk mendukung layanan publik berbasis digital',en:'Used directly by Salam Village to support digital public services'},
+    'Dashboard superadmin dengan peta SVG data-driven, ranking area layanan berdasarkan tunggakan':{id:'Dashboard superadmin dengan peta SVG data-driven, ranking area layanan berdasarkan tunggakan',en:'Superadmin dashboard with a data-driven SVG map and service-area ranking based on overdue bills'},
+    'Donut chart custom dibangun dengan Canvas 2D API':{id:'Donut chart custom dibangun dengan Canvas 2D API',en:'Custom donut chart built with the Canvas 2D API'},
+    'Sistem role Admin vs Superadmin, dan cetak struk via thermal printer (BP-ECO58)':{id:'Sistem role Admin vs Superadmin, dan cetak struk via thermal printer (BP-ECO58)',en:'Admin and Superadmin roles, plus receipt printing through a BP-ECO58 thermal printer'},
+    'CRUD produk penuh untuk manajemen menu':{id:'CRUD produk penuh untuk manajemen menu',en:'Full product CRUD for menu management'},
+    'Pelacakan pendapatan & laporan penjualan harian':{id:'Pelacakan pendapatan & laporan penjualan harian',en:'Revenue tracking and daily sales reports'},
+    'Manajemen antrean pesanan':{id:'Manajemen antrean pesanan',en:'Order queue management'},
+    'Penjadwalan kurir otomatis pakai algoritma Greedy First-Fit, cegah bentrok jadwal di slot yang sama':{id:'Penjadwalan kurir otomatis pakai algoritma Greedy First-Fit, cegah bentrok jadwal di slot yang sama',en:'Automatic courier scheduling using a Greedy First-Fit algorithm to prevent time-slot conflicts'},
+    'Nomor resi otomatis + pelacakan status paket publik':{id:'Nomor resi otomatis + pelacakan status paket publik',en:'Automatic tracking numbers and public package-status tracking'},
+    'Perhitungan biaya kirim berdasarkan berat paket & jenis layanan':{id:'Perhitungan biaya kirim berdasarkan berat paket & jenis layanan',en:'Shipping-cost calculation based on package weight and service type'},
+    'Laporan transaksi, rasio paket terkirim, dan ekspor CSV':{id:'Laporan transaksi, rasio paket terkirim, dan ekspor CSV',en:'Transaction reports, delivery ratio, and CSV export'},
+    'Web engineering untuk sistem billing Billing Salam / UKOOMED (full-stack, dokumentasi, desain sistem)':{id:'Web engineering untuk sistem billing Billing Salam / UKOOMED (full-stack, dokumentasi, desain sistem)',en:'Web engineering for Billing Salam / UKOOMED, including full-stack work, documentation, and system design'},
+    'Audit kode & perbaikan bug pada modul pembayaran dan dashboard superadmin':{id:'Audit kode & perbaikan bug pada modul pembayaran dan dashboard superadmin',en:'Code audits and bug fixes for the payment module and superadmin dashboard'},
+    'Menulis Manual Book / panduan pengguna, termasuk setup thermal printer':{id:'Menulis Manual Book / panduan pengguna, termasuk setup thermal printer',en:'Writing the user manual, including thermal-printer setup'},
+    'Bendahara Umum 1 (Mar 2026–sekarang) & Bendahara Umum 2 (Mei 2025–Mar 2026): mengelola administrasi dan pencatatan keuangan organisasi':{id:'Bendahara Umum 1 (Mar 2026–sekarang) & Bendahara Umum 2 (Mei 2025–Mar 2026): mengelola administrasi dan pencatatan keuangan organisasi',en:'General Treasurer 1 (Mar 2026–present) and General Treasurer 2 (May 2025–Mar 2026): managed organizational administration and financial records'},
+    'Berkoordinasi dengan pengurus dalam pelaksanaan program kerja organisasi':{id:'Berkoordinasi dengan pengurus dalam pelaksanaan program kerja organisasi',en:'Coordinated with the committee to deliver organizational programs'},
+    'Mengelola inventaris dan data anggota organisasi':{id:'Mengelola inventaris dan data anggota organisasi',en:'Managed organizational inventory and member data'},
+    'Cisco Networking Academy × Python Institute · 29 Agu 2025':{id:'Cisco Networking Academy × Python Institute · 29 Agu 2025',en:'Cisco Networking Academy × Python Institute · 29 Aug 2025'},
+    'Cisco Networking Academy · 13 Mei 2025':{id:'Cisco Networking Academy · 13 Mei 2025',en:'Cisco Networking Academy · 13 May 2025'},
+    'LIHAT DETAIL':{id:'LIHAT DETAIL',en:'VIEW DETAILS'},'TUTUP DETAIL':{id:'TUTUP DETAIL',en:'CLOSE DETAILS'}
+  };
+
+  function translateTextNodes(lang){
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while(walker.nextNode()){
+      const node = walker.currentNode;
+      if(node.parentElement && !node.parentElement.closest('script,style,svg')) nodes.push(node);
+    }
+    nodes.forEach(node => {
+      if(!originalText.has(node)) originalText.set(node,node.nodeValue);
+      const original = originalText.get(node);
+      const trimmed = original.trim();
+      const pair = translations[trimmed];
+      if(!pair) return;
+      const leading = original.match(/^\s*/)[0];
+      const trailing = original.match(/\s*$/)[0];
+      node.nodeValue = leading + pair[lang] + trailing;
+    });
+  }
+
+  function setTheme(theme){
+    document.body.dataset.theme = theme;
+    localStorage.setItem('devie-theme',theme);
+    const light = theme === 'light';
+    themeToggle.textContent = light ? '☾' : '☀';
+    themeToggle.setAttribute('aria-label',light ? (currentLanguage==='en'?'Enable dark mode':'Aktifkan mode gelap') : (currentLanguage==='en'?'Enable light mode':'Aktifkan mode terang'));
+  }
+  const savedTheme = localStorage.getItem('devie-theme');
+  setTheme(savedTheme || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
+  themeToggle.addEventListener('click',()=>setTheme(document.body.dataset.theme==='light'?'dark':'light'));
+
+  const chatLaunch = document.getElementById('chatLaunch');
+  const chatPanel = document.getElementById('chatPanel');
+  const chatClose = document.getElementById('chatClose');
+  const chatMessages = document.getElementById('chatMessages');
+  const chatQuick = document.getElementById('chatQuick');
+  const chatForm = document.getElementById('chatForm');
+  const chatInput = document.getElementById('chatInput');
+  const chatStatus = document.getElementById('chatStatus');
+
+  const chatCopy = {
+    id:{greeting:'Haii! Aku Devie Guide 👋 Mau kepoin Devie? Tanya aja soal profil, kuliah, skill, project, pengalaman, sertifikat, atau kontaknya. Aku bantu spill yang ada di portofolio ini ya!',placeholder:'Mau tanya apa tentang Devie?',status:'● Online · siap ngobrol',quick:['Kenalan sama Devie','Spill project-nya','Pengalaman magang','Devie jago apa?'],fallback:'Waduh, info itu belum ada di portofolio Devie nih 😅 Coba tanya soal profil, kuliah, skill, project, pengalaman, sertifikat, CV, atau kontaknya ya.'},
+    en:{greeting:"Hey! I'm Devie Guide 👋 Curious about Devie? Ask me about her profile, studies, skills, projects, experience, certificates, or contact info. I'll share what's available here!",placeholder:'Ask me anything about Devie...',status:'● Online · ready to chat',quick:['Meet Devie','Spill her projects','Internship story',"What's Devie good at?"],fallback:"Oops, that info isn't in Devie's portfolio yet 😅 Try asking about her profile, studies, skills, projects, experience, certificates, CV, or contact info."}
+  };
+  function addMessage(text,type){
+    const message = document.createElement('div');
+    message.className = 'chat-message ' + type;
+    message.textContent = text;
+    chatMessages.appendChild(message);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+  function includesAny(text,words){return words.some(word=>text.includes(word));}
+  function answerQuestion(question){
+    const q = question.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    const en = currentLanguage === 'en';
+    if(includesAny(q,['halo','hai','hello','hi ','hey'])) return en?'Heyy! What do you wanna know about Devie? 👋':'Haii! Mau kepoin bagian mana dari Devie nih? 👋';
+    if(includesAny(q,['pacar','pasangan','jomblo','menikah','suami','istri','gebetan','relationship','boyfriend','girlfriend','partner'])) return en?"Ooh, relationship stuff is Devie's private zone 😄 I can't spill that one, but I can totally tell you about her projects, skills, or experience!":'Wah, kalau soal pasangan itu masuk area privasi Devie ya 😄 Tapi aku bisa spill soal project, skill, atau pengalamannya!';
+    if(includesAny(q,['keluarga','orang tua','ayah','ibu','saudara','kakak','adik','family','parents','father','mother','sibling'])) return en?"Devie's family info is personal, so it isn't shared here. Let's talk about her college journey, projects, or experience instead!":"Info keluarga Devie nggak ditampilkan di sini karena cukup personal. Kita bahas perjalanan kuliah, project, atau pengalamannya aja, yuk!";
+    if(includesAny(q,['alamat lengkap','nomor telepon','no hp','whatsapp','tinggal dengan siapa','full address','phone number','home address','lives with'])) return en?"That's private info, bestie 👀 For safety, I can only share Devie's public professional contact details from this portfolio.":'Nah, kalau itu info pribadi yaa 👀 Demi keamanan, aku cuma bisa kasih kontak profesional yang memang Devie tampilkan di portofolio.';
+    if(includesAny(q,['siapa','who is','tentang devie','about devie','profil','profile','kenalan','meet devie'])) return en?'Devie Rahmanda Patricia Maharani is an Informatics Management student at State Polytechnic of Malang, PSDKU Kediri. She is into Web Development and UI/UX, and she is based in Blitar, East Java. Pretty cool combo, right?':'Kenalin, ini Devie Rahmanda Patricia Maharani! Devie adalah mahasiswa Manajemen Informatika di Politeknik Negeri Malang, PSDKU Kediri. Fokusnya di Web Development dan UI/UX, serta berdomisili di Blitar, Jawa Timur.';
+    if(includesAny(q,['pendidikan','education','kuliah','kampus','ipk','gpa','sekolah'])) return en?'Devie is studying D3 Informatics Management at State Polytechnic of Malang, PSDKU Kediri, with a 3.60+/4.00 GPA. Before college, she studied at SMP Negeri 1 Srengat and SMA Negeri 1 Ponggok, Science track.':'Devie lagi menempuh D3 Manajemen Informatika di Politeknik Negeri Malang, PSDKU Kediri, dengan IPK 3.60+/4.00. Sebelumnya, Devie sekolah di SMP Negeri 1 Srengat dan SMA Negeri 1 Ponggok jurusan MIPA.';
+    if(includesAny(q,['skill','kemampuan','teknologi','technology','tech stack','bisa apa','jago apa','good at'])) return en?'Her stack is pretty packed: HTML, CSS, JavaScript, PHP, Laravel, MySQL, MariaDB, Python, Kotlin, Figma, Git, GitHub, VS Code, Android Studio, and Jupyter. Her strongest lanes are Web Development and UI/UX.':'Skill Devie lumayan lengkap nih: HTML, CSS, JavaScript, PHP, Laravel, MySQL, MariaDB, Python, Kotlin, Figma, Git, GitHub, VS Code, Android Studio, dan Jupyter. Yang paling jadi andalannya adalah Web Development dan UI/UX.';
+    if(includesAny(q,['magang','intern','life media','pengalaman kerja','work experience'])) return en?'Since June 2026, Devie has been interning as a Web Developer at Life Media, PT Sarana Insan Muda Selaras. She handles Billing Salam / UKOOMED development, code audits, bug fixes, system design, documentation, and thermal-printer setup guides. Lots of real-world stuff!':'Sejak Juni 2026, Devie lagi magang sebagai Web Developer di Life Media, PT Sarana Insan Muda Selaras. Kerjaannya mulai dari ngembangin Billing Salam / UKOOMED, audit kode, benerin bug, desain sistem, dokumentasi, sampai bikin panduan setup thermal printer. Lumayan banyak pengalaman real project-nya!';
+    if(includesAny(q,['organisasi','organization','ukm','bendahara','advocation'])) return en?'Devie is also active in the English Club at Polinema Kediri. She has been a General Treasurer and part of the Advocacy Department, handling finances, coordination, inventory, and member data.':'Devie juga aktif di UKM English Club Polinema Kediri. Ia pernah jadi Bendahara Umum dan anggota Advocation Department, dengan tugas ngurus administrasi keuangan, koordinasi organisasi, inventaris, dan data anggota.';
+    if(includesAny(q,['billing','ukoomed'])) return en?'Billing Salam / UKOOMED is a PHP and MySQL multi-region internet billing system Devie built with her internship team for Salam Village. It has role-based access, analytics, SVG maps, Canvas charts, and thermal receipt printing. This one is seriously feature-packed!':'Billing Salam / UKOOMED adalah sistem billing internet multiwilayah berbasis PHP dan MySQL yang Devie kembangkan bareng tim magang untuk Kelurahan Salam. Fiturnya ada role-based access, analitik, peta SVG, chart Canvas, sampai cetak struk thermal. Project ini fiturnya lumayan padat!';
+    if(includesAny(q,['t-dji','kasir','cashier','pos','tong-dji'])) return en?'T-DJI Drink is a Laravel-based POS dashboard for managing tea sales, products, revenue, daily reports, and order queues. Basically, it keeps the whole cashier flow neat and organized.':'T-DJI Drink adalah dashboard POS berbasis Laravel buat ngatur penjualan minuman teh, produk, pendapatan, laporan harian, dan antrean pesanan. Intinya, alur kasir jadi lebih rapi dan gampang dipantau.';
+    if(includesAny(q,['gas','galon','gallon','kotlin','mobile'])) return en?'This Gas & Water Gallon Sales app is an Android project built with Kotlin. It helps record daily transactions and creates simple sales recaps. Simple, useful, and straight to the point!':'Aplikasi Penjualan Gas & Galon ini adalah project Android pakai Kotlin. Fungsinya buat mencatat transaksi harian dan bikin rekap penjualan sederhana. Simpel, tapi kepake banget!';
+    if(includesAny(q,['agenlog','logistik','logistics','kurir','courier'])) return en?'AgenLog is a Laravel logistics system for shipments, sender and recipient data, automatic courier scheduling with a Greedy First-Fit algorithm, package tracking, costs, reports, and CSV exports. Quite the full package!':'AgenLog adalah sistem logistik Laravel buat ngatur pengiriman, data pengirim dan penerima, penjadwalan kurir otomatis dengan algoritma Greedy First-Fit, tracking paket, biaya kirim, laporan, sampai ekspor CSV. Paket lengkap banget, kan?';
+    if(includesAny(q,['proyek','project','portfolio','karya','spill project'])) return en?'Devie has four featured projects: Billing Salam / UKOOMED, T-DJI Drink POS Dashboard, a Gas & Water Gallon Sales mobile app, and AgenLog logistics system. Drop a project name and I will spill the details!':'Ada empat project utama Devie nih: Billing Salam / UKOOMED, T-DJI Drink POS Dashboard, aplikasi mobile Penjualan Gas & Galon, dan sistem logistik AgenLog. Sebut salah satunya, nanti aku spill detailnya!';
+    if(includesAny(q,['sertifikat','certificate','certification','cisco'])) return en?'Devie has Python Essentials 1 from Cisco Networking Academy × Python Institute, earned on 29 Aug 2025, plus Introduction to Data Science from Cisco Networking Academy, earned on 13 May 2025.':'Devie punya sertifikat Python Essentials 1 dari Cisco Networking Academy × Python Institute, didapat 29 Agustus 2025, dan Introduction to Data Science dari Cisco Networking Academy, didapat 13 Mei 2025.';
+    if(includesAny(q,['kontak','contact','email','github','linkedin','instagram','hubungi'])) return en?'Wanna reach Devie? Email her at devierahmandapm@gmail.com or find her on GitHub at @dvrahmanda. Her LinkedIn and Instagram links are also waiting in the Contact section!':'Mau ngobrol atau ngajak Devie kolaborasi? Langsung aja email ke devierahmandapm@gmail.com atau cek GitHub @dvrahmanda. Link LinkedIn dan Instagram-nya juga sudah ada di bagian Kontak!';
+    if(includesAny(q,['lokasi','location','domisili','tinggal','blitar'])) return en?'Devie is based in Blitar, East Java, and she is open to both remote and on-site opportunities. Exact address stays private, of course 👀':'Devie berdomisili di Blitar, Jawa Timur, dan terbuka buat peluang remote maupun on-site. Kalau alamat lengkapnya tentu nggak aku spill demi keamanan yaa 👀';
+    if(includesAny(q,['kolaborasi','collaborate','kerja sama','hire','rekrut'])) return en?'Yep, absolutely! Devie is open to internships, project collabs, and chats about Web Development or UI/UX. Just hit her up through the Contact section.':'Bisa banget! Devie terbuka buat peluang magang, kolaborasi project, atau ngobrolin Web Development dan UI/UX. Langsung hubungi lewat bagian Kontak aja ya!';
+    if(includesAny(q,['cv','resume','curriculum'])) return en?'Looking for her CV? You can view or download it from the navbar, Education section, or Certificates & CV section. Easy peasy!':'Lagi cari CV Devie? Kamu bisa lihat atau download langsung dari navbar, bagian Pendidikan, atau bagian Sertifikasi & CV. Tinggal klik aja!';
+    return chatCopy[currentLanguage].fallback;
+  }
+  function buildQuick(){
+    chatQuick.innerHTML='';
+    chatCopy[currentLanguage].quick.forEach(label=>{
+      const button=document.createElement('button');button.type='button';button.className='chat-chip';button.textContent=label;
+      button.addEventListener('click',()=>submitQuestion(label));chatQuick.appendChild(button);
+    });
+  }
+  function resetChat(){chatMessages.innerHTML='';addMessage(chatCopy[currentLanguage].greeting,'bot');buildQuick();}
+  function submitQuestion(text){
+    const clean=text.trim();if(!clean)return;addMessage(clean,'user');chatInput.value='';
+    setTimeout(()=>addMessage(answerQuestion(clean),'bot'),220);
+  }
+  function setChatOpen(open){chatPanel.classList.toggle('open',open);chatPanel.setAttribute('aria-hidden',String(!open));chatLaunch.setAttribute('aria-expanded',String(open));if(open)setTimeout(()=>chatInput.focus(),180);}
+  chatLaunch.addEventListener('click',()=>setChatOpen(!chatPanel.classList.contains('open')));
+  chatClose.addEventListener('click',()=>setChatOpen(false));
+  chatForm.addEventListener('submit',event=>{event.preventDefault();submitQuestion(chatInput.value);});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&chatPanel.classList.contains('open'))setChatOpen(false);});
+
+  function applyLanguage(lang){
+    currentLanguage=lang;localStorage.setItem('devie-language',lang);document.documentElement.lang=lang;
+    translateTextNodes(lang);languageToggle.textContent=lang==='id'?'EN':'ID';
+    languageToggle.setAttribute('aria-label',lang==='id'?'Ubah bahasa ke Inggris':'Switch language to Indonesian');
+    chatInput.placeholder=chatCopy[lang].placeholder;chatStatus.textContent=chatCopy[lang].status;
+    document.getElementById('aboutIntro').innerHTML=lang==='en'
+      ? 'Hi! I am <strong>Devie Rahmanda Patricia Maharani</strong>, an Informatics Management student at State Polytechnic of Malang (PSDKU Kediri), focused on <strong>Web Development</strong> and <strong>UI/UX Design</strong>—from designing wireframes in Figma to building real systems with PHP, Laravel, and MySQL.'
+      : 'Hai! Saya <strong>Devie Rahmanda Patricia Maharani</strong>, mahasiswa Informatics Management di Politeknik Negeri Malang (PSDKU Kediri) dengan fokus di <strong>Web Development</strong> dan <strong>UI/UX Design</strong> — dari merancang wireframe di Figma sampai membangunnya jadi sistem nyata pakai PHP, Laravel, dan MySQL.';
+    document.getElementById('aboutExperience').innerHTML=lang==='en'
+      ? 'I am currently a <strong>Web Developer Intern</strong> at Life Media (PT Sarana Insan Muda Selaras), developing <strong>Billing Salam / UKOOMED</strong>—a multi-region internet customer billing system—from full-stack development to documentation. I am always eager to learn and collaborate on meaningful projects.'
+      : 'Saat ini saya magang sebagai <strong>Web Developer Intern</strong> di Life Media (PT Sarana Insan Muda Selaras), mengembangkan <strong>Billing Salam / UKOOMED</strong> — sistem billing pelanggan internet multi-region, dari full-stack development sampai dokumentasi. Saya selalu antusias belajar hal baru dan senang berkolaborasi dalam proyek yang bermakna.';
+    document.getElementById('contactTitle').innerHTML=lang==='en'?"Let's <span class=\"glow-text\">collaborate</span>":'Mari <span class="glow-text">berkolaborasi</span>';
+    phrases=phraseSets[lang];pIdx=0;cIdx=0;deleting=false;typedEl.textContent='';
+    document.querySelectorAll('.project-detail-toggle').forEach(button=>button.textContent=button.closest('.project-card').classList.contains('expanded')?(lang==='en'?'CLOSE DETAILS':'TUTUP DETAIL'):(lang==='en'?'VIEW DETAILS':'LIHAT DETAIL'));
+    setTheme(document.body.dataset.theme||'dark');resetChat();
+  }
+  languageToggle.addEventListener('click',()=>applyLanguage(currentLanguage==='id'?'en':'id'));
+  applyLanguage(currentLanguage);
 })();
 </script>
 </body>
