@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="id">
+html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -788,7 +787,7 @@ body[data-theme="light"] .cert-pixel-frame{background:#21173d;box-shadow:0 0 0 5
 section,.hero{z-index:2;}
 
 /* ===== LANYARD + FLIPPING ID CARD ===== */
-.idcard-stage{width:214px;min-height:418px;display:flex;justify-content:center;perspective:1100px;position:relative;}
+.idcard-stage{width:214px;min-height:438px;display:flex;justify-content:center;perspective:1100px;position:relative;}
 .idcard-drop{width:100%;transform-origin:50% -54px;animation:idcard-drop-bounce 1.55s cubic-bezier(.18,.84,.22,1.15) both;}
 @keyframes idcard-drop-bounce{
   0%{opacity:0;transform:translateY(-430px);}
@@ -800,7 +799,7 @@ section,.hero{z-index:2;}
 }
 .lanyard-strap{
   width:8px;
-  height:116px;
+  height:136px;
   margin:0 auto;
   background:repeating-linear-gradient(0deg,#ff3355 0 8px,#ffd23f 8px 16px);
   border:2px solid #1b1235;
@@ -841,10 +840,10 @@ section,.hero{z-index:2;}
 .idcard-hint{font-family:var(--font-pixel);font-size:.39rem;color:var(--text-dim);padding-top:8px;text-align:center;letter-spacing:.02em;}
 .idcard-flip:hover .idcard-hint{color:var(--white);}
 @media (max-width:760px){
-  .idcard-stage{width:188px;min-height:360px;}
+  .idcard-stage{width:188px;min-height:374px;}
   .idcard-flip{width:188px;height:248px;}
   .idcard-photo{height:187px;}
-  .lanyard-strap{height:92px;margin:0 auto;}
+  .lanyard-strap{height:106px;margin:0 auto;}
 }
 @media (hover:none),(pointer:coarse){.cursor-aura{display:none;}}
 
@@ -1080,6 +1079,560 @@ body:not([data-theme="light"]) .tech-marquee-box{border-color:#655893;}
 body:not([data-theme="light"]) .marquee-icon{background:#201735;border-color:#62548e;}
 body:not([data-theme="light"]) .marquee-icon i{filter:drop-shadow(0 0 5px rgba(255,255,255,.28)) saturate(1.3) brightness(1.14);}
 @media(hover:none),(pointer:coarse){.cursor-companion{display:none;}}
+
+
+/* =========================================================
+   HERO FINAL — GAP RAPI SEPERTI REFERENSI
+   ========================================================= */
+
+.hero{
+  min-height:calc(100vh - var(--navbar-h) - var(--hud-h));
+  display:flex;
+  align-items:flex-start;
+  position:relative;
+  padding:0 0 56px;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+.hero-inner{
+  position:relative;
+  z-index:4;
+  width:100%;
+  max-width:1120px;
+  margin:0 auto;
+  padding:0 28px;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:230px minmax(0,650px);
+  justify-content:center;
+  align-items:start;
+  gap:42px;
+}
+
+.hero-grid > div:not(.hero-left-stack){
+  padding-top:84px;
+  min-width:0;
+}
+
+.hero-left-stack{
+  width:230px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.hero-desc{
+  max-width:640px;
+  margin-bottom:22px;
+  line-height:1.72;
+}
+
+/* Tiga tombol tetap rapi, sejajar, dan tidak memakai panel besar */
+.hero-cta-row{
+  position:relative;
+  z-index:7;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:nowrap;
+  width:100%;
+  max-width:620px;
+  margin-top:0;
+}
+
+.hero-cta-row .btn{
+  min-height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 18px;
+  border-width:2px;
+  border-radius:4px;
+  font-size:.56rem;
+  line-height:1.45;
+  white-space:nowrap;
+  letter-spacing:.01em;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease;
+}
+
+.hero-cta-row .btn:nth-child(1){min-width:196px;}
+.hero-cta-row .btn:nth-child(2){min-width:178px;}
+.hero-cta-row .btn:nth-child(3){min-width:166px;}
+
+.hero-cta-row .btn-primary{
+  border-color:#7d4a00;
+  box-shadow:
+    inset -3px -3px 0 rgba(0,0,0,.20),
+    inset 3px 3px 0 rgba(255,255,255,.40),
+    0 8px 18px rgba(0,0,0,.24),
+    0 0 14px rgba(255,210,63,.18);
+}
+
+.hero-cta-row .btn-ghost{
+  background:rgba(18,13,36,.92);
+  border-color:#4b3d78;
+  box-shadow:
+    inset -2px -2px 0 rgba(0,0,0,.22),
+    inset 2px 2px 0 rgba(255,255,255,.045),
+    0 7px 16px rgba(0,0,0,.18);
+}
+
+.hero-cta-row .btn-primary:hover,
+.hero-cta-row .btn-ghost:hover{
+  transform:translateY(-2px);
+}
+
+.hero-cta-row .btn-ghost:hover{
+  border-color:var(--purple);
+  background:rgba(30,22,57,.96);
+}
+
+.hero-cta-row .btn:focus-visible{
+  outline:3px solid rgba(255,210,63,.55);
+  outline-offset:3px;
+}
+
+/* Arena dibuat cukup tinggi supaya tidak ada ruang kosong berlebihan */
+.hero-level-world{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:1;
+  height:230px;
+  overflow:hidden;
+  pointer-events:none;
+  opacity:.82;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.48) 13%,#000 38%);
+  mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.48) 13%,#000 38%);
+}
+
+.hero-level-world .level-hill{
+  bottom:47px;
+  opacity:.66;
+}
+
+.hero-level-world .hill-left{
+  left:-70px;
+  width:390px;
+  height:120px;
+}
+
+.hero-level-world .hill-right{
+  right:-80px;
+  width:450px;
+  height:145px;
+}
+
+/* Posisi elemen game dibuat mengitari tombol, bukan menutupinya */
+.hero-level-world .platform-a{
+  left:8%;
+  bottom:135px;
+  width:142px;
+}
+
+.hero-level-world .platform-b{
+  left:46%;
+  bottom:84px;
+  width:112px;
+}
+
+.hero-level-world .platform-c{
+  right:19%;
+  bottom:153px;
+  width:130px;
+}
+
+.hero-level-world .block-a{
+  left:27%;
+  bottom:175px;
+}
+
+.hero-level-world .block-b{
+  right:34%;
+  bottom:128px;
+}
+
+.hero-level-world .coin-a{
+  left:46%;
+  bottom:153px;
+}
+
+.hero-level-world .coin-b{
+  left:50%;
+  bottom:180px;
+}
+
+.hero-level-world .coin-c{
+  right:24%;
+  bottom:202px;
+}
+
+.hero-level-world .level-pipe{
+  right:7%;
+  bottom:47px;
+  width:64px;
+  height:88px;
+}
+
+.hero-level-world .level-runner{
+  bottom:48px;
+}
+
+/* Scroll berada dekat lantai, bukan menggantung di tengah gap */
+.scroll-cue{
+  left:50%;
+  right:auto;
+  bottom:25px;
+  transform:translateX(-50%);
+  z-index:8;
+  flex-direction:column;
+  gap:7px;
+  opacity:.78;
+}
+
+.scroll-cue .line{
+  width:3px;
+  height:24px;
+}
+
+@keyframes scrollcue{
+  0%{opacity:0;transform:translateY(-6px);}
+  50%{opacity:1;}
+  100%{opacity:0;transform:translateY(10px);}
+}
+
+body[data-theme="light"] .hero-cta-row .btn-ghost{
+  background:rgba(255,255,255,.88);
+  border-color:#8a78b7;
+  box-shadow:0 7px 16px rgba(67,45,112,.12),inset 2px 2px 0 rgba(255,255,255,.65);
+}
+
+body[data-theme="light"] .hero-level-world{opacity:.62;}
+
+@media (max-width:980px){
+  .hero{padding-bottom:58px;}
+  .hero-inner{padding:0 22px;}
+  .hero-grid{grid-template-columns:205px minmax(0,1fr);gap:30px;}
+  .hero-grid > div:not(.hero-left-stack){padding-top:58px;}
+  .hero-left-stack{width:205px;}
+  .hero-cta-row{flex-wrap:wrap;max-width:520px;}
+  .hero-cta-row .btn:nth-child(1){min-width:100%;}
+  .hero-cta-row .btn:nth-child(2),
+  .hero-cta-row .btn:nth-child(3){flex:1;min-width:0;}
+}
+
+@media (max-width:760px){
+  .hero{
+    min-height:auto;
+    padding-bottom:92px;
+  }
+
+  .hero-inner{padding:16px 18px 0;}
+
+  .hero-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+    justify-items:center;
+    text-align:center;
+  }
+
+  .hero-grid > div:not(.hero-left-stack){
+    width:100%;
+    padding-top:0;
+  }
+
+  .hero-left-stack{width:100%;}
+
+  .hero-badges{justify-content:center;}
+
+  .hero-desc{
+    max-width:590px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:17px;
+  }
+
+  .hero-cta-row{
+    max-width:560px;
+    margin-inline:auto;
+    justify-content:center;
+  }
+
+  .hero-level-world{
+    height:104px;
+    opacity:.52;
+  }
+
+  .hero-level-world .platform-a,
+  .hero-level-world .platform-c,
+  .hero-level-world .block-a,
+  .hero-level-world .block-b,
+  .hero-level-world .coin-a,
+  .hero-level-world .coin-b,
+  .hero-level-world .coin-c,
+  .hero-level-world .level-pipe{
+    display:none;
+  }
+
+  .scroll-cue{display:none;}
+}
+
+@media (max-width:520px){
+  .hero-cta-row{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .hero-cta-row .btn,
+  .hero-cta-row .btn:nth-child(1),
+  .hero-cta-row .btn:nth-child(2),
+  .hero-cta-row .btn:nth-child(3){
+    width:100%;
+    min-width:0;
+  }
+}
+
+
+
+/* =========================================================
+   PROJECTS — HORIZONTAL EXPAND INTERACTION
+   Saat satu project dipilih, kartu tersebut melebar dan
+   kartu pasangannya mengecil. Pada HP kembali menjadi vertikal.
+   ========================================================= */
+.projects-compact-grid{
+  display:flex !important;
+  flex-direction:column;
+  gap:18px;
+  align-items:stretch;
+}
+
+.project-pair{
+  display:flex;
+  align-items:stretch;
+  gap:16px;
+  min-width:0;
+}
+
+.project-pair .project-card,
+.project-pair .project-card.reverse{
+  flex:1 1 0;
+  width:auto;
+  min-width:0;
+  min-height:260px;
+  margin:0;
+  grid-template-columns:136px minmax(0,1fr);
+  transition:
+    flex-grow .46s cubic-bezier(.2,.78,.2,1),
+    min-height .35s ease,
+    grid-template-columns .4s ease,
+    transform .25s ease,
+    opacity .25s ease,
+    border-color .22s ease,
+    box-shadow .3s ease;
+}
+
+.project-pair .project-card .project-info,
+.project-pair .project-card.reverse .project-info{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+
+.project-pair .project-detail-toggle{
+  margin-top:auto;
+  padding-top:10px;
+  cursor:pointer;
+}
+
+/* Kartu yang dipilih melebar ke samping */
+.project-pair .project-card.expanded{
+  flex-grow:1.82;
+  grid-column:auto;
+  min-height:318px;
+  grid-template-columns:210px minmax(0,1fr);
+  transform:translateY(-4px);
+  border-color:var(--yellow);
+  box-shadow:
+    0 12px 0 rgba(6,4,14,.52),
+    0 0 26px rgba(255,210,63,.17);
+  z-index:2;
+}
+
+.project-pair .project-card.expanded:hover{
+  transform:translateY(-6px);
+}
+
+.project-pair .project-card.expanded .project-info{
+  padding:20px;
+}
+
+.project-pair .project-card.expanded .project-info p.pdesc{
+  display:block;
+  overflow:visible;
+  -webkit-line-clamp:unset;
+}
+
+.project-pair .project-card.expanded .project-feats{
+  display:block;
+  animation:project-detail-in .32s ease both;
+}
+
+/* Kartu pasangan mengecil, tetapi judulnya tetap bisa dibaca */
+.project-pair .project-card.is-compact{
+  flex-grow:.62;
+  min-height:318px;
+  grid-template-columns:88px minmax(0,1fr);
+  opacity:.78;
+  transform:scale(.985);
+}
+
+.project-pair .project-card.is-compact:hover,
+.project-pair .project-card.is-compact:focus-visible{
+  opacity:1;
+  transform:translateY(-3px) scale(.99);
+}
+
+.project-pair .project-card.is-compact .project-info{
+  padding:12px;
+}
+
+.project-pair .project-card.is-compact .project-info .status{
+  font-size:.34rem;
+  padding:4px 6px;
+  margin-bottom:8px;
+}
+
+.project-pair .project-card.is-compact .project-info h3{
+  font-size:.52rem;
+  line-height:1.55;
+  margin-bottom:7px;
+}
+
+.project-pair .project-card.is-compact .project-info .role,
+.project-pair .project-card.is-compact .project-links,
+.project-pair .project-card.is-compact .project-feats{
+  display:none;
+}
+
+.project-pair .project-card.is-compact .project-info p.pdesc{
+  font-size:.86rem;
+  line-height:1.35;
+  -webkit-line-clamp:3;
+  margin-bottom:8px;
+}
+
+.project-pair .project-card.is-compact .project-visual::before{
+  display:none;
+}
+
+.project-pair .project-card.is-compact .pixel-scene{
+  transform:scale(.76);
+}
+
+.project-pair .project-card.is-compact:hover .pixel-scene{
+  transform:scale(.8) translateY(-2px);
+}
+
+@keyframes project-detail-in{
+  from{opacity:0;transform:translateY(8px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+body[data-theme="light"] .project-pair .project-card.expanded{
+  box-shadow:
+    0 12px 0 rgba(75,52,105,.16),
+    0 0 24px rgba(255,179,0,.14);
+}
+
+/* Tablet: efek melebar tetap ada, kartu kecil dibuat lebih ringkas */
+@media (max-width:980px){
+  .project-pair .project-card.expanded{
+    flex-grow:1.65;
+    grid-template-columns:170px minmax(0,1fr);
+  }
+
+  .project-pair .project-card.is-compact{
+    flex-grow:.7;
+    grid-template-columns:76px minmax(0,1fr);
+  }
+}
+
+/* HP: jangan dipaksa mengecil ke samping karena akan terlalu sempit */
+@media (max-width:760px){
+  .projects-compact-grid{
+    gap:16px;
+  }
+
+  .project-pair{
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .project-pair .project-card,
+  .project-pair .project-card.reverse,
+  .project-pair .project-card.expanded,
+  .project-pair .project-card.is-compact{
+    flex:1 1 auto;
+    width:100%;
+    min-height:225px;
+    grid-template-columns:112px minmax(0,1fr);
+    opacity:1;
+    transform:none;
+  }
+
+  .project-pair .project-card.expanded{
+    min-height:280px;
+  }
+
+  .project-pair .project-card.is-compact .project-info{
+    padding:13px;
+  }
+
+  .project-pair .project-card.is-compact .project-info .status{
+    font-size:.38rem;
+  }
+
+  .project-pair .project-card.is-compact .project-info h3{
+    font-size:.58rem;
+  }
+
+  .project-pair .project-card.is-compact .project-info .role{
+    display:block;
+  }
+
+  .project-pair .project-card.is-compact .project-info p.pdesc{
+    font-size:.92rem;
+    -webkit-line-clamp:2;
+  }
+
+  .project-pair .project-card.is-compact .project-links{
+    display:flex;
+  }
+
+  .project-pair .project-card.is-compact .project-visual::before{
+    display:block;
+  }
+
+  .project-pair .project-card.is-compact .pixel-scene,
+  .project-pair .project-card.is-compact:hover .pixel-scene{
+    transform:scale(.9);
+  }
+}
+
+@media (max-width:520px){
+  .project-pair .project-card,
+  .project-pair .project-card.reverse,
+  .project-pair .project-card.expanded,
+  .project-pair .project-card.is-compact{
+    grid-template-columns:96px minmax(0,1fr);
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1179,8 +1732,8 @@ body:not([data-theme="light"]) .marquee-icon i{filter:drop-shadow(0 0 5px rgba(2
         <div class="hero-typed-wrap"><span id="typed"></span><span class="cursor-blink"></span></div>
         <p class="hero-desc">Mahasiswa Informatics Management di Politeknik Negeri Malang (PSDKU Kediri), membangun aplikasi web dengan PHP, Laravel & MySQL dan merancang antarmukanya dari sisi UI/UX agar sistem yang dibangun benar-benar nyaman dipakai orang.</p>
         <div class="hero-cta-row">
-          <a href="#projects" class="btn btn-primary">Lihat Portfolio →</a>
-          <a href="assets/CV-Devie-Rahmanda-Patricia-Maharani.pdf" download class="btn btn-ghost">⬇ Download CV</a>
+          <a href="#projects" class="btn btn-primary">Lihat Portofolio →</a>
+          <a href="assets/CV-Devie-Rahmanda-Patricia-Maharani.pdf" download class="btn btn-ghost">Download CV ↓</a>
           <a href="#contact" class="btn btn-ghost">Hubungi Saya</a>
         </div>
       </div>
@@ -1303,7 +1856,7 @@ body:not([data-theme="light"]) .marquee-icon i{filter:drop-shadow(0 0 5px rgba(2
         <p id="aboutIntro">Hai! Saya <strong>Devie Rahmanda Patricia Maharani</strong>, mahasiswa Informatics Management di Politeknik Negeri Malang (PSDKU Kediri) dengan fokus di <strong>Web Development</strong> dan <strong>UI/UX Design</strong> — dari merancang wireframe di Figma sampai membangunnya jadi sistem nyata pakai PHP, Laravel, dan MySQL.</p>
         <p id="aboutExperience">Saat ini saya magang sebagai <strong>Web Developer Intern</strong> di Life Media (PT Sarana Insan Muda Selaras), mengembangkan <strong>Billing Salam / UKOOMED</strong> — sistem billing pelanggan internet multi-region, dari full-stack development sampai dokumentasi. Saya selalu antusias belajar hal baru dan senang berkolaborasi dalam proyek yang bermakna.</p>
         <div class="stat-grid">
-          <div class="stat-box pixel-box"><div class="num">3.60+</div><div class="lbl">GPA / 4.00</div></div>
+          <div class="stat-box pixel-box"><div class="num">3.61</div><div class="lbl">GPA / 4.00</div></div>
           <div class="stat-box pixel-box"><div class="num">4+</div><div class="lbl">PROJECTS</div></div>
         </div>
       </div>
@@ -1546,8 +2099,8 @@ body:not([data-theme="light"]) .marquee-icon i{filter:drop-shadow(0 0 5px rgba(2
         <h3>Politeknik Negeri Malang (PSDKU Kediri)</h3>
         <div class="prog">D3 Manajemen Informatika — Informatics Management</div>
         <div class="meta">Sedang berjalan</div>
-        <div class="gpa-pill">⭐ IPK 3.60+ / 4.00</div>
-        <a href="assets/CV-Devie-Rahmanda-Patricia-Maharani.pdf" download class="btn btn-ghost edu-cv-btn" style="font-size:0.5rem; padding:9px 14px;">⬇ Download CV</a>
+        <div class="gpa-pill">⭐ IPK 3.61 / 4.00</div>
+        <a href="assets/CV-Devie-Rahmanda-Patricia-Maharani.pdf" download class="btn btn-ghost edu-cv-btn" style="font-size:0.5rem; padding:9px 14px;">Download CV ↓</a>
       </div>
     </div>
     <div class="edu-prior-label visible-fade">Riwayat Pendidikan Sebelumnya</div>
@@ -1630,19 +2183,19 @@ body:not([data-theme="light"]) .marquee-icon i{filter:drop-shadow(0 0 5px rgba(2
 </div>
 
 <!-- PORTFOLIO ASSISTANT -->
-<button class="chat-launch" id="chatLaunch" type="button" aria-label="Buka asisten portfolio" aria-expanded="false">
+<button class="chat-launch" id="chatLaunch" type="button" aria-label="Buka Maliboo" aria-expanded="false">
   <span aria-hidden="true">💬</span><span class="chat-ping" aria-hidden="true"></span>
 </button>
-<div class="chat-panel" id="chatPanel" role="dialog" aria-label="Devie Portfolio Assistant" aria-hidden="true">
+<div class="chat-panel" id="chatPanel" role="dialog" aria-label="Maliboo, asisten portfolio Devie" aria-hidden="true">
   <div class="chat-head">
-    <div class="chat-avatar" aria-hidden="true">D</div>
-    <div class="chat-title"><strong>DEVIE GUIDE</strong><small id="chatStatus">● Online · siap membantu</small></div>
+    <div class="chat-avatar" aria-hidden="true">M</div>
+    <div class="chat-title"><strong>MALIBOO</strong><small id="chatStatus">● Online · siap menemani</small></div>
     <button class="chat-close" id="chatClose" type="button" aria-label="Tutup chatbot">✕</button>
   </div>
   <div class="chat-messages" id="chatMessages" aria-live="polite"></div>
   <div class="chat-quick" id="chatQuick"></div>
   <form class="chat-form" id="chatForm">
-    <input class="chat-input" id="chatInput" type="text" autocomplete="off" maxlength="220" placeholder="Tanya tentang Devie..." aria-label="Pertanyaan untuk asisten portfolio">
+    <input class="chat-input" id="chatInput" type="text" autocomplete="off" maxlength="500" spellcheck="true" placeholder="Mau tanya apa tentang Devie?" aria-label="Pertanyaan untuk Maliboo">
     <button class="chat-send" type="submit" aria-label="Kirim pertanyaan">➤</button>
   </form>
 </div>
@@ -1801,44 +2354,92 @@ window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
   startAutoFlip();
 })();
 
-// Compact project cards: details expand only when requested
+// Project cards: paired horizontal expansion on desktop
 (function(){
-  const cards = document.querySelectorAll('.projects-compact-grid .project-card');
-  cards.forEach((card, index) => {
+  const grid = document.querySelector('.projects-compact-grid');
+  if(!grid) return;
+
+  const cards = Array.from(grid.children).filter(element => element.classList.contains('project-card'));
+
+  /* Kelompokkan dua kartu per baris agar perubahan lebar hanya
+     memengaruhi kartu pasangannya, bukan semua project. */
+  if(cards.length && !grid.querySelector('.project-pair')){
+    const fragment = document.createDocumentFragment();
+
+    for(let index = 0; index < cards.length; index += 2){
+      const pair = document.createElement('div');
+      pair.className = 'project-pair';
+      pair.setAttribute('role', 'group');
+      pair.setAttribute('aria-label', `Kelompok proyek ${Math.floor(index / 2) + 1}`);
+      pair.appendChild(cards[index]);
+      if(cards[index + 1]) pair.appendChild(cards[index + 1]);
+      fragment.appendChild(pair);
+    }
+
+    grid.appendChild(fragment);
+  }
+
+  const allCards = Array.from(grid.querySelectorAll('.project-card'));
+
+  function detailLabel(expanded){
+    const english = document.documentElement.lang === 'en';
+    if(expanded) return english ? 'CLOSE DETAILS' : 'TUTUP DETAIL';
+    return english ? 'VIEW DETAILS' : 'LIHAT DETAIL';
+  }
+
+  function updatePair(pair, activeCard){
+    const pairCards = Array.from(pair.querySelectorAll(':scope > .project-card'));
+    const isClosing = activeCard && activeCard.classList.contains('expanded');
+
+    pairCards.forEach(card => {
+      const shouldExpand = Boolean(activeCard) && !isClosing && card === activeCard;
+      const shouldCompact = Boolean(activeCard) && !isClosing && card !== activeCard;
+
+      card.classList.toggle('expanded', shouldExpand);
+      card.classList.toggle('is-compact', shouldCompact);
+      card.setAttribute('aria-expanded', String(shouldExpand));
+
+      const button = card.querySelector('.project-detail-toggle');
+      if(button) button.textContent = detailLabel(shouldExpand);
+    });
+  }
+
+  allCards.forEach((card, index) => {
     card.tabIndex = 0;
     card.setAttribute('aria-expanded', 'false');
-    card.setAttribute('aria-label', `Buka detail proyek ${index + 1}`);
+
+    const title = card.querySelector('h3')?.textContent.trim() || `proyek ${index + 1}`;
+    card.setAttribute('aria-label', `Buka detail ${title}`);
 
     const info = card.querySelector('.project-info');
-    const toggle = document.createElement('button');
-    toggle.type = 'button';
-    toggle.className = 'project-detail-toggle';
-    toggle.textContent = 'LIHAT DETAIL';
-    info.appendChild(toggle);
+    let toggle = card.querySelector('.project-detail-toggle');
 
-    function setExpanded(next){
-      cards.forEach(other => {
-        if(other !== card){
-          other.classList.remove('expanded');
-          other.setAttribute('aria-expanded', 'false');
-          const otherButton = other.querySelector('.project-detail-toggle');
-          if(otherButton) otherButton.textContent = document.documentElement.lang === 'en' ? 'VIEW DETAILS' : 'LIHAT DETAIL';
-        }
-      });
-      card.classList.toggle('expanded', next);
-      card.setAttribute('aria-expanded', String(next));
-      const english = document.documentElement.lang === 'en';
-      toggle.textContent = next ? (english ? 'CLOSE DETAILS' : 'TUTUP DETAIL') : (english ? 'VIEW DETAILS' : 'LIHAT DETAIL');
+    if(!toggle){
+      toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'project-detail-toggle';
+      info.appendChild(toggle);
     }
-    function toggleDetails(){ setExpanded(!card.classList.contains('expanded')); }
 
-    toggle.addEventListener('click', (event) => { event.stopPropagation(); toggleDetails(); });
-    card.addEventListener('click', (event) => {
+    toggle.textContent = detailLabel(false);
+
+    function toggleDetails(){
+      const pair = card.closest('.project-pair');
+      if(pair) updatePair(pair, card);
+    }
+
+    toggle.addEventListener('click', event => {
+      event.stopPropagation();
+      toggleDetails();
+    });
+
+    card.addEventListener('click', event => {
       if(event.target.closest('a, button')) return;
       toggleDetails();
     });
-    card.addEventListener('keydown', (event) => {
-      if(event.target !== card || !['Enter',' '].includes(event.key)) return;
+
+    card.addEventListener('keydown', event => {
+      if(event.target !== card || !['Enter', ' '].includes(event.key)) return;
       event.preventDefault();
       toggleDetails();
     });
@@ -2169,7 +2770,7 @@ updateCoins();
     '📍 Blitar, Jawa Timur':{id:'📍 Blitar, Jawa Timur',en:'📍 Blitar, East Java'},
     '🟢 Open to Collaborate':{id:'🟢 Terbuka untuk Kolaborasi',en:'🟢 Open to Collaborate'},
     'Mahasiswa Informatics Management di Politeknik Negeri Malang (PSDKU Kediri), membangun aplikasi web dengan PHP, Laravel & MySQL dan merancang antarmukanya dari sisi UI/UX agar sistem yang dibangun benar-benar nyaman dipakai orang.':{id:'Mahasiswa Informatics Management di Politeknik Negeri Malang (PSDKU Kediri), membangun aplikasi web dengan PHP, Laravel & MySQL dan merancang antarmukanya dari sisi UI/UX agar sistem yang dibangun benar-benar nyaman dipakai orang.',en:'An Informatics Management student at State Polytechnic of Malang (PSDKU Kediri), building web applications with PHP, Laravel & MySQL and designing user-friendly interfaces through UI/UX.'},
-    'Lihat Portfolio →':{id:'Lihat Portfolio →',en:'View Portfolio →'},'Hubungi Saya':{id:'Hubungi Saya',en:'Contact Me'},
+    'Lihat Portofolio →':{id:'Lihat Portofolio →',en:'View Portfolio →'},'Hubungi Saya':{id:'Hubungi Saya',en:'Contact Me'},
     'Sistem yang dibangun':{id:'Sistem yang dibangun',en:'Systems I have built'},'Magang & organisasi':{id:'Magang & organisasi',en:'Internship & organization'},
     'Yuk kolaborasi':{id:'Yuk kolaborasi',en:"Let's collaborate"},'Mainkan karakternya':{id:'Mainkan karakternya',en:'Play the character'},
     'Bonus Stage':{id:'Bonus Stage',en:'Bonus Stage'},'Coba':{id:'Coba',en:'Try to'},'jalankan':{id:'jalankan',en:'move'},'karaktermu':{id:'karaktermu',en:'your character'},
@@ -2259,95 +2860,765 @@ updateCoins();
   const chatInput = document.getElementById('chatInput');
   const chatStatus = document.getElementById('chatStatus');
 
+  const devieData = Object.freeze({
+    profile: {
+      fullName: 'Devie Rahmanda Patricia Maharani',
+      nickname: 'Devie',
+      handle: '@dvrahmanda',
+      domicile: 'Blitar, Jawa Timur',
+      birthDate: '', // Isi dengan format YYYY-MM-DD agar umur dihitung otomatis, contoh: 2005-08-17
+      currentStatusId: 'Mahasiswa D3 Manajemen Informatika sekaligus Web Developer Intern',
+      currentStatusEn: 'D3 Informatics Management student and Web Developer Intern',
+      focus: ['Web Development', 'UI/UX Design'],
+      availabilityId: 'Terbuka untuk magang, kolaborasi project, diskusi Web Development/UI/UX, serta kerja remote maupun on-site.',
+      availabilityEn: 'Open to internships, project collaborations, Web Development/UI/UX discussions, and remote or on-site opportunities.'
+    },
+    education: {
+      campus: 'Politeknik Negeri Malang (PSDKU Kediri)',
+      programId: 'D3 Manajemen Informatika',
+      programEn: 'D3 Informatics Management',
+      period: 'Juni 2024 - sekarang',
+      gpa: '3.61 / 4.00',
+      juniorHigh: 'SMP Negeri 1 Srengat',
+      seniorHigh: 'SMA Negeri 1 Ponggok - MIPA'
+    },
+    skills: {
+      web: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'Laravel'],
+      database: ['MySQL', 'MariaDB'],
+      programming: ['Python', 'Kotlin'],
+      design: ['Figma', 'UI/UX Design', 'Wireframing', 'Prototyping'],
+      tools: ['Git', 'GitHub', 'VS Code', 'Android Studio', 'Jupyter', 'Microsoft Office', 'Google Workspace', 'Canva', 'CapCut'],
+      soft: ['teliti', 'bertanggung jawab', 'problem solving', 'mampu bekerja mandiri', 'mampu bekerja dalam tim']
+    },
+    internship: {
+      role: 'Web Developer Intern',
+      company: 'Life Media, PT Sarana Insan Muda Selaras',
+      period: 'Juni 2026 - sekarang',
+      tasksId: [
+        'mengembangkan Billing Salam / UKOOMED secara full-stack',
+        'melakukan audit kode dan memperbaiki bug modul pembayaran serta dashboard superadmin',
+        'membantu desain sistem dan dokumentasi',
+        'menulis Manual Book dan panduan setup thermal printer',
+        'berkontribusi pada pengembangan aplikasi WargaKu'
+      ],
+      tasksEn: [
+        'full-stack development for Billing Salam / UKOOMED',
+        'code audits and bug fixes for payment modules and the superadmin dashboard',
+        'system design and documentation',
+        'writing the Manual Book and thermal-printer setup guide',
+        'contributing to the WargaKu web application'
+      ]
+    },
+    organizations: [
+      {
+        role: 'Bendahara Umum 1',
+        org: 'UKM English Club, Polinema Kota Kediri',
+        period: 'Maret 2026 - sekarang',
+        dutyId: 'Mengelola administrasi dan pencatatan keuangan serta berkoordinasi dalam pelaksanaan program kerja.',
+        dutyEn: 'Manages administration and financial records and coordinates organizational programs.'
+      },
+      {
+        role: 'Bendahara Umum 2',
+        org: 'UKM English Club, Polinema Kota Kediri',
+        period: 'Mei 2025 - Maret 2026',
+        dutyId: 'Mengelola administrasi dan pencatatan keuangan organisasi.',
+        dutyEn: 'Managed organizational administration and financial records.'
+      },
+      {
+        role: 'Anggota Advocation Department',
+        org: 'UKM English Club, Polinema Kota Kediri',
+        period: 'November 2025 - sekarang',
+        dutyId: 'Mengelola inventaris dan data anggota organisasi.',
+        dutyEn: 'Manages organizational inventory and member data.'
+      }
+    ],
+    projects: {
+      billing: {
+        aliases: ['billing', 'billing salam', 'ukoomed', 'salam billing'],
+        title: 'Billing Salam / UKOOMED',
+        status: 'Selesai',
+        roleId: 'Project kolaborasi tim dengan pembagian tugas merata; Devie berkontribusi pada pengembangan full-stack, audit kode, perbaikan bug, desain sistem, dan dokumentasi.',
+        roleEn: 'A collaborative team project; Devie contributed to full-stack development, code audits, bug fixes, system design, and documentation.',
+        descriptionId: 'Sistem manajemen billing pelanggan internet multiwilayah yang dikembangkan bersama tim dan diserahkan ke Kelurahan Salam untuk mendukung digitalisasi layanan publik.',
+        descriptionEn: 'A multi-region internet-customer billing system developed with a team and delivered to Salam Village to support public-service digitalization.',
+        stack: ['PHP', 'MySQL', 'JavaScript', 'Canvas 2D API', 'SVG'],
+        featuresId: [
+          'akses berbasis role Admin dan Superadmin',
+          'dashboard superadmin dan analitik tunggakan',
+          'peta SVG berbasis data untuk area layanan',
+          'ranking wilayah berdasarkan tunggakan',
+          'donut chart custom menggunakan Canvas 2D API',
+          'cetak struk melalui thermal printer BP-ECO58'
+        ],
+        featuresEn: [
+          'Admin and Superadmin role-based access',
+          'superadmin dashboard and arrears analytics',
+          'data-driven SVG service-area map',
+          'region ranking based on arrears',
+          'custom donut chart built with the Canvas 2D API',
+          'receipt printing with a BP-ECO58 thermal printer'
+        ],
+        github: ''
+      },
+      tdji: {
+        aliases: ['t dji', 't-dji', 'tdji', 'tong dji', 'teh tong dji', 'cashier dashboard', 'kasir minuman'],
+        title: 'T-DJI Drink - Cashier Dashboard',
+        status: 'Selesai',
+        roleId: 'Project dashboard kasir berbasis Laravel untuk mengelola alur penjualan minuman.',
+        roleEn: 'A Laravel-based cashier dashboard project for managing beverage-sales workflows.',
+        descriptionId: 'Dashboard POS untuk penjualan minuman Teh Tong-Dji, mulai dari pengelolaan produk sampai pemantauan transaksi harian.',
+        descriptionEn: 'A POS dashboard for Teh Tong-Dji beverage sales, covering product management and daily transaction monitoring.',
+        stack: ['Laravel', 'PHP', 'MySQL', 'CRUD'],
+        featuresId: ['CRUD produk dan menu', 'pelacakan pendapatan', 'laporan penjualan harian', 'manajemen antrean pesanan'],
+        featuresEn: ['product and menu CRUD', 'revenue tracking', 'daily sales reports', 'order-queue management'],
+        github: 'https://github.com/dvrahmanda/UAS-T-DJI-DRINK'
+      },
+      gas: {
+        aliases: ['gas', 'galon', 'gas dan galon', 'penjualan gas', 'penjualan galon', 'mobile stock', 'aplikasi mobile'],
+        title: 'Aplikasi Mobile Kelola Penjualan Gas & Galon',
+        status: 'Selesai',
+        roleId: 'Project aplikasi Android untuk pencatatan transaksi penjualan harian.',
+        roleEn: 'An Android application project for recording daily sales transactions.',
+        descriptionId: 'Aplikasi mobile untuk mencatat dan mengelola penjualan gas dan galon dari input transaksi hingga rekap sederhana.',
+        descriptionEn: 'A mobile app for recording and managing gas and water-gallon sales, from transaction input to simple summaries.',
+        stack: ['Kotlin', 'Android Studio'],
+        featuresId: ['input transaksi harian', 'pengelolaan penjualan gas dan galon', 'rekap penjualan sederhana'],
+        featuresEn: ['daily transaction entry', 'gas and water-gallon sales management', 'simple sales summaries'],
+        github: ''
+      },
+      agenlog: {
+        aliases: ['agenlog', 'agen log', 'logistik', 'logistics', 'kurir', 'delivery level'],
+        title: 'AgenLog - Sistem Transaksi & Penjadwalan Logistik',
+        status: 'Selesai',
+        roleId: 'Project Laravel dengan akses Admin, Operator, dan Kurir.',
+        roleEn: 'A Laravel project with Admin, Operator, and Courier roles.',
+        descriptionId: 'Sistem agen logistik untuk mengelola transaksi pengiriman, data pengirim/penerima, jadwal kurir, tracking paket, biaya kirim, dan laporan.',
+        descriptionEn: 'A logistics-agency system for managing shipments, sender/recipient data, courier schedules, package tracking, delivery costs, and reports.',
+        stack: ['Laravel', 'PHP', 'MySQL', 'Greedy First-Fit Algorithm'],
+        featuresId: [
+          'penjadwalan kurir otomatis dengan algoritma Greedy First-Fit',
+          'pencegahan bentrok jadwal pada slot yang sama',
+          'nomor resi otomatis dan tracking paket publik',
+          'perhitungan ongkir berdasarkan berat dan layanan',
+          'laporan transaksi, rasio paket terkirim, dan ekspor CSV'
+        ],
+        featuresEn: [
+          'automatic courier scheduling with the Greedy First-Fit algorithm',
+          'schedule-conflict prevention for the same time slot',
+          'automatic tracking numbers and public package tracking',
+          'delivery-cost calculation by weight and service type',
+          'transaction reports, delivery ratios, and CSV export'
+        ],
+        github: 'https://github.com/dvrahmanda/WebsiteAgenLogistik'
+      },
+      wargaku: {
+        aliases: ['wargaku', 'warga ku', 'perumahan', 'sistem rt'],
+        title: 'WargaKu',
+        status: 'Selesai',
+        roleId: 'Devie berperan sebagai kontributor yang membantu developer utama.',
+        roleEn: 'Devie contributed by assisting the lead developer.',
+        descriptionId: 'Sistem berbasis web untuk membantu pengelolaan administrasi dan aktivitas perumahan.',
+        descriptionEn: 'A web-based system supporting residential administration and community activities.',
+        stack: ['PHP', 'Laravel', 'MySQL'],
+        featuresId: ['kontribusi pengembangan bersama developer utama'],
+        featuresEn: ['development contribution alongside the lead developer'],
+        github: ''
+      }
+    },
+    certificates: [
+      'Python Essentials 1 - Cisco Networking Academy x Python Institute, 29 Agustus 2025',
+      'Introduction to Data Science - Cisco Networking Academy, 13 Mei 2025'
+    ],
+    contacts: {
+      email: 'devierahmandapm@gmail.com',
+      github: '@dvrahmanda',
+      linkedin: 'Devie Rahmanda Patricia Maharani',
+      instagram: '@dvrahmanda'
+    }
+  });
+
   const chatCopy = {
-    id:{greeting:'Haii! Aku Devie Guide 👋 Mau kepoin Devie? Tanya aja soal profil, kuliah, skill, project, pengalaman, sertifikat, atau kontaknya. Aku bantu spill yang ada di portofolio ini ya!',placeholder:'Mau tanya apa tentang Devie?',status:'● Online · siap ngobrol',quick:['Kenalan sama Devie','Spill project-nya','Pengalaman magang','Devie jago apa?'],fallback:'Waduh, info itu belum ada di portofolio Devie nih 😅 Coba tanya soal profil, kuliah, skill, project, pengalaman, sertifikat, CV, atau kontaknya ya.'},
-    en:{greeting:"Hey! I'm Devie Guide 👋 Curious about Devie? Ask me about her profile, studies, skills, projects, experience, certificates, or contact info. I'll share what's available here!",placeholder:'Ask me anything about Devie...',status:'● Online · ready to chat',quick:['Meet Devie','Spill her projects','Internship story',"What's Devie good at?"],fallback:"Oops, that info isn't in Devie's portfolio yet 😅 Try asking about her profile, studies, skills, projects, experience, certificates, CV, or contact info."}
+    id: {
+      greeting: 'Hai! Aku Maliboo 👋 Senang banget kamu mampir. Mau kenalan lebih dekat dengan Devie atau penasaran sama project dan pengalamannya? Tanya Maliboo aja, ya ✨',
+      placeholder: 'Mau tanya apa tentang Devie?',
+      status: '● Online · siap menemani',
+      quick: ['Data diri Devie', 'Pengalaman magang', 'Semua project', 'Skill utama', 'Pendidikan & IPK', 'Kenapa memilih Devie?'],
+      fallback: 'Hmm, Maliboo belum menemukan jawaban yang paling pas. Coba tanya lebih spesifik tentang data diri, pengalaman, keahlian, pendidikan, kontak, atau salah satu project Devie, ya ✨'
+    },
+    en: {
+      greeting: "Hi! I'm Maliboo 👋 I'm so happy you stopped by. Want to get to know Devie better or explore her projects and experiences? Just ask Maliboo ✨",
+      placeholder: 'What would you like to know about Devie?',
+      status: '● Online · happy to help',
+      quick: ['Devie profile', 'Internship experience', 'All projects', 'Main skills', 'Education & GPA', 'Why choose Devie?'],
+      fallback: 'Hmm, Maliboo has not found the best answer yet. Try asking more specifically about Devie’s profile, experience, skills, education, contacts, or one of her projects ✨'
+    }
   };
-  function addMessage(text,type){
+
+  let lastChatTopic = '';
+  let lastChatProject = '';
+
+  function addMessage(text, type) {
     const message = document.createElement('div');
     message.className = 'chat-message ' + type;
     message.textContent = text;
     chatMessages.appendChild(message);
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
-  function normalizeChatText(value){
-    return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-      .replace(/[^a-z0-9\s-]/g,' ')
-      .replace(/\b([a-z]{5,})(nya|lah|kah)\b/g,'$1')
-      .replace(/\b(kerjaan|pekerjaan|job|internship)\b/g,' pengalaman kerja ')
-      .replace(/\b(keahli[a-z]*|kompeten[a-z]*|nguasain|kuasai)\b/g,' skill ')
-      .replace(/\b(portofolio|karya)\b/g,' project ')
-      .replace(/\b(studi|jurusan|kampus)\b/g,' pendidikan ')
-      .replace(/\b(sosmed|reach)\b/g,' kontak ')
-      .replace(/\s+/g,' ').trim();
+
+  function normalizeChatText(value) {
+    return String(value || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/&/g, ' dan ')
+      .replace(/[^a-z0-9\s-]/g, ' ')
+      .replace(/\b(ga|gak|nggak|ngga|enggak|engga|gk)\b/g, ' tidak ')
+      .replace(/\b(projek|proyek|portofolio|portfolio|karya)\b/g, ' project ')
+      .replace(/\b(keahlian|keterampilan|kemampuan|skillset)\b/g, ' skill ')
+      .replace(/\b(internship|intern|magangin)\b/g, ' magang ')
+      .replace(/\b(kampus|universitas|kuliah)\b/g, ' pendidikan ')
+      .replace(/\b(domisli|domisili|asalnya|berasal)\b/g, ' lokasi ')
+      .replace(/\b(pengalamn|pngalaman)\b/g, ' pengalaman ')
+      .replace(/\b(namany|namanya)\b/g, ' nama ')
+      .replace(/\b(umurnya|usianya)\b/g, ' umur ')
+      .replace(/\b(aplikasinya|sistemnya|projectnya|projeknya|proyeknya)\b/g, ' project ')
+      .replace(/\b(fiturnya|fitur2|fitur-fitur)\b/g, ' fitur ')
+      .replace(/\b(teknologinya|stacknya)\b/g, ' teknologi ')
+      .replace(/\b([a-z]{5,})(nya|lah|kah)\b/g, '$1')
+      .replace(/\s+/g, ' ')
+      .trim();
   }
-  function editDistance(a,b){
-    const row=Array.from({length:b.length+1},(_,i)=>i);
-    for(let i=1;i<=a.length;i++){
-      let previous=row[0];row[0]=i;
-      for(let j=1;j<=b.length;j++){
-        const saved=row[j];
-        row[j]=Math.min(row[j]+1,row[j-1]+1,previous+(a[i-1]===b[j-1]?0:1));
-        previous=saved;
+
+  function editDistance(a, b) {
+    const row = Array.from({ length: b.length + 1 }, (_, index) => index);
+    for (let i = 1; i <= a.length; i += 1) {
+      let previous = row[0];
+      row[0] = i;
+      for (let j = 1; j <= b.length; j += 1) {
+        const saved = row[j];
+        row[j] = Math.min(row[j] + 1, row[j - 1] + 1, previous + (a[i - 1] === b[j - 1] ? 0 : 1));
+        previous = saved;
       }
     }
     return row[b.length];
   }
-  function fuzzyTokenMatch(token,target){
-    if(token===target)return true;
-    if(target.length>=5&&Math.abs(token.length-target.length)<=2&&(token.startsWith(target)||target.startsWith(token)))return true;
-    return token.length>=7&&target.length>=7&&editDistance(token,target)<=1;
+
+  function fuzzyTokenMatch(token, target) {
+    if (token === target) return true;
+    const shorter = Math.min(token.length, target.length);
+    const longer = Math.max(token.length, target.length);
+    if (shorter >= 5 && shorter / longer >= 0.72 && (token.startsWith(target) || target.startsWith(token))) return true;
+    const maxDistance = Math.max(token.length, target.length) >= 9 ? 2 : 1;
+    return token.length >= 5 && target.length >= 5 && Math.abs(token.length - target.length) <= maxDistance && editDistance(token, target) <= maxDistance;
   }
-  function includesAny(text,words){
-    const normalized=normalizeChatText(text);
-    const tokens=normalized.split(' ').filter(Boolean);
-    return words.some(word=>{
-      const phrase=normalizeChatText(word);
-      if(normalized.includes(phrase))return true;
-      return phrase.split(' ').every(part=>tokens.some(token=>fuzzyTokenMatch(token,part)));
+
+  function phraseScore(text, phrase) {
+    const normalizedPhrase = normalizeChatText(phrase);
+    if (!normalizedPhrase) return 0;
+    if (text === normalizedPhrase) return 120;
+    if ((` ${text} `).includes(` ${normalizedPhrase} `)) return 78 + Math.min(24, normalizedPhrase.split(' ').length * 5);
+
+    const textTokens = text.split(' ').filter(Boolean);
+    const phraseTokens = normalizedPhrase.split(' ').filter(Boolean);
+    let matched = 0;
+    phraseTokens.forEach(part => {
+      if (textTokens.some(token => fuzzyTokenMatch(token, part))) matched += 1;
+    });
+    if (matched === phraseTokens.length) return 48 + matched * 7;
+    if (phraseTokens.length > 1 && matched / phraseTokens.length >= 0.67) return 28 + matched * 6;
+    return 0;
+  }
+
+  function includesAny(text, phrases) {
+    const normalized = normalizeChatText(text);
+    return phrases.some(phrase => phraseScore(normalized, phrase) >= 48);
+  }
+
+  function calculateAge(dateString) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(dateString || '')) return null;
+    const birth = new Date(dateString + 'T00:00:00');
+    if (Number.isNaN(birth.getTime())) return null;
+    const today = new Date();
+    let age = today.getFullYear() - birth.getFullYear();
+    const hasNotHadBirthday = today.getMonth() < birth.getMonth() || (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate());
+    if (hasNotHadBirthday) age -= 1;
+    return age >= 0 ? age : null;
+  }
+
+  function bulletList(items) {
+    return items.map(item => '• ' + item).join('\n');
+  }
+
+  function makeResult(text, options = {}) {
+    return {
+      text,
+      topic: options.topic || '',
+      project: options.project || '',
+      suggestions: options.suggestions || [],
+      section: options.section || ''
+    };
+  }
+
+  function projectSuggestions(projectKey, en) {
+    const title = devieData.projects[projectKey].title;
+    return en
+      ? [`${title} features`, `${title} tech stack`, `Devie's role in ${title}`, 'Compare with another project']
+      : [`Fitur ${title}`, `${title} pakai apa?`, `Peran Devie di ${title}`, 'Bandingkan dengan project lain'];
+  }
+
+  function detectProjects(question) {
+    const q = normalizeChatText(question);
+    return Object.entries(devieData.projects)
+      .map(([key, project]) => ({
+        key,
+        score: Math.max(...project.aliases.map(alias => phraseScore(q, alias)))
+      }))
+      .filter(item => item.score >= 48)
+      .sort((a, b) => b.score - a.score);
+  }
+
+  function projectAnswer(projectKey, question, en) {
+    const project = devieData.projects[projectKey];
+    const q = normalizeChatText(question);
+    const asksStack = includesAny(q, ['teknologi', 'technology', 'technologies', 'tech stack', 'stack', 'dibuat pakai apa', 'built with', 'uses', 'bahasa pemrograman', 'programming language', 'framework', 'database']);
+    const asksFeatures = includesAny(q, ['fitur', 'feature', 'features', 'bisa apa', 'what can it do', 'fungsi', 'function', 'capabilities', 'kemampuan sistem', 'apa saja di dalam']);
+    const asksRole = includesAny(q, ['peran devie', 'kontribusi', 'bagian devie', 'tugas devie', 'dikerjakan sendiri', 'dibuat siapa']);
+    const asksStatus = includesAny(q, ['status', 'sudah selesai', 'masih dibuat', 'progress']);
+    const asksGithub = includesAny(q, ['github', 'repository', 'repo', 'source code', 'kode sumber', 'link']);
+    const asksPurpose = includesAny(q, ['untuk apa', 'tujuan', 'apa itu', 'tentang apa', 'digunakan untuk', 'manfaat']);
+
+    const parts = [];
+    if (asksPurpose) parts.push(en ? project.descriptionEn : project.descriptionId);
+    if (asksStack) parts.push(en ? `Tech stack: ${project.stack.join(', ')}.` : `Teknologi: ${project.stack.join(', ')}.`);
+    if (asksFeatures) parts.push((en ? 'Main features:\n' : 'Fitur utama:\n') + bulletList(en ? project.featuresEn : project.featuresId));
+    if (asksRole) parts.push((en ? 'Devie’s role: ' : 'Peran Devie: ') + (en ? project.roleEn : project.roleId));
+    if (asksStatus) parts.push(en ? `Status: ${project.status}.` : `Status: ${project.status}.`);
+    if (asksGithub) {
+      parts.push(project.github
+        ? (en ? 'The GitHub repository is available from the project card in the Portfolio section.' : 'Repository GitHub tersedia melalui tombol GitHub pada kartu project di bagian Portfolio.')
+        : (en ? 'A public GitHub link is not displayed for this project.' : 'Link GitHub publik belum ditampilkan untuk project ini.'));
+    }
+
+    let text = parts.join('\n\n');
+    if (!text) {
+      text = `${project.title}\n${en ? project.descriptionEn : project.descriptionId}\n\n${en ? 'Tech:' : 'Teknologi:'} ${project.stack.join(', ')}\n${en ? 'Highlights:' : 'Fitur utama:'}\n${bulletList((en ? project.featuresEn : project.featuresId).slice(0, 4))}`;
+    } else {
+      text = `${project.title}\n${text}`;
+    }
+    return makeResult(text, {
+      topic: 'project',
+      project: projectKey,
+      suggestions: projectSuggestions(projectKey, en),
+      section: 'projects'
     });
   }
-  function answerQuestion(question){
+
+  function compareProjects(firstKey, secondKey, en) {
+    const first = devieData.projects[firstKey];
+    const second = devieData.projects[secondKey];
+    const text = en
+      ? `${first.title} focuses on ${first.descriptionEn.toLowerCase()} Its stack is ${first.stack.join(', ')}.\n\n${second.title} focuses on ${second.descriptionEn.toLowerCase()} Its stack is ${second.stack.join(', ')}.`
+      : `${first.title} berfokus pada ${first.descriptionId.toLowerCase()} Teknologinya: ${first.stack.join(', ')}.\n\n${second.title} berfokus pada ${second.descriptionId.toLowerCase()} Teknologinya: ${second.stack.join(', ')}.`;
+    return makeResult(text, {
+      topic: 'project-comparison',
+      project: secondKey,
+      suggestions: en ? [`${first.title} features`, `${second.title} features`, 'All projects'] : [`Fitur ${first.title}`, `Fitur ${second.title}`, 'Semua project'],
+      section: 'projects'
+    });
+  }
+
+  const intentDefinitions = [
+    {
+      key: 'assistantIdentity',
+      priority: 100,
+      keywords: ['kamu siapa', 'siapa kamu', 'siapa maliboo', 'maliboo itu apa', 'who are you', 'who is maliboo', 'devie guide itu apa', 'apakah kamu ai'],
+      answer: en => en
+        ? "I'm Maliboo, Devie’s friendly portfolio companion. I answer using the information available on this website and help visitors get to know Devie better."
+        : 'Aku Maliboo, teman kecil yang siap menemani kamu menjelajahi portofolio Devie. Aku bisa membantu menjawab pertanyaan tentang data diri, pengalaman, keahlian, dan project Devie.'
+    },
+    {
+      key: 'fullName',
+      priority: 95,
+      keywords: ['nama lengkap', 'nama asli', 'siapa nama devie', 'nama devie', 'full name', 'what is her name'],
+      answer: en => en ? `Her full name is ${devieData.profile.fullName}. She usually goes by ${devieData.profile.nickname}.` : `Nama lengkapnya adalah ${devieData.profile.fullName}. Biasanya dipanggil ${devieData.profile.nickname}.`
+    },
+    {
+      key: 'age',
+      priority: 95,
+      keywords: ['umur', 'usia', 'berapa tahun', 'tanggal lahir', 'lahir kapan', 'age', 'how old', 'birthday', 'birth date', 'date of birth'],
+      answer: en => {
+        const age = calculateAge(devieData.profile.birthDate);
+        if (age === null) return en ? "Devie's birth date is not listed in this portfolio, so I cannot calculate her age accurately and I will not guess." : 'Tanggal lahir Devie belum dicantumkan di portofolio ini, jadi aku belum bisa menghitung umurnya dengan akurat dan tidak akan menebak.';
+        return en ? `Devie is currently ${age} years old.` : `Umur Devie saat ini ${age} tahun.`;
+      }
+    },
+    {
+      key: 'location',
+      priority: 92,
+      keywords: ['asal mana', 'kota asal', 'lokasi', 'tinggal dimana', 'domisili', 'berbasis dimana', 'dari kota mana', 'where is she from', 'where is she based', 'location', 'based in'],
+      answer: en => en ? `Devie is based in ${devieData.profile.domicile}. Her exact home address is not shared for privacy.` : `Devie berbasis atau berdomisili di ${devieData.profile.domicile}. Alamat rumah lengkap tidak dibagikan demi privasi.`
+    },
+    {
+      key: 'profileSummary',
+      priority: 55,
+      broad: true,
+      keywords: ['siapa devie', 'tentang devie', 'profil devie', 'kenalan sama devie', 'ceritakan devie', 'meet devie', 'about devie', 'profile'],
+      answer: en => en
+        ? `${devieData.profile.fullName} is a ${devieData.profile.currentStatusEn} based in ${devieData.profile.domicile}. Her main focus is Web Development and UI/UX Design, with hands-on experience in PHP, Laravel, MySQL, Figma, and real client-facing systems.`
+        : `${devieData.profile.fullName} adalah ${devieData.profile.currentStatusId} yang berbasis di ${devieData.profile.domicile}. Fokus utamanya Web Development dan UI/UX Design, dengan pengalaman langsung menggunakan PHP, Laravel, MySQL, Figma, dan mengembangkan sistem yang benar-benar digunakan.`
+    },
+    {
+      key: 'currentStatus',
+      priority: 85,
+      keywords: ['sekarang ngapain', 'kesibukan sekarang', 'status sekarang', 'mahasiswa atau kerja', 'pekerjaan sekarang', 'current status', 'what does she do now'],
+      answer: en => en ? `Devie is currently a D3 Informatics Management student and a Web Developer Intern at ${devieData.internship.company}.` : `Saat ini Devie adalah mahasiswa D3 Manajemen Informatika dan sedang magang sebagai Web Developer Intern di ${devieData.internship.company}.`
+    },
+    {
+      key: 'education',
+      priority: 78,
+      keywords: ['pendidikan', 'riwayat pendidikan', 'sekolah dimana', 'belajar dimana', 'education', 'study background'],
+      answer: en => en
+        ? `Devie is studying ${devieData.education.programEn} at ${devieData.education.campus} (${devieData.education.period}) with a GPA of ${devieData.education.gpa}. She previously attended ${devieData.education.juniorHigh} and ${devieData.education.seniorHigh}.`
+        : `Devie menempuh ${devieData.education.programId} di ${devieData.education.campus} (${devieData.education.period}) dengan IPK ${devieData.education.gpa}. Sebelumnya ia bersekolah di ${devieData.education.juniorHigh} dan ${devieData.education.seniorHigh}.`
+    },
+    {
+      key: 'campus',
+      priority: 90,
+      keywords: ['pendidikan dimana', 'nama kampus', 'kampus apa', 'kuliah dimana', 'where does she study', 'college', 'university'],
+      answer: en => en ? `Devie studies at ${devieData.education.campus}.` : `Devie kuliah di ${devieData.education.campus}.`
+    },
+    {
+      key: 'major',
+      priority: 90,
+      keywords: ['jurusan apa', 'program studi', 'prodi', 'major', 'study program'],
+      answer: en => en ? `Her study program is ${devieData.education.programEn}.` : `Program studinya adalah ${devieData.education.programId}.`
+    },
+    {
+      key: 'gpa',
+      priority: 92,
+      keywords: ['ipk', 'gpa', 'nilai kuliah', 'indeks prestasi'],
+      answer: en => en ? `Devie's cumulative GPA listed in her CV is ${devieData.education.gpa}.` : `IPK kumulatif Devie yang tercantum di CV adalah ${devieData.education.gpa}.`
+    },
+    {
+      key: 'skillsOverview',
+      priority: 70,
+      keywords: ['skill', 'bisa apa', 'jago apa', 'kemampuan utama', 'keahlian devie', 'tech stack', 'main skills', 'what is she good at'],
+      answer: en => en
+        ? `Devie's main strengths are Web Development and UI/UX Design. Her stack includes ${[...devieData.skills.web, ...devieData.skills.database, ...devieData.skills.programming].join(', ')}, with Figma for UI/UX and Git/GitHub for version control.`
+        : `Keahlian utama Devie adalah Web Development dan UI/UX Design. Stack yang dikuasai mencakup ${[...devieData.skills.web, ...devieData.skills.database, ...devieData.skills.programming].join(', ')}, ditambah Figma untuk UI/UX serta Git/GitHub untuk version control.`
+    },
+    {
+      key: 'uiux',
+      priority: 88,
+      keywords: ['ui ux', 'ui/ux', 'figma', 'desain antarmuka', 'wireframe', 'prototype', 'prototyping', 'design skill'],
+      answer: en => en ? `For UI/UX, Devie uses ${devieData.skills.design.join(', ')} and connects the design process with implementation so the final system remains usable.` : `Untuk UI/UX, Devie menggunakan ${devieData.skills.design.join(', ')} dan menghubungkan proses desain dengan implementasi agar sistem akhirnya tetap nyaman digunakan.`
+    },
+    {
+      key: 'webSkills',
+      priority: 86,
+      keywords: ['web development', 'skill web', 'frontend', 'backend', 'php laravel', 'website', 'web stack'],
+      answer: en => en ? `Her web stack includes ${devieData.skills.web.join(', ')}, supported by ${devieData.skills.database.join(' and ')} databases.` : `Stack web Devie meliputi ${devieData.skills.web.join(', ')}, didukung database ${devieData.skills.database.join(' dan ')}.`
+    },
+    {
+      key: 'softSkills',
+      priority: 84,
+      keywords: ['soft skill', 'kelebihan pribadi', 'cara kerja', 'kerja tim', 'problem solving', 'strengths'],
+      answer: en => en ? 'Her listed soft skills include attention to detail, responsibility, problem solving, independent work, and teamwork.' : `Soft skill yang dicantumkan Devie adalah ${devieData.skills.soft.join(', ')}.`
+    },
+    {
+      key: 'internship',
+      priority: 88,
+      keywords: ['magang', 'pengalaman kerja', 'pengalaman profesional', 'life media', 'tempat magang', 'internship', 'what did she do during internship', 'internship tasks', 'work experience'],
+      answer: en => en
+        ? `Devie has been a ${devieData.internship.role} at ${devieData.internship.company} since ${devieData.internship.period}. Her work includes:\n${bulletList(devieData.internship.tasksEn)}`
+        : `Devie magang sebagai ${devieData.internship.role} di ${devieData.internship.company} sejak ${devieData.internship.period}. Tanggung jawabnya meliputi:\n${bulletList(devieData.internship.tasksId)}`
+    },
+    {
+      key: 'organizations',
+      priority: 86,
+      keywords: ['organisasi', 'english club', 'bendahara umum', 'advocation', 'pengalaman organisasi', 'ukm', 'organization experience'],
+      answer: en => en
+        ? `Devie's organization experience:\n${bulletList(devieData.organizations.map(item => `${item.role} at ${item.org} (${item.period}) - ${item.dutyEn}`))}`
+        : `Pengalaman organisasi Devie:\n${bulletList(devieData.organizations.map(item => `${item.role} di ${item.org} (${item.period}) - ${item.dutyId}`))}`
+    },
+    {
+      key: 'projectsOverview',
+      priority: 72,
+      keywords: ['semua project', 'daftar project', 'project apa saja', 'hasil karya', 'project devie', 'all projects', 'portfolio projects'],
+      answer: en => {
+        const titles = Object.values(devieData.projects).map(project => project.title);
+        return en ? `Devie's portfolio contains ${titles.length} documented projects/contributions:\n${bulletList(titles)}` : `Portofolio Devie memuat ${titles.length} project atau kontribusi yang terdokumentasi:\n${bulletList(titles)}`;
+      }
+    },
+    {
+      key: 'certificates',
+      priority: 82,
+      keywords: ['sertifikat', 'sertifikasi', 'certificate', 'certification', 'cisco', 'python essentials', 'data science'],
+      answer: en => en ? `Devie's certificates include:\n${bulletList(devieData.certificates)}` : `Sertifikat Devie:\n${bulletList(devieData.certificates)}`
+    },
+    {
+      key: 'contact',
+      priority: 80,
+      keywords: ['kontak', 'cara hubungi', 'hubungi devie', 'email dan sosial media', 'contact', 'reach devie'],
+      answer: en => en
+        ? `Professional contacts: email ${devieData.contacts.email}, GitHub ${devieData.contacts.github}, LinkedIn under ${devieData.contacts.linkedin}, and Instagram ${devieData.contacts.instagram}.`
+        : `Kontak profesional Devie: email ${devieData.contacts.email}, GitHub ${devieData.contacts.github}, LinkedIn atas nama ${devieData.contacts.linkedin}, dan Instagram ${devieData.contacts.instagram}.`
+    },
+    {
+      key: 'email',
+      priority: 90,
+      keywords: ['email', 'alamat email', 'surel'],
+      answer: en => en ? `Devie's professional email is ${devieData.contacts.email}.` : `Email profesional Devie adalah ${devieData.contacts.email}.`
+    },
+    {
+      key: 'github',
+      priority: 88,
+      keywords: ['github devie', 'akun github', 'username github'],
+      answer: en => en ? `Devie's GitHub username is ${devieData.contacts.github}.` : `Username GitHub Devie adalah ${devieData.contacts.github}.`
+    },
+    {
+      key: 'availability',
+      priority: 80,
+      keywords: ['bisa kolaborasi', 'terbuka kerja', 'open to work', 'remote', 'on site', 'onsite', 'hire', 'rekrut', 'kerja sama', 'collaboration'],
+      answer: en => en ? devieData.profile.availabilityEn : devieData.profile.availabilityId
+    },
+    {
+      key: 'cv',
+      priority: 82,
+      keywords: ['cv', 'resume', 'curriculum vitae', 'download cv', 'lihat cv'],
+      answer: en => en ? 'Her CV can be viewed or downloaded using the CV button in the navbar, Education section, or Certificates & CV section.' : 'CV Devie bisa dilihat atau diunduh melalui tombol CV di navbar, bagian Pendidikan, atau bagian Sertifikasi & CV.'
+    },
+    {
+      key: 'whyHire',
+      priority: 78,
+      keywords: ['kenapa memilih devie', 'kenapa hire devie', 'kenapa rekrut', 'kelebihan devie', 'cocok untuk posisi apa', 'why hire', 'why choose devie', 'suitable role'],
+      answer: en => en
+        ? 'Devie combines web engineering and UI/UX thinking. She has hands-on experience with PHP, Laravel, MySQL, real multi-role systems, debugging, documentation, teamwork, and organizational responsibility. Based on this portfolio, she is well suited for junior Web Developer, Laravel/PHP Developer, UI/UX-focused Web Developer, or internship roles.'
+        : 'Devie menggabungkan kemampuan web engineering dan pola pikir UI/UX. Ia sudah punya pengalaman langsung dengan PHP, Laravel, MySQL, sistem multi-role, debugging, dokumentasi, kerja tim, dan tanggung jawab organisasi. Berdasarkan portofolionya, Devie cocok untuk posisi Junior Web Developer, Laravel/PHP Developer, Web Developer yang memahami UI/UX, atau posisi magang terkait.'
+    }
+  ];
+
+  function getIntentScore(intent, question) {
+    const scores = intent.keywords
+      .map(keyword => phraseScore(question, keyword))
+      .sort((a, b) => b - a);
+    return (scores[0] || 0) + Math.min(18, (scores[1] || 0) * 0.2) + (intent.priority || 0) * 0.04;
+  }
+
+  function answerSpecificTechnology(question, en) {
+    const q = normalizeChatText(question);
+    const usage = {
+      html5: ['portfolio website', 'web interfaces'],
+      css3: ['portfolio website', 'responsive interfaces'],
+      javascript: ['Billing Salam', 'interactive portfolio', 'Canvas charts'],
+      php: ['Billing Salam', 'T-DJI Drink', 'AgenLog', 'WargaKu'],
+      laravel: ['T-DJI Drink', 'AgenLog', 'WargaKu'],
+      mysql: ['Billing Salam', 'T-DJI Drink', 'AgenLog', 'WargaKu'],
+      mariadb: ['database management'],
+      python: ['Python Essentials 1 certification'],
+      kotlin: ['Gas & Galon mobile app'],
+      figma: ['UI/UX design, wireframing, and prototyping'],
+      git: ['version control'],
+      github: ['project repositories and version control'],
+      'android studio': ['Gas & Galon mobile app'],
+      jupyter: ['Python and data-related learning']
+    };
+    const aliases = {
+      html5: ['html', 'html5'], css3: ['css', 'css3'], javascript: ['javascript', 'js'], php: ['php'], laravel: ['laravel'], mysql: ['mysql'], mariadb: ['mariadb'], python: ['python'], kotlin: ['kotlin'], figma: ['figma'], git: ['git'], github: ['github'], 'android studio': ['android studio'], jupyter: ['jupyter']
+    };
+    const found = Object.entries(aliases)
+      .filter(([, words]) => words.some(word => phraseScore(q, word) >= 70))
+      .map(([key]) => key);
+    const hasSkillQuestion = includesAny(q, ['bisa', 'menguasai', 'skill', 'pernah pakai', 'jago', 'paham', 'know', 'use', 'good at']);
+    if (!found.length || !hasSkillQuestion) return null;
+    const details = found.map(key => `${key.toUpperCase()}: ${usage[key].join(', ')}`);
+    const text = en
+      ? `Yes. This portfolio shows experience with:\n${bulletList(details)}`
+      : `Ya. Portofolio ini menunjukkan pengalaman Devie dengan:\n${bulletList(details)}`;
+    return makeResult(text, { topic: 'skills', suggestions: en ? ['All skills', 'Web projects', 'UI/UX skills'] : ['Semua skill', 'Project web', 'Skill UI/UX'], section: 'skills' });
+  }
+
+  function detectNavigation(question) {
+    const q = normalizeChatText(question);
+    if (!includesAny(q, ['buka', 'tampilkan bagian', 'arahkan ke', 'scroll ke', 'lihat bagian', 'go to', 'open section', 'show section'])) return '';
+    const sections = [
+      ['projects', ['project', 'karya']],
+      ['experience', ['pengalaman', 'magang', 'organisasi']],
+      ['education', ['pendidikan', 'ipk']],
+      ['skills', ['skill', 'teknologi']],
+      ['certificates', ['sertifikat', 'cv']],
+      ['contact', ['kontak', 'email']],
+      ['about', ['profil', 'tentang devie']]
+    ];
+    const match = sections.find(([, keywords]) => includesAny(q, keywords));
+    return match ? match[0] : '';
+  }
+
+  function answerQuestion(question) {
     const q = normalizeChatText(question);
     const en = currentLanguage === 'en';
-    if(includesAny(q,['halo','hai','hello','hi','hey'])) return en?'Heyy! What do you wanna know about Devie? 👋':'Haii! Mau kepoin bagian mana dari Devie nih? 👋';
-    if(includesAny(q,['pacar','pasangan','jomblo','menikah','suami','istri','gebetan','relationship','boyfriend','girlfriend','partner'])) return en?"Ooh, relationship stuff is Devie's private zone 😄 I can't spill that one, but I can totally tell you about her projects, skills, or experience!":'Wah, kalau soal pasangan itu masuk area privasi Devie ya 😄 Tapi aku bisa spill soal project, skill, atau pengalamannya!';
-    if(includesAny(q,['keluarga','orang tua','ayah','ibu','saudara','kakak','adik','family','parents','father','mother','sibling'])) return en?"Devie's family info is personal, so it isn't shared here. Let's talk about her college journey, projects, or experience instead!":"Info keluarga Devie nggak ditampilkan di sini karena cukup personal. Kita bahas perjalanan kuliah, project, atau pengalamannya aja, yuk!";
-    if(includesAny(q,['alamat lengkap','nomor telepon','nomor hp','no hp','telepon','whatsapp','tinggal dengan siapa','full address','phone number','home address','lives with'])) return en?"That's private info, bestie 👀 For safety, I can only share Devie's public professional contact details from this portfolio.":'Nah, kalau itu info pribadi yaa 👀 Demi keamanan, aku cuma bisa kasih kontak profesional yang memang Devie tampilkan di portofolio.';
-    if(includesAny(q,['pendidikan','education','kuliah','ipk','gpa','sekolah','semester','belajar dimana','riwayat pendidikan'])) return en?'Devie is studying D3 Informatics Management at State Polytechnic of Malang, PSDKU Kediri, with a 3.60+/4.00 GPA. Before college, she studied at SMP Negeri 1 Srengat and SMA Negeri 1 Ponggok, Science track.':'Devie lagi menempuh D3 Manajemen Informatika di Politeknik Negeri Malang, PSDKU Kediri, dengan IPK 3.60+/4.00. Sebelumnya, Devie sekolah di SMP Negeri 1 Srengat dan SMA Negeri 1 Ponggok jurusan MIPA.';
-    if(includesAny(q,['skill','kemampuan','teknologi','technology','tech stack','bisa apa','jago apa','good at','tools','framework','bahasa pemrograman'])) return en?'Her stack is pretty packed: HTML, CSS, JavaScript, PHP, Laravel, MySQL, MariaDB, Python, Kotlin, Figma, Git, GitHub, VS Code, Android Studio, and Jupyter. Her strongest lanes are Web Development and UI/UX.':'Skill Devie lumayan lengkap nih: HTML, CSS, JavaScript, PHP, Laravel, MySQL, MariaDB, Python, Kotlin, Figma, Git, GitHub, VS Code, Android Studio, dan Jupyter. Yang paling jadi andalannya adalah Web Development dan UI/UX.';
-    if(includesAny(q,['magang','intern','life media','pengalaman kerja','work experience','apa yang dikerjakan','ngapain','riwayat kerja','pengalaman profesional'])) return en?'Since June 2026, Devie has been interning as a Web Developer at Life Media, PT Sarana Insan Muda Selaras. She handles Billing Salam / UKOOMED development, code audits, bug fixes, system design, documentation, and thermal-printer setup guides. Lots of real-world stuff!':'Sejak Juni 2026, Devie lagi magang sebagai Web Developer di Life Media, PT Sarana Insan Muda Selaras. Kerjaannya mulai dari ngembangin Billing Salam / UKOOMED, audit kode, benerin bug, desain sistem, dokumentasi, sampai bikin panduan setup thermal printer. Lumayan banyak pengalaman real project-nya!';
-    if(includesAny(q,['organisasi','organization','ukm','bendahara','advocation','pengalaman organisasi','aktif dimana','kepanitiaan'])) return en?'Devie is also active in the English Club at Polinema Kediri. She has been a General Treasurer and part of the Advocacy Department, handling finances, coordination, inventory, and member data.':'Devie juga aktif di UKM English Club Polinema Kediri. Ia pernah jadi Bendahara Umum dan anggota Advocation Department, dengan tugas ngurus administrasi keuangan, koordinasi organisasi, inventaris, dan data anggota.';
-    if(includesAny(q,['billing','ukoomed'])) return en?'Billing Salam / UKOOMED is a PHP and MySQL multi-region internet billing system Devie built with her internship team for Salam Village. It has role-based access, analytics, SVG maps, Canvas charts, and thermal receipt printing. This one is seriously feature-packed!':'Billing Salam / UKOOMED adalah sistem billing internet multiwilayah berbasis PHP dan MySQL yang Devie kembangkan bareng tim magang untuk Kelurahan Salam. Fiturnya ada role-based access, analitik, peta SVG, chart Canvas, sampai cetak struk thermal. Project ini fiturnya lumayan padat!';
-    if(includesAny(q,['t-dji','kasir','cashier','pos','tong-dji'])) return en?'T-DJI Drink is a Laravel-based POS dashboard for managing tea sales, products, revenue, daily reports, and order queues. Basically, it keeps the whole cashier flow neat and organized.':'T-DJI Drink adalah dashboard POS berbasis Laravel buat ngatur penjualan minuman teh, produk, pendapatan, laporan harian, dan antrean pesanan. Intinya, alur kasir jadi lebih rapi dan gampang dipantau.';
-    if(includesAny(q,['gas','galon','gallon','kotlin','mobile'])) return en?'This Gas & Water Gallon Sales app is an Android project built with Kotlin. It helps record daily transactions and creates simple sales recaps. Simple, useful, and straight to the point!':'Aplikasi Penjualan Gas & Galon ini adalah project Android pakai Kotlin. Fungsinya buat mencatat transaksi harian dan bikin rekap penjualan sederhana. Simpel, tapi kepake banget!';
-    if(includesAny(q,['agenlog','logistik','logistics','kurir','courier'])) return en?'AgenLog is a Laravel logistics system for shipments, sender and recipient data, automatic courier scheduling with a Greedy First-Fit algorithm, package tracking, costs, reports, and CSV exports. Quite the full package!':'AgenLog adalah sistem logistik Laravel buat ngatur pengiriman, data pengirim dan penerima, penjadwalan kurir otomatis dengan algoritma Greedy First-Fit, tracking paket, biaya kirim, laporan, sampai ekspor CSV. Paket lengkap banget, kan?';
-    if(includesAny(q,['proyek','project','portfolio','karya','spill project','buat apa aja','hasil kerja'])) return en?'Devie has four featured projects: Billing Salam / UKOOMED, T-DJI Drink POS Dashboard, a Gas & Water Gallon Sales mobile app, and AgenLog logistics system. Drop a project name and I will spill the details!':'Ada empat project utama Devie nih: Billing Salam / UKOOMED, T-DJI Drink POS Dashboard, aplikasi mobile Penjualan Gas & Galon, dan sistem logistik AgenLog. Sebut salah satunya, nanti aku spill detailnya!';
-    if(includesAny(q,['sertifikat','certificate','certification','cisco'])) return en?'Devie has Python Essentials 1 from Cisco Networking Academy × Python Institute, earned on 29 Aug 2025, plus Introduction to Data Science from Cisco Networking Academy, earned on 13 May 2025.':'Devie punya sertifikat Python Essentials 1 dari Cisco Networking Academy × Python Institute, didapat 29 Agustus 2025, dan Introduction to Data Science dari Cisco Networking Academy, didapat 13 Mei 2025.';
-    if(includesAny(q,['kontak','contact','email','github','linkedin','instagram','hubungi','cara hubungi'])) return en?'Wanna reach Devie? Email her at devierahmandapm@gmail.com or find her on GitHub at @dvrahmanda. Her LinkedIn and Instagram links are also waiting in the Contact section!':'Mau ngobrol atau ngajak Devie kolaborasi? Langsung aja email ke devierahmandapm@gmail.com atau cek GitHub @dvrahmanda. Link LinkedIn dan Instagram-nya juga sudah ada di bagian Kontak!';
-    if(includesAny(q,['lokasi','location','domisili','tinggal','blitar'])) return en?'Devie is based in Blitar, East Java, and she is open to both remote and on-site opportunities. Exact address stays private, of course 👀':'Devie berdomisili di Blitar, Jawa Timur, dan terbuka buat peluang remote maupun on-site. Kalau alamat lengkapnya tentu nggak aku spill demi keamanan yaa 👀';
-    if(includesAny(q,['kolaborasi','collaborate','kerja sama','hire','rekrut'])) return en?'Yep, absolutely! Devie is open to internships, project collabs, and chats about Web Development or UI/UX. Just hit her up through the Contact section.':'Bisa banget! Devie terbuka buat peluang magang, kolaborasi project, atau ngobrolin Web Development dan UI/UX. Langsung hubungi lewat bagian Kontak aja ya!';
-    if(includesAny(q,['cv','resume','curriculum'])) return en?'Looking for her CV? You can view or download it from the navbar, Education section, or Certificates & CV section. Easy peasy!':'Lagi cari CV Devie? Kamu bisa lihat atau download langsung dari navbar, bagian Pendidikan, atau bagian Sertifikasi & CV. Tinggal klik aja!';
-    if(includesAny(q,['siapa devie','devie siapa','who is devie','tentang devie','about devie','profil','profile','kenalan','meet devie'])) return en?'Devie Rahmanda Patricia Maharani is an Informatics Management student at State Polytechnic of Malang, PSDKU Kediri. She is into Web Development and UI/UX, and she is based in Blitar, East Java. Pretty cool combo, right?':'Kenalin, ini Devie Rahmanda Patricia Maharani! Devie adalah mahasiswa Manajemen Informatika di Politeknik Negeri Malang, PSDKU Kediri. Fokusnya di Web Development dan UI/UX, serta berdomisili di Blitar, Jawa Timur.';
-    return chatCopy[currentLanguage].fallback;
-  }
-  function buildQuick(){
-    chatQuick.innerHTML='';
-    chatCopy[currentLanguage].quick.forEach(label=>{
-      const button=document.createElement('button');button.type='button';button.className='chat-chip';button.textContent=label;
-      button.addEventListener('click',()=>submitQuestion(label));chatQuick.appendChild(button);
+    const navigationSection = detectNavigation(q);
+
+    if (!q) return makeResult(chatCopy[currentLanguage].fallback);
+
+    if (includesAny(q, ['terima kasih', 'makasih', 'thanks', 'thank you'])) {
+      return makeResult(en ? 'You are welcome! Ask anything else about Devie whenever you like.' : 'Sama-sama! Tanya lagi apa saja tentang Devie ya.', { suggestions: chatCopy[currentLanguage].quick });
+    }
+    if (includesAny(q, ['bye', 'dadah', 'sampai jumpa', 'goodbye'])) {
+      return makeResult(en ? 'See you! Thanks for visiting Devie’s portfolio 👋' : 'Sampai jumpa! Terima kasih sudah mampir ke portofolio Devie 👋');
+    }
+    if (includesAny(q, ['halo', 'hai', 'hello', 'hi', 'hey']) && q.split(' ').length <= 4) {
+      return makeResult(en ? 'Hi! What would you like to know about Devie?' : 'Hai! Mau tahu bagian apa tentang Devie?', { suggestions: chatCopy[currentLanguage].quick });
+    }
+
+    if (includesAny(q, ['nomor hp', 'nomor telepon', 'nomor whatsapp', 'nomor wa', 'no wa', 'whatsapp', 'alamat lengkap', 'alamat rumah', 'phone number', 'home address'])) {
+      return makeResult(en ? `For privacy, I do not share Devie's phone number or full home address. Please use her professional email: ${devieData.contacts.email}.` : `Demi privasi, aku tidak membagikan nomor telepon atau alamat rumah lengkap Devie. Gunakan email profesionalnya: ${devieData.contacts.email}.`, { topic: 'privacy', suggestions: en ? ['Professional contacts', 'Email', 'Collaboration'] : ['Kontak profesional', 'Email Devie', 'Kolaborasi'] });
+    }
+    if (includesAny(q, ['pacar', 'pasangan', 'jomblo', 'menikah', 'gebetan', 'relationship', 'boyfriend', 'girlfriend', 'partner'])) {
+      return makeResult(en ? "Relationship details are private and are not part of Devie's professional portfolio." : 'Informasi pasangan bersifat pribadi dan tidak termasuk dalam portofolio profesional Devie.');
+    }
+    if (includesAny(q, ['keluarga', 'orang tua', 'ayah', 'ibu', 'saudara', 'family', 'parents', 'sibling'])) {
+      return makeResult(en ? "Family information is private and is not displayed in Devie's portfolio." : 'Informasi keluarga bersifat pribadi dan tidak ditampilkan di portofolio Devie.');
+    }
+
+    if (includesAny(q, ['semua tentang devie', 'ceritakan semuanya', 'data lengkap devie', 'ringkasan lengkap', 'tell me everything', 'full profile summary'])) {
+      const text = en
+        ? `${devieData.profile.fullName} is based in ${devieData.profile.domicile}. She is studying ${devieData.education.programEn} at ${devieData.education.campus} with a GPA of ${devieData.education.gpa}, while interning as a ${devieData.internship.role} at ${devieData.internship.company}. Her main fields are Web Development and UI/UX Design. Her documented work includes ${Object.values(devieData.projects).map(project => project.title).join(', ')}. Her certificates include Python Essentials 1 and Introduction to Data Science.`
+        : `${devieData.profile.fullName} berdomisili di ${devieData.profile.domicile}. Ia menempuh ${devieData.education.programId} di ${devieData.education.campus} dengan IPK ${devieData.education.gpa}, sekaligus magang sebagai ${devieData.internship.role} di ${devieData.internship.company}. Fokus utamanya Web Development dan UI/UX Design. Project yang terdokumentasi meliputi ${Object.values(devieData.projects).map(project => project.title).join(', ')}. Sertifikatnya mencakup Python Essentials 1 dan Introduction to Data Science.`;
+      return makeResult(text, { topic: 'summary', suggestions: chatCopy[currentLanguage].quick, section: navigationSection || 'about' });
+    }
+
+    const detectedProjects = detectProjects(q);
+    if (detectedProjects.length >= 2 && includesAny(q, ['bandingkan', 'beda', 'perbedaan', 'compare', 'versus', 'vs'])) {
+      return compareProjects(detectedProjects[0].key, detectedProjects[1].key, en);
+    }
+    if (detectedProjects.length >= 1) {
+      return projectAnswer(detectedProjects[0].key, q, en);
+    }
+
+    if (lastChatProject && includesAny(q, ['yang tadi', 'project itu', 'fitur', 'teknologi', 'pakai apa', 'peran devie', 'status', 'github', 'untuk apa', 'jelaskan lagi', 'more details', 'that project', 'its features', 'its tech'])) {
+      return projectAnswer(lastChatProject, q, en);
+    }
+
+    const technologyAnswer = answerSpecificTechnology(q, en);
+    if (technologyAnswer) return technologyAnswer;
+
+    if (includesAny(q, ['kenapa memilih devie', 'kenapa hire devie', 'kenapa rekrut devie', 'kenapa layak direkrut', 'alasan merekrut devie', 'why hire devie', 'why choose devie'])) {
+      const whyIntent = intentDefinitions.find(intent => intent.key === 'whyHire');
+      return makeResult(whyIntent.answer(en), { topic: 'whyHire', suggestions: en ? ['Main skills', 'Internship experience', 'All projects'] : ['Skill utama', 'Pengalaman magang', 'Semua project'], section: 'about' });
+    }
+
+    const ranked = intentDefinitions
+      .map(intent => ({ intent, score: getIntentScore(intent, q) }))
+      .filter(item => item.score >= 50)
+      .sort((a, b) => b.score - a.score);
+
+    if (!ranked.length) {
+      return makeResult(chatCopy[currentLanguage].fallback, { suggestions: chatCopy[currentLanguage].quick, section: navigationSection });
+    }
+
+    const explicitMulti = /\b(dan|serta|juga|sama|plus|and|also)\b/.test(q) || (q.match(/,/g) || []).length > 0;
+    const strongMatches = ranked.filter(item => item.score >= 72);
+    let selected = [ranked[0]];
+
+    if (strongMatches.length >= 2 || explicitMulti) {
+      selected = ranked
+        .filter(item => item.score >= (explicitMulti ? 54 : 72))
+        .filter((item, index, list) => {
+          if (item.intent.broad && list.some(other => !other.intent.broad && other.score >= item.score - 12)) return false;
+          return true;
+        })
+        .slice(0, 3);
+    }
+
+    const answers = selected.map(item => item.intent.answer(en));
+    const keys = selected.map(item => item.intent.key);
+    let section = navigationSection;
+    if (!section) {
+      if (keys.some(key => ['education', 'campus', 'major', 'gpa'].includes(key))) section = 'education';
+      else if (keys.some(key => ['skillsOverview', 'uiux', 'webSkills', 'softSkills'].includes(key))) section = 'skills';
+      else if (keys.some(key => ['internship', 'organizations'].includes(key))) section = 'experience';
+      else if (keys.includes('projectsOverview')) section = 'projects';
+      else if (keys.includes('certificates') || keys.includes('cv')) section = 'certificates';
+      else if (keys.some(key => ['contact', 'email', 'github', 'availability'].includes(key))) section = 'contact';
+      else if (keys.some(key => ['profileSummary', 'fullName', 'age', 'location', 'currentStatus'].includes(key))) section = 'about';
+    }
+
+    return makeResult(answers.join('\n\n'), {
+      topic: keys[0] || '',
+      suggestions: keys.includes('projectsOverview')
+        ? (en ? ['Billing Salam details', 'T-DJI Drink details', 'AgenLog details', 'Gas & Gallon app'] : ['Detail Billing Salam', 'Detail T-DJI Drink', 'Detail AgenLog', 'Aplikasi Gas & Galon'])
+        : chatCopy[currentLanguage].quick,
+      section
     });
   }
-  function resetChat(){chatMessages.innerHTML='';addMessage(chatCopy[currentLanguage].greeting,'bot');buildQuick();}
-  function submitQuestion(text){
-    const clean=text.trim();if(!clean)return;addMessage(clean,'user');chatInput.value='';
-    setTimeout(()=>addMessage(answerQuestion(clean),'bot'),220);
+
+  function buildQuick(labels = chatCopy[currentLanguage].quick) {
+    chatQuick.innerHTML = '';
+    labels.slice(0, 6).forEach(label => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'chat-chip';
+      button.textContent = label;
+      button.addEventListener('click', () => submitQuestion(label));
+      chatQuick.appendChild(button);
+    });
   }
-  function setChatOpen(open){chatPanel.classList.toggle('open',open);chatPanel.setAttribute('aria-hidden',String(!open));chatLaunch.setAttribute('aria-expanded',String(open));if(open)setTimeout(()=>chatInput.focus(),180);}
-  chatLaunch.addEventListener('click',()=>setChatOpen(!chatPanel.classList.contains('open')));
-  chatClose.addEventListener('click',()=>setChatOpen(false));
-  chatForm.addEventListener('submit',event=>{event.preventDefault();submitQuestion(chatInput.value);});
-  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&chatPanel.classList.contains('open'))setChatOpen(false);});
+
+  function resetChat() {
+    lastChatTopic = '';
+    lastChatProject = '';
+    chatMessages.innerHTML = '';
+    addMessage(chatCopy[currentLanguage].greeting, 'bot');
+    buildQuick();
+  }
+
+  function submitQuestion(text) {
+    const clean = String(text || '').trim();
+    if (!clean) return;
+    addMessage(clean, 'user');
+    chatInput.value = '';
+    chatInput.disabled = true;
+
+    const typing = document.createElement('div');
+    typing.className = 'chat-message bot';
+    typing.textContent = currentLanguage === 'en' ? 'Reading your question...' : 'Membaca pertanyaan...';
+    chatMessages.appendChild(typing);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    setTimeout(() => {
+      typing.remove();
+      const result = answerQuestion(clean);
+      addMessage(result.text, 'bot');
+      if (result.topic) lastChatTopic = result.topic;
+      if (result.project) lastChatProject = result.project;
+      buildQuick(result.suggestions.length ? result.suggestions : chatCopy[currentLanguage].quick);
+      chatInput.disabled = false;
+      chatInput.focus();
+
+      if (result.section && includesAny(clean, ['buka', 'tampilkan bagian', 'arahkan ke', 'scroll ke', 'lihat bagian', 'go to', 'open section', 'show section'])) {
+        const target = document.getElementById(result.section);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 320);
+  }
+
+  function setChatOpen(open) {
+    chatPanel.classList.toggle('open', open);
+    chatPanel.setAttribute('aria-hidden', String(!open));
+    chatLaunch.setAttribute('aria-expanded', String(open));
+    if (open) setTimeout(() => chatInput.focus(), 180);
+  }
+
+  chatLaunch.addEventListener('click', () => setChatOpen(!chatPanel.classList.contains('open')));
+  chatClose.addEventListener('click', () => setChatOpen(false));
+  chatForm.addEventListener('submit', event => {
+    event.preventDefault();
+    submitQuestion(chatInput.value);
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && chatPanel.classList.contains('open')) setChatOpen(false);
+  });
 
   function applyLanguage(lang){
     currentLanguage=lang;localStorage.setItem('devie-language',lang);document.documentElement.lang=lang;
